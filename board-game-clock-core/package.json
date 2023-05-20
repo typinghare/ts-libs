@@ -1,0 +1,24 @@
+{
+  "name": "@typinghare/board-game-clock-core",
+  "version": "0.0.1",
+  "description": "Board game clock core.",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "author": "James Chan",
+  "email": "jameschan312.cn@gmail.com",
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "publish": "npm publish --access public"
+  },
+  "keywords": [
+  ],
+  "license": "MIT",
+  "files": [
+    "src/**/*",
+    "dist/**/*"
+  ],
+  "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "ts-jest": "^29.1.0"
+  }
+}

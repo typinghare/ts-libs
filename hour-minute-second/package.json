@@ -1,0 +1,21 @@
+{
+  "name": "@typinghare/stack-queue",
+  "version": "0.0.1",
+  "description": "A simple hour minute second library.",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "author": "James Chan",
+  "email": "jameschan312.cn@gmail.com",
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "publish": "npm publish --access public"
+  },
+  "keywords": [
+    "time"
+  ],
+  "license": "MIT",
+  "files": [
+    "src/**/*",
+    "dist/**/*"
+  ]
+}
