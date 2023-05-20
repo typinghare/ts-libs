@@ -1,4 +1,3 @@
-import { Setting } from './Setting'
 import { AbstractSetting } from './AbstractSetting'
 
 /**
