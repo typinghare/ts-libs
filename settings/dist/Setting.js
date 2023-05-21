@@ -16,8 +16,7 @@ class Setting extends AbstractSetting_1.AbstractSetting {
      */
     constructor(defaultValue, properties, updateValueCallback) {
         super(defaultValue, updateValueCallback);
-        this._settingProperties = {};
-        this._settingProperties = properties;
+        this._settingProperties = properties || {};
     }
     /**
      * Gets the value of a specific property associated with the setting.

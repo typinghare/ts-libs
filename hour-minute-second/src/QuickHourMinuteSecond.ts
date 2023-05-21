@@ -5,6 +5,30 @@ import { HourMinuteSecond } from './HourMinuteSecond'
  */
 export class QuickHourMinuteSecond extends HourMinuteSecond {
     /**
+     * Creates an hour-minute-second of specified seconds.
+     * @param seconds
+     */
+    static ofSeconds(seconds: number): QuickHourMinuteSecond {
+        return new QuickHourMinuteSecond(seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND)
+    }
+
+    /**
+     * Creates an hour-minute-second of specified minutes.
+     * @param minutes
+     */
+    static ofMinutes(minutes: number): QuickHourMinuteSecond {
+        return new QuickHourMinuteSecond(minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE)
+    }
+
+    /**
+     * Creates an hour-minute-second of specified hours.
+     * @param hours
+     */
+    static ofHours(hours: number): QuickHourMinuteSecond {
+        return new QuickHourMinuteSecond(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
+    }
+
+    /**
      * Milliseconds.
      * @private
      */
@@ -14,19 +38,19 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
      * Hours.
      * @private
      */
-    private _hour: number
+    private _hour: number = 0
 
     /**
      * Minutes.
      * @private
      */
-    private _minute: number
+    private _minute: number = 0
 
     /**
      * Seconds.
      * @private
      */
-    private _second: number
+    private _second: number = 0
 
     /**
      * Creates a quick hour minute second.
@@ -46,9 +70,7 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
         if (minute === undefined || seconds === undefined) {
             this._ms = hour
 
-            this._hour = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_HOUR)
-            this._minute = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_MINUTE)
-            this._second = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_SECOND)
+            this.compute()
         } else {
             this._hour = hour
             this._minute = minute
@@ -66,8 +88,8 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
      */
     private compute(): void {
         this._hour = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_HOUR)
-        this._minute = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_MINUTE)
-        this._second = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_SECOND)
+        this._minute = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_MINUTE) % HourMinuteSecond.MINUTE_IN_HOUR
+        this._second = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_SECOND) % HourMinuteSecond.SECOND_IN_MINUTE
     }
 
     /**

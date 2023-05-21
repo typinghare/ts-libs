@@ -5,7 +5,7 @@ export type UpdateValueCallback<T> = (newValue: T, oldValue: T) => T | undefined
  * @param <T> type of the value of this setting item.
  * @author James Chan
  */
-export abstract class AbstractSetting<T> {
+export abstract class AbstractSetting<T= any> {
     /**
      * The value of this setting.
      * @private

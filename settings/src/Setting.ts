@@ -1,12 +1,13 @@
 import { AbstractSetting, UpdateValueCallback } from './AbstractSetting'
+import { SettingPropertyMap } from './types'
 
 /**
  * Represents a setting with additional properties.
  * @template T - The type of the setting value.
  * @template P - The type of the setting properties.
  */
-export class Setting<T, P extends Record<string, any> = {}> extends AbstractSetting<T> {
-    protected _settingProperties: P = {} as P;
+export class Setting<T, P extends SettingPropertyMap = {}> extends AbstractSetting<T> {
+    protected readonly _settingProperties: P
 
     /**
      * Creates a new instance of the Setting class.
@@ -14,9 +15,9 @@ export class Setting<T, P extends Record<string, any> = {}> extends AbstractSett
      * @param properties - Additional properties associated with the setting.
      * @param updateValueCallback - Optional callback function to be called when the value is updated.
      */
-    constructor(defaultValue: T, properties: P, updateValueCallback?: UpdateValueCallback<T>) {
-        super(defaultValue, updateValueCallback);
-        this._settingProperties = properties;
+    constructor(defaultValue: T, properties?: P, updateValueCallback?: UpdateValueCallback<T>) {
+        super(defaultValue, updateValueCallback)
+        this._settingProperties = properties || {} as P
     }
 
     /**
@@ -26,7 +27,7 @@ export class Setting<T, P extends Record<string, any> = {}> extends AbstractSett
      * @template K - The key type of the setting properties.
      */
     getProperty<K extends keyof P>(name: K): P[K] {
-        return this._settingProperties[name];
+        return this._settingProperties[name]
     }
 
     /**
@@ -36,6 +37,6 @@ export class Setting<T, P extends Record<string, any> = {}> extends AbstractSett
      * @template K - The key type of the setting properties.
      */
     setProperty<K extends keyof P>(name: K, propertyValue: P[K]): void {
-        this._settingProperties[name] = propertyValue;
+        this._settingProperties[name] = propertyValue
     }
 }

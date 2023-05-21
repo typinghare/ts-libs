@@ -17,3 +17,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./AbstractSetting"), exports);
 __exportStar(require("./Setting"), exports);
 __exportStar(require("./SettingContainer"), exports);
+__exportStar(require("./types"), exports);

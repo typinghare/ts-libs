@@ -1,6 +1,6 @@
 {
-  "name": "@typinghare/stack-queue",
-  "version": "0.0.1",
+  "name": "@typinghare/hour-minute-second",
+  "version": "0.0.3",
   "description": "A simple hour minute second library.",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -17,5 +17,9 @@
   "files": [
     "src/**/*",
     "dist/**/*"
-  ]
+  ],
+  "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "ts-jest": "^29.1.0"
+  }
 }

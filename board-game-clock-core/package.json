@@ -10,8 +10,7 @@
     "test": "jest --verbose --coverage",
     "publish": "npm publish --access public"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "license": "MIT",
   "files": [
     "src/**/*",
@@ -20,5 +19,10 @@
   "devDependencies": {
     "@types/jest": "^29.5.1",
     "ts-jest": "^29.1.0"
+  },
+  "dependencies": {
+    "@typinghare/hour-minute-second": "^0.0.3",
+    "@typinghare/settings": "^0.0.2",
+    "utility-types": "^3.10.0"
   }
 }
