@@ -93,16 +93,6 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
     }
 
     /**
-     * Computes ms.
-     * @private
-     */
-    private computeMs(): void {
-        this._ms = this._hour * HourMinuteSecond.MILLISECONDS_IN_HOUR +
-            this._minute * HourMinuteSecond.MILLISECONDS_IN_MINUTE +
-            this.second * HourMinuteSecond.MILLISECONDS_IN_SECOND
-    }
-
-    /**
      * @override
      */
     get ms(): number {
@@ -144,7 +134,7 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
     consume(time: number | HourMinuteSecond): void {
         const ms = typeof time == 'number' ? time : (time as HourMinuteSecond).ms
 
-        this._ms -= ms
+        this._ms = Math.max(this._ms - ms, 0)
         this.compute()
     }
 

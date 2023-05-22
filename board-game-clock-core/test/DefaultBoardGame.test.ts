@@ -18,4 +18,10 @@ describe('Test default board game', function() {
         expect(playerAClockController).not.toBeUndefined()
         expect(playerBClockController).not.toBeUndefined()
     })
+
+    playerB.onClick()
+    setInterval(() => {
+        const time = playerA.clockController.clockTime
+        console.log(time.toString())
+    }, 200)
 })

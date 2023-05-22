@@ -22,6 +22,12 @@ export abstract class BoardGame<P extends Player<S>, S extends PlayerSettings = 
     protected readonly _rolePlayerMap: Map<Role, P> = new Map()
 
     /**
+     * The role whose clock is time up.
+     * @protected
+     */
+    protected _timeUpRole?: Role
+
+    /**
      * Creates a board game.
      * @param roleArray an array of roles participating in this board game.
      * @param playerClass the class of the player.
@@ -83,7 +89,15 @@ export abstract class BoardGame<P extends Player<S>, S extends PlayerSettings = 
 
     /**
      * This function is invoked when one of the player's clock is time up.
-     * @param role
+     * @param role the role whose clock is time up.
      */
-    abstract clockTimeUp(role: Role): void;
+    clockTimeUp(role: Role): void {
+        // Records the role.
+        this._timeUpRole = role
+
+        // Stops all players' clocks.
+        for (const player of this._rolePlayerMap.values()) {
+            player.clockController.pauseClock()
+        }
+    }
 }

@@ -15,6 +15,7 @@ export class DefaultBoardGame extends BoardGame<DefaultPlayer> {
      * @override
      */
     clockTimeUp(role: Role): void {
-        console.log("Clock times up: " + role.toString())
+        super.clockTimeUp(role)
+        console.log("Clock is time up: " + role.toString())
     }
 }

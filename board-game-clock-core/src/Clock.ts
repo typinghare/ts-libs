@@ -1,4 +1,4 @@
-import { HourMinuteSecond } from '@typinghare/hour-minute-second'
+import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
 
 /**
  * A callback function being invoked when the clock's time runs out. If the return value is HourMinuteSecond, it will
@@ -81,6 +81,11 @@ export class Clock {
         if (difference > 0) {
             this._time.consume(difference)
             this._updatedTimestamp = currentTime
+
+            if (this._time.ms <= 0) {
+                this._time = SlowHourMinuteSecond.ofSeconds(0)
+                this.pause()
+            }
         }
     }
 

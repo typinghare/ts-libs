@@ -17,7 +17,7 @@ export class DefaultClockController extends ClockController<DefaultPlayer> {
      */
     protected initializeClock(): Clock {
         const main: number = this._player.getSettingValue('main')
-        const initialTime: HourMinuteSecond = new SlowHourMinuteSecond(main * HourMinuteSecond.MILLISECONDS_IN_SECOND)
+        const initialTime: HourMinuteSecond = SlowHourMinuteSecond.ofSeconds(main)
         const timeUpCallback: TimeUpCallback = (): HourMinuteSecond | undefined => {
             this._player.clockTimeUp()
             return undefined

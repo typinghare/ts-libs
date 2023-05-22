@@ -6,6 +6,9 @@ import { BoardGame } from './BoardGame'
 
 export type PlayerSettings = Record<string, any>
 
+/**
+ * @author James Chan
+ */
 export abstract class Player<S extends PlayerSettings> implements SettingContainer<S> {
     protected _settings: SettingMap<S> = {} as SettingMap<S>
 
@@ -36,6 +39,9 @@ export abstract class Player<S extends PlayerSettings> implements SettingContain
      */
     abstract initializeClockController(): void
 
+    /**
+     * Returns clock controller.
+     */
     get clockController(): ClockController<Player<S>> {
         if (this._clockController === undefined) {
             throw new ClockControllerNotInitializedException()

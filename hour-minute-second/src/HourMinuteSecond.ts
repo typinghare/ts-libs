@@ -2,6 +2,8 @@
  * @author James Chan
  */
 export abstract class HourMinuteSecond {
+
+    // Commonly used constants.
     public static SECOND_IN_MINUTE: number = 60
     public static MINUTE_IN_HOUR: number = 60
     public static MILLISECONDS_IN_SECOND: number = 1000
@@ -115,8 +117,22 @@ export abstract class HourMinuteSecond {
 
     /**
      * Converts this hour minute second to string.
+     * @see moment
      */
-    toString(): string {
-        return `${this.hour}:${this.minute}:${this.second}`
+    toString(format: string = 'hh:mm:ss'): string {
+        const h = this.hour.toString()
+        const m = this.minute.toString()
+        const s = this.second.toString()
+        const hh = h.padStart(2, '0')
+        const mm = m.padStart(2, '0')
+        const ss = s.padStart(2, '0')
+
+        return format.toLowerCase()
+            .replace('hh', hh)
+            .replace('mm', mm)
+            .replace('ss', ss)
+            .replace("h", h)
+            .replace('m', m)
+            .replace('s', s)
     }
 }

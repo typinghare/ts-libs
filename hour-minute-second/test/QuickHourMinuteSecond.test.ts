@@ -75,8 +75,14 @@ describe('Test QuickHourMinuteSecond.', function() {
     })
 
     it('Test toString.', function() {
-        const hourMinuteSecond = new QuickHourMinuteSecond(8, 20, 30)
+        expect(new QuickHourMinuteSecond(8, 20, 8).toString()).toBe('08:20:08')
+        expect(new QuickHourMinuteSecond(0, 6, 27).toString()).toBe('00:06:27')
 
-        expect(hourMinuteSecond.toString()).toBe('8:20:30')
+    })
+
+    it('Test of.', function() {
+        expect(QuickHourMinuteSecond.ofSeconds(100).second).toBe(40)
+        expect(QuickHourMinuteSecond.ofMinutes(50).minute).toBe(50)
+        expect(QuickHourMinuteSecond.ofHours(10).hour).toBe(10)
     })
 })

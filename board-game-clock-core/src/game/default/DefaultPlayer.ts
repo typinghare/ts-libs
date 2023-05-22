@@ -1,5 +1,5 @@
 import { Player } from '../../Player'
-import { BoardGameClockSetting } from '../../BoardGameClockSetting'
+import { BoardGameSetting } from '../../BoardGameSetting'
 import { DefaultClockController } from './DefaultClockController'
 
 export type DefaultPlayerSettings = {
@@ -15,11 +15,10 @@ export class DefaultPlayer extends Player<DefaultPlayerSettings> {
      * @override
      */
     initialize(): void {
-        const mainSetting: BoardGameClockSetting<number> = new BoardGameClockSetting(60)
-        mainSetting.setProperty('label', 'Main')
-        mainSetting.setProperty('description', 'The main time in seconds.')
-
-        this.addSetting('main', mainSetting)
+        this.addSetting('main', new BoardGameSetting(10, {
+            label: 'Main',
+            description: 'The main time in seconds',
+        }))
     }
 
     /**
