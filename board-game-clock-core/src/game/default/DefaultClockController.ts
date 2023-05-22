@@ -7,10 +7,6 @@ import { Clock, TimeUpCallback } from '../../Clock'
  * @author James Chan
  */
 export class DefaultClockController extends ClockController<DefaultPlayer> {
-    constructor(player: DefaultPlayer) {
-        super(player)
-    }
-
     /**
      * @override
      * @protected

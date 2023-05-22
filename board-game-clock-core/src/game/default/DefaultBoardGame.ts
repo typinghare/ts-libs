@@ -10,12 +10,4 @@ export class DefaultBoardGame extends BoardGame<DefaultPlayer> {
     constructor() {
         super([new Role('A'), new Role('B')], DefaultPlayer)
     }
-
-    /**
-     * @override
-     */
-    clockTimeUp(role: Role): void {
-        super.clockTimeUp(role)
-        console.log("Clock is time up: " + role.toString())
-    }
 }

@@ -4,7 +4,11 @@ import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-
  * A callback function being invoked when the clock's time runs out. If the return value is HourMinuteSecond, it will
  * be set to be the new time, and the clock continues.
  */
-export type TimeUpCallback = () => HourMinuteSecond | undefined
+export type TimeUpCallback = (this: Clock) => HourMinuteSecond | undefined
+
+export type BeforeResume = (this: Clock) => void
+
+export type BeforePause = (this: Clock) => void
 
 /**
  * Game clock. The time will be updated when being got.
@@ -34,6 +38,10 @@ export class Clock {
      * @private
      */
     private _timeoutHandle ?: NodeJS.Timeout
+
+    private _beforeResume ?: BeforeResume
+
+    private _beforePause ?: BeforePause
 
     /**
      * Creates a clock.
@@ -93,11 +101,15 @@ export class Clock {
      * Resumes this clock.
      */
     resume(): void {
+        this._beforeResume?.call(this)
+
         this._updatedTimestamp = new Date().getTime()
         this._timeoutHandle = setTimeout(() => {
-            const newTime: HourMinuteSecond | undefined = this._timeUpCallback()
+            this.pause()
+            const newTime: HourMinuteSecond | undefined = this._timeUpCallback.call(this)
             if (newTime) {
                 this.time = newTime
+                this.resume()
             }
         }, this._time.ms)
     }
@@ -106,6 +118,8 @@ export class Clock {
      * Pauses this clock.
      */
     pause(): void {
+        this._beforePause?.call(this)
+
         // Subtracts time.
         if (this._updatedTimestamp) {
             this.updateTime()
@@ -117,5 +131,21 @@ export class Clock {
             clearTimeout(this._timeoutHandle)
             this._timeoutHandle = undefined
         }
+    }
+
+    /**
+     * Sets before resume call back function.
+     * @param beforeResume
+     */
+    set beforeResume(beforeResume: BeforeResume) {
+        this._beforeResume = beforeResume
+    }
+
+    /**
+     * Sets before pause callback function.
+     * @param beforePause
+     */
+    set beforePause(beforePause: BeforePause) {
+        this._beforePause = beforePause
     }
 }

@@ -10,6 +10,6 @@ defaultBoardGame.start()
 setInterval(() => {
     const time = playerA.clockController.clockTime
     console.log(time.toString())
-}, 200)
+}, 1000)
 
 playerB.onClick()

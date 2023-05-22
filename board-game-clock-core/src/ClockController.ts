@@ -20,6 +20,15 @@ export abstract class ClockController<P extends Player<S>, S extends PlayerSetti
     protected readonly _clock: Clock
 
     /**
+     * Creates a clock controller.
+     * @param player
+     */
+    constructor(player: P) {
+        this._player = player
+        this._clock = this.initializeClock()
+    }
+
+    /**
      * Resumes the clock if the clock is not running.
      */
     resumeClock() {
@@ -42,15 +51,6 @@ export abstract class ClockController<P extends Player<S>, S extends PlayerSetti
      */
     get clockTime(): HourMinuteSecond {
         return this._clock.time
-    }
-
-    /**
-     * Creates a clock controller.
-     * @param player
-     */
-    protected constructor(player: P) {
-        this._player = player
-        this._clock = this.initializeClock()
     }
 
     /**

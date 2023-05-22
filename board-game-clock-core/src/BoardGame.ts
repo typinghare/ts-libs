@@ -99,5 +99,7 @@ export abstract class BoardGame<P extends Player<S>, S extends PlayerSettings = 
         for (const player of this._rolePlayerMap.values()) {
             player.clockController.pauseClock()
         }
+
+        console.log(`Board game stops because a clock is time up: [ ${role.toString()} ].`)
     }
 }
