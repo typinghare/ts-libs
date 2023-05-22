@@ -1,0 +1,31 @@
+{
+  "name": "@typinghare/stack-queue",
+  "version": "0.1.1",
+  "description": "A lightweight library implementing Stack and Queue for TypeScript.",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "author": "James Chan",
+  "homepage": "https://github.com/typinghare/stack-queue",
+  "email" : "jameschan312.cn@gmail.com",
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "publish": "npm publish --access public"
+  },
+  "keywords": [
+    "stack",
+    "queue",
+    "typescript",
+    "lightweight"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^28.1.6",
+    "jest": "^28.1.3",
+    "ts-jest": "^28.0.7",
+    "typescript": "^4.7.4"
+  },
+  "files": [
+    "src/**/*",
+    "dist/**/*"
+  ]
+}
