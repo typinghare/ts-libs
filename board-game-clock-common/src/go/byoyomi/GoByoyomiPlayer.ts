@@ -1,6 +1,5 @@
-import { Player } from '../../../Player'
-import { BoardGameSetting } from '../../../BoardGameSetting'
 import { GoByoyomiClockController } from './GoByoyomiClockController'
+import { BoardGameSetting, Player } from '@typinghare/board-game-clock-core'
 
 export type GoByoyomiPlayerSettings = {
     main: number,
@@ -9,11 +8,8 @@ export type GoByoyomiPlayerSettings = {
 }
 
 export class GoByoyomiPlayer extends Player<GoByoyomiPlayerSettings> {
-    /**
-     * @override
-     */
-    initialize(): void {
-        this.addSetting('main', new BoardGameSetting(5, {
+    override initialize(): void {
+        this.addSetting('main', new BoardGameSetting(8, {
             label: 'Main',
             description: 'The main time in seconds',
         }))
@@ -29,10 +25,7 @@ export class GoByoyomiPlayer extends Player<GoByoyomiPlayerSettings> {
         }))
     }
 
-    /**
-     * @override
-     */
-    initializeClockController(): void {
+    override initializeClockController(): void {
         this._clockController = new GoByoyomiClockController(this)
     }
 }

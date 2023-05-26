@@ -34,33 +34,33 @@ export abstract class HourMinuteSecond {
      * Consumes a time.
      * @param hourMinuteSecond the time to consume.
      */
-    abstract consume(hourMinuteSecond: HourMinuteSecond): void
+    abstract consume(hourMinuteSecond: HourMinuteSecond): HourMinuteSecond
     /**
      * Consumes a time.
      * @param ms time in milliseconds.
      */
-    abstract consume(ms: number): void
+    abstract consume(ms: number): HourMinuteSecond
     /**
      * Consumes a time.
      * @param time hour minute second or time in milliseconds to consume.
      */
-    abstract consume(time: number | HourMinuteSecond): void
+    abstract consume(time: number | HourMinuteSecond): HourMinuteSecond
 
     /**
      * Extends a time.
      * @param hourMinuteSecond the time to consume.
      */
-    abstract extend(hourMinuteSecond: HourMinuteSecond): void
+    abstract extend(hourMinuteSecond: HourMinuteSecond): HourMinuteSecond
     /**
      * Extends a time.
      * @param ms time in milliseconds to extend.
      */
-    abstract extend(ms: number): void
+    abstract extend(ms: number): HourMinuteSecond
     /**
      * Extends a time.
      * @param time hour minute second or time in milliseconds to extend.
      */
-    abstract extend(time: number | HourMinuteSecond): void
+    abstract extend(time: number | HourMinuteSecond): HourMinuteSecond
 
     /**
      * Returns a clone object.
@@ -71,48 +71,48 @@ export abstract class HourMinuteSecond {
      * Consumes time in seconds.
      * @param seconds seconds to consume.
      */
-    consumeSecond(seconds: number): void {
-        this.consume(seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND)
+    consumeSecond(seconds: number): HourMinuteSecond {
+        return this.consume(seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND)
     }
 
     /**
      * Consumes time in minutes;
      * @param minutes minutes to consume.
      */
-    consumeMinute(minutes: number): void {
-        this.consume(minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE)
+    consumeMinute(minutes: number): HourMinuteSecond {
+        return this.consume(minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE)
     }
 
     /**
      * Consumes time in hours;
      * @param hours hours to consume.
      */
-    consumeHour(hours: number): void {
-        this.consume(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
+    consumeHour(hours: number): HourMinuteSecond {
+        return this.consume(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
     }
 
     /**
      * Extends time in seconds.
      * @param seconds seconds to extend.
      */
-    extendSecond(seconds: number): void {
-        this.extend(seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND)
+    extendSecond(seconds: number): HourMinuteSecond {
+        return this.extend(seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND)
     }
 
     /**
      * Extends time in minutes;
      * @param minutes minutes to extend.
      */
-    extendMinute(minutes: number): void {
-        this.extend(minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE)
+    extendMinute(minutes: number): HourMinuteSecond {
+        return this.extend(minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE)
     }
 
     /**
      * Extends time in hours;
      * @param hours hours to extend.
      */
-    extendHour(hours: number): void {
-        this.extend(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
+    extendHour(hours: number): HourMinuteSecond {
+        return this.extend(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
     }
 
     /**
@@ -131,7 +131,7 @@ export abstract class HourMinuteSecond {
             .replace('hh', hh)
             .replace('mm', mm)
             .replace('ss', ss)
-            .replace("h", h)
+            .replace('h', h)
             .replace('m', m)
             .replace('s', s)
     }

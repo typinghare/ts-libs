@@ -123,37 +123,41 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
     /**
      * @override
      */
-    consume(hourMinuteSecond: HourMinuteSecond): void;
+    consume(hourMinuteSecond: HourMinuteSecond): HourMinuteSecond;
     /**
      * @override
      */
-    consume(ms: number): void;
+    consume(ms: number): HourMinuteSecond;
     /**
      * @override
      */
-    consume(time: number | HourMinuteSecond): void {
+    consume(time: number | HourMinuteSecond): HourMinuteSecond {
         const ms = typeof time == 'number' ? time : (time as HourMinuteSecond).ms
 
         this._ms = Math.max(this._ms - ms, 0)
         this.compute()
+
+        return this
     }
 
     /**
      * @override
      */
-    extend(hourMinuteSecond: HourMinuteSecond): void;
+    extend(hourMinuteSecond: HourMinuteSecond): HourMinuteSecond;
     /**
      * @override
      */
-    extend(ms: number): void;
+    extend(ms: number): HourMinuteSecond;
     /**
      * @override
      */
-    extend(time: number | HourMinuteSecond): void {
+    extend(time: number | HourMinuteSecond): HourMinuteSecond {
         const ms = typeof time == 'number' ? time : (time as HourMinuteSecond).ms
 
         this._ms += ms
         this.compute()
+
+        return this
     }
 
     /**

@@ -2,7 +2,7 @@ import { Role } from './Role'
 import { AbstractSetting, SettingContainer, SettingMap } from '@typinghare/settings'
 import { ClockController } from './ClockController'
 import { ClockControllerNotInitializedException } from './exception/ClockControllerNotInitializedException'
-import { BoardGame } from './BoardGame'
+import { BoardGame, BoardGameSettings } from './BoardGame'
 
 export type PlayerSettings = Record<string, any>
 
@@ -10,12 +10,28 @@ export type PlayerSettings = Record<string, any>
  * @author James Chan
  */
 export abstract class Player<S extends PlayerSettings> implements SettingContainer<S> {
+    /**
+     * Player settings.
+     * @protected
+     */
     protected _settings: SettingMap<S> = {} as SettingMap<S>
 
+    /**
+     * The role of this player.
+     * @protected
+     */
     protected readonly _role: Role
 
-    protected readonly _boardGame: BoardGame<Player<S>>
+    /**
+     * The board game reference.
+     * @protected
+     */
+    protected readonly _boardGame: BoardGame<BoardGameSettings, Player<S>>
 
+    /**
+     *
+     * @protected
+     */
     protected _clockController?: ClockController<Player<S>>
 
     /**
@@ -23,7 +39,7 @@ export abstract class Player<S extends PlayerSettings> implements SettingContain
      * @param role the role of this player.
      * @param boardGame
      */
-    constructor(role: Role, boardGame: BoardGame<Player<S>>) {
+    constructor(role: Role, boardGame: BoardGame<any, Player<S>>) {
         this._role = role
         this._boardGame = boardGame
     }
@@ -70,30 +86,21 @@ export abstract class Player<S extends PlayerSettings> implements SettingContain
     }
 
     /**
-     * @override
+     * Returns extra properties of this player.
      */
+    getExtraProperties(): Record<string, string> | undefined {
+        return undefined
+    }
+
     addSetting<K extends keyof S>(name: K, setting: AbstractSetting<S[K]>): void {
         this._settings[name] = setting
     }
 
-    /**
-     * @override
-     */
     getSetting<K extends keyof S>(name: K): AbstractSetting<S[K]> {
         return this._settings[name]
     }
 
-    /**
-     * @override
-     */
-    getSettingValue<K extends keyof S>(name: K): S[K] {
-        return this._settings[name].value
-    }
-
-    /**
-     * @override
-     */
-    getSettings(): Iterable<AbstractSetting<any>> {
+    getSettings(): Iterable<AbstractSetting> {
         return Object.values(this._settings)
     }
 }

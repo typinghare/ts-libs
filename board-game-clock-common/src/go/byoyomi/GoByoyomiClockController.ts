@@ -1,7 +1,6 @@
-import { ClockController } from '../../../ClockController'
-import { Clock, TimeUpCallback } from '../../../Clock'
 import { GoByoyomiPlayer } from './GoByoyomiPlayer'
 import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
+import { Clock, ClockController, TimeUpCallback } from '@typinghare/board-game-clock-core'
 
 export class GoByoyomiClockController extends ClockController<GoByoyomiPlayer> {
     /**
@@ -16,14 +15,10 @@ export class GoByoyomiClockController extends ClockController<GoByoyomiPlayer> {
      */
     private _isEnterByoyomi: boolean = false
 
-    /**
-     * @override
-     * @protected
-     */
-    protected initializeClock(): Clock {
-        const main: number = this._player.getSettingValue('main')
-        const timePerPeriod: number = this._player.getSettingValue('timePerPeriod')
-        this._remainingPeriods = this._player.getSettingValue('periods')
+    protected override initializeClock(): Clock {
+        const main: number = this._player.getSetting('main').value
+        const timePerPeriod: number = this._player.getSetting('timePerPeriod').value
+        this._remainingPeriods = this._player.getSetting('periods').value
 
         const clockController = this
         const initialTime: HourMinuteSecond = SlowHourMinuteSecond.ofSeconds(main)

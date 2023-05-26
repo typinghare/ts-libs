@@ -1,6 +1,6 @@
 {
   "name": "@typinghare/settings",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Simple settings.",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",

@@ -1,6 +1,6 @@
 {
   "name": "@typinghare/board-game-clock-core",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Board game clock core.",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -10,7 +10,11 @@
     "test": "jest --verbose --coverage",
     "publish": "npm publish --access public"
   },
-  "keywords": [],
+  "keywords": [
+    "board game",
+    "Chess",
+    "Go"
+  ],
   "license": "MIT",
   "files": [
     "src/**/*",
@@ -21,8 +25,9 @@
     "ts-jest": "^29.1.0"
   },
   "dependencies": {
-    "@typinghare/hour-minute-second": "^0.0.4",
-    "@typinghare/settings": "^0.0.2",
-    "utility-types": "^3.10.0"
+    "@types/keypress.js": "^2.1.1",
+    "@typinghare/hour-minute-second": "^0.0.5",
+    "@typinghare/settings": "^0.0.3",
+    "keypress": "^0.2.1"
   }
 }

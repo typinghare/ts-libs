@@ -5,10 +5,10 @@ import { AbstractSetting } from './AbstractSetting'
  * @template S - The type of the settings object.
  */
 export type SettingMap<S> = {
-    [K in keyof S]: AbstractSetting<S[K]>;
+    [K in keyof S]: AbstractSetting<S[K]>
 };
 
 /**
  * Represents a mapping of setting properties where each key is a string and the value can be of any type.
  */
-export type SettingPropertyMap = Record<string, any>;
+export type SettingPropertyMap = Record<string, any>

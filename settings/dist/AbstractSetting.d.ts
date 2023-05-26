@@ -4,7 +4,7 @@ export type UpdateValueCallback<T> = (newValue: T, oldValue: T) => T | undefined
  * @param <T> type of the value of this setting item.
  * @author James Chan
  */
-export declare abstract class AbstractSetting<T> {
+export declare abstract class AbstractSetting<T = any> {
     /**
      * The value of this setting.
      * @private
@@ -31,4 +31,10 @@ export declare abstract class AbstractSetting<T> {
      * @param newValue - The new value to set.
      */
     set value(newValue: T);
+    /**
+     * Sets the value of the setting.
+     * @param newValue - The new value to set.
+     * @param suppressCallback - Whether to suppress callback function.
+     */
+    setValue(newValue: T, suppressCallback?: boolean): void;
 }

@@ -1,14 +1,29 @@
 import { Player, PlayerSettings } from './Player'
 import { Role } from './Role'
 import { RoleNotFoundException } from './exception/RoleNotFoundException'
+import { AbstractSetting, SettingContainer, SettingMap } from '@typinghare/settings'
 
-export type PlayerClass<P extends Player<any>> = new (role: Role, boardGame: BoardGame<P>) => P;
+export type PlayerClass<P extends Player<any>> = new (role: Role, boardGame: BoardGame<any, P>) => P;
+
+export type BoardGameSettings = Record<string, any>
+
+export type ClockTimeUpCallback = (timeUpRole: Role) => void
 
 /**
  * Abstract board game.
+ * @param <G> Game settings.
+ * @param <P> Player.
+ * @param <S> Player Settings.
  * @author James Chan.
  */
-export abstract class BoardGame<P extends Player<S>, S extends PlayerSettings = any> {
+export abstract class BoardGame<G extends BoardGameSettings, P extends Player<S>, S extends PlayerSettings = any>
+    implements SettingContainer<BoardGameSettings> {
+    /**
+     * Game settings.
+     * @protected
+     */
+    protected _settings: SettingMap<G> = {} as SettingMap<G>
+
     /**
      * Roles
      * @protected
@@ -26,6 +41,8 @@ export abstract class BoardGame<P extends Player<S>, S extends PlayerSettings = 
      * @protected
      */
     protected _timeUpRole?: Role
+
+    private _clockTimeUpCallback?: ClockTimeUpCallback
 
     /**
      * Creates a board game.
@@ -100,6 +117,26 @@ export abstract class BoardGame<P extends Player<S>, S extends PlayerSettings = 
             player.clockController.pauseClock()
         }
 
-        console.log(`Board game stops because a clock is time up: [ ${role.toString()} ].`)
+        this._clockTimeUpCallback?.(role)
+    }
+
+    /**
+     * Sets time up callback function.
+     * @param timeUpCallback
+     */
+    set clockTimeUpCallback(timeUpCallback: ClockTimeUpCallback) {
+        this._clockTimeUpCallback = timeUpCallback
+    }
+
+    addSetting<K extends keyof BoardGameSettings>(name: K, setting: AbstractSetting<BoardGameSettings[K]>): void {
+        this._settings[name] = setting
+    }
+
+    getSetting<K extends keyof BoardGameSettings>(name: K): AbstractSetting<BoardGameSettings[K]> {
+        return this._settings[name]
+    }
+
+    getSettings(): Iterable<AbstractSetting> {
+        return Object.values(this._settings)
     }
 }

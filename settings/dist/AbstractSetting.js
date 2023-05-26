@@ -28,7 +28,15 @@ class AbstractSetting {
      * @param newValue - The new value to set.
      */
     set value(newValue) {
-        if (this._updateValueCallback) {
+        this.setValue(newValue);
+    }
+    /**
+     * Sets the value of the setting.
+     * @param newValue - The new value to set.
+     * @param suppressCallback - Whether to suppress callback function.
+     */
+    setValue(newValue, suppressCallback = false) {
+        if (this._updateValueCallback && !suppressCallback) {
             const res = this._updateValueCallback(newValue, this.value);
             if (res !== undefined) {
                 newValue = res;

@@ -8,3 +8,9 @@ export * from './Role'
 // exceptions
 export * from './exception/RoleNotFoundException'
 export * from './exception/ClockControllerNotInitializedException'
+
+// stereotypes
+export * from './stereotype/TwoPlayerBoardGame'
+
+// tools
+export * from './tool/BoardGameTester'

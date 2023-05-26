@@ -5,18 +5,18 @@ export type UpdateValueCallback<T> = (newValue: T, oldValue: T) => T | undefined
  * @param <T> type of the value of this setting item.
  * @author James Chan
  */
-export abstract class AbstractSetting<T= any> {
+export abstract class AbstractSetting<T = any> {
     /**
      * The value of this setting.
      * @private
      */
-    private _value: T;
+    private _value: T
 
     /**
      * This callback function will be called when the value is updated.
      * @private
      */
-    private readonly _updateValueCallback?: UpdateValueCallback<T>;
+    private readonly _updateValueCallback?: UpdateValueCallback<T>
 
     /**
      * Creates a setting.
@@ -24,8 +24,8 @@ export abstract class AbstractSetting<T= any> {
      * @param updateValueCallback - The callback function invoked when the value is updated.
      */
     protected constructor(defaultValue: T, updateValueCallback?: UpdateValueCallback<T>) {
-        this._value = defaultValue;
-        this._updateValueCallback = updateValueCallback;
+        this._value = defaultValue
+        this._updateValueCallback = updateValueCallback
     }
 
     /**
@@ -33,7 +33,7 @@ export abstract class AbstractSetting<T= any> {
      * @returns The current value of the setting.
      */
     get value(): T {
-        return this._value;
+        return this._value
     }
 
     /**
@@ -41,13 +41,22 @@ export abstract class AbstractSetting<T= any> {
      * @param newValue - The new value to set.
      */
     set value(newValue: T) {
-        if (this._updateValueCallback) {
-            const res: T | undefined = this._updateValueCallback(newValue, this.value);
+        this.setValue(newValue)
+    }
+
+    /**
+     * Sets the value of the setting.
+     * @param newValue - The new value to set.
+     * @param suppressCallback - Whether to suppress callback function.
+     */
+    setValue(newValue: T, suppressCallback: boolean = false): void {
+        if (this._updateValueCallback && !suppressCallback) {
+            const res: T | undefined = this._updateValueCallback(newValue, this.value)
             if (res !== undefined) {
-                newValue = res;
+                newValue = res
             }
         }
 
-        this._value = newValue;
+        this._value = newValue
     }
 }

@@ -1,6 +1,5 @@
-import { Player } from '../../Player'
-import { BoardGameSetting } from '../../BoardGameSetting'
 import { DefaultClockController } from './DefaultClockController'
+import { BoardGameSetting, Player } from '@typinghare/board-game-clock-core'
 
 export type DefaultPlayerSettings = {
     // The main time in seconds.
@@ -11,20 +10,14 @@ export type DefaultPlayerSettings = {
  * @author James Chan
  */
 export class DefaultPlayer extends Player<DefaultPlayerSettings> {
-    /**
-     * @override
-     */
-    initialize(): void {
+    override initialize(): void {
         this.addSetting('main', new BoardGameSetting(10, {
             label: 'Main',
             description: 'The main time in seconds',
         }))
     }
 
-    /**
-     * @override
-     */
-    initializeClockController(): void {
+    override initializeClockController(): void {
         this._clockController = new DefaultClockController(this)
     }
 }

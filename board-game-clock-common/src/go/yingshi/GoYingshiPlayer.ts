@@ -1,5 +1,5 @@
-import { BoardGameSetting, Player } from '../../../main'
 import { GoYingshiClockController } from './GoYingshiClockController'
+import { BoardGameSetting, Player } from '@typinghare/board-game-clock-core'
 
 export type GoYingshiPlayerSettings = {
     main: number,
@@ -7,11 +7,11 @@ export type GoYingshiPlayerSettings = {
     maxPenalties: number
 }
 
+/**
+ * Yingshi Cup time control. (应氏杯规则)
+ */
 export class GoYingshiPlayer extends Player<GoYingshiPlayerSettings> {
-    /**
-     * @override
-     */
-    initialize(): void {
+    override initialize(): void {
         this.addSetting('main', new BoardGameSetting(7, {
             label: 'Main',
             description: 'The main time in seconds',
@@ -28,10 +28,7 @@ export class GoYingshiPlayer extends Player<GoYingshiPlayerSettings> {
         }))
     }
 
-    /**
-     * @override
-     */
-    initializeClockController(): void {
+    override initializeClockController(): void {
         this._clockController = new GoYingshiClockController(this)
     }
 }

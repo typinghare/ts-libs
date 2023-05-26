@@ -1,14 +1,14 @@
-import { Clock, ClockController, TimeUpCallback } from '../../../main'
 import { GoYingshiPlayer } from './GoYingshiPlayer'
 import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
+import { Clock, ClockController, TimeUpCallback } from '@typinghare/board-game-clock-core'
 
 export class GoYingshiClockController extends ClockController<GoYingshiPlayer> {
     private _remainingPenalties: number = 0
 
-    protected initializeClock(): Clock {
-        const main: number = this._player.getSettingValue('main')
-        const penaltyTime: number = this._player.getSettingValue('penaltyTime')
-        const maxPenalties: number = this._player.getSettingValue('maxPenalties')
+    protected override initializeClock(): Clock {
+        const main: number = this._player.getSetting('main').value
+        const penaltyTime: number = this._player.getSetting('penaltyTime').value
+        const maxPenalties: number = this._player.getSetting('maxPenalties').value
 
         const clockController = this
         const initialTime: HourMinuteSecond = SlowHourMinuteSecond.ofSeconds(main)

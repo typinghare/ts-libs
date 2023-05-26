@@ -11,7 +11,7 @@ export type BeforeResume = (this: Clock) => void
 export type BeforePause = (this: Clock) => void
 
 /**
- * Game clock. The time will be updated when being got.
+ * Game clock. The time will be updated when being retrieved.
  * @author James Chan
  */
 export class Clock {

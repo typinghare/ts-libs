@@ -1,18 +1,13 @@
-import { ClockController } from '../../ClockController'
 import { DefaultPlayer } from './DefaultPlayer'
 import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
-import { Clock, TimeUpCallback } from '../../Clock'
+import { Clock, ClockController, TimeUpCallback } from '@typinghare/board-game-clock-core'
 
 /**
  * @author James Chan
  */
 export class DefaultClockController extends ClockController<DefaultPlayer> {
-    /**
-     * @override
-     * @protected
-     */
-    protected initializeClock(): Clock {
-        const main: number = this._player.getSettingValue('main')
+    protected override initializeClock(): Clock {
+        const main: number = this._player.getSetting('main').value
         const initialTime: HourMinuteSecond = SlowHourMinuteSecond.ofSeconds(main)
         const timeUpCallback: TimeUpCallback = (): HourMinuteSecond | undefined => {
             this._player.clockTimeUp()

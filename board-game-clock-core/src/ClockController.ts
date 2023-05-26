@@ -29,10 +29,17 @@ export abstract class ClockController<P extends Player<S>, S extends PlayerSetti
     }
 
     /**
+     * Whether the clock is running.
+     */
+    isClockRunning(): boolean {
+        return this._clock.isRunning()
+    }
+
+    /**
      * Resumes the clock if the clock is not running.
      */
-    resumeClock() {
-        if (!this._clock.isRunning()) {
+    resumeClock(): void {
+        if (!this.isClockRunning()) {
             this._clock.resume()
         }
     }
@@ -41,7 +48,7 @@ export abstract class ClockController<P extends Player<S>, S extends PlayerSetti
      * Pauses the clock if the clock is running.
      */
     pauseClock(): void {
-        if (this._clock.isRunning()) {
+        if (this.isClockRunning()) {
             this._clock.pause()
         }
     }

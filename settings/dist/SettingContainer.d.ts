@@ -8,7 +8,7 @@ export interface SettingContainer<S extends Record<string, any>> {
      * Returns an iterable of all settings in the container.
      * @returns Iterable of settings.
      */
-    getSettings(): Iterable<AbstractSetting<any>>;
+    getSettings(): Iterable<AbstractSetting>;
     /**
      * Returns the setting with the specified name.
      * @param name - The name of the setting.
@@ -23,11 +23,4 @@ export interface SettingContainer<S extends Record<string, any>> {
      * @template K - The key of the setting in the settings object.
      */
     addSetting<K extends keyof S>(name: K, setting: AbstractSetting<S[K]>): void;
-    /**
-     * Retrieves the value of a specific setting based on its name.
-     * @param name - The name of the setting.
-     * @returns The value of the setting.
-     * @template K - The key of the setting in the settings object.
-     */
-    getSettingValue<K extends keyof S>(name: K): S[K];
 }
