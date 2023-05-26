@@ -1,5 +1,5 @@
 import { DefaultClockController } from './DefaultClockController'
-import { BoardGameSetting, Player } from '../main'
+import { BoardGameSetting, Player, PlayerExtraProperties } from '../main'
 
 export type DefaultPlayerSettings = {
     // The main time in seconds.
@@ -22,7 +22,7 @@ export class DefaultPlayer extends Player<DefaultPlayerSettings> {
         this._clockController = new DefaultClockController(this)
     }
 
-    override getExtraProperties(): Record<string, string> | undefined {
+    override getExtraProperties(): PlayerExtraProperties {
         return { 'isRunning': this.clockController.isClockRunning() ? 'true' : 'false' }
     }
 }

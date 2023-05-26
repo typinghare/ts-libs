@@ -12,7 +12,8 @@ export type DefaultPlayerSettings = {
 export class DefaultPlayer extends Player<DefaultPlayerSettings> {
     override initialize(): void {
         this.addSetting('main', new BoardGameSetting(10, {
-            label: 'Main',
+            type: 'time',
+            label: 'Main Time',
             description: 'The main time in seconds',
         }))
     }

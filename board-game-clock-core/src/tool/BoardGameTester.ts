@@ -1,7 +1,6 @@
 import { BoardGame } from '../BoardGame'
 import { HourMinuteSecond } from '@typinghare/hour-minute-second'
 import { Player } from '../Player'
-import { DefaultBoardGame } from '../default/DefaultBoardGame'
 import { Role } from '../Role'
 
 const keypress = require('keypress')
@@ -49,8 +48,8 @@ export class BoardGameTester {
                     = roleStringArray[i] + `(${i + 1}): ` + player.clockController.clockTime.toString()
 
                 // Appends extra properties.
-                const extraProperties: Record<string, any> | undefined = player.getExtraProperties()
-                if (extraProperties !== undefined && Object.keys(extraProperties).length > 0) {
+                const extraProperties: Record<string, any> | null = player.getExtraProperties()
+                if (extraProperties !== null && Object.keys(extraProperties).length > 0) {
                     const extraItemArray: string[] = []
                     for (const [key, value] of Object.entries(extraProperties)) {
                         extraItemArray.push(`${key}: ${value}`)
@@ -118,5 +117,3 @@ export class BoardGameTester {
         process.stdin.resume()
     }
 }
-
-new BoardGameTester(new DefaultBoardGame()).start()

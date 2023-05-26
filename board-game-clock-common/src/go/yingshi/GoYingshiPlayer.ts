@@ -13,16 +13,19 @@ export type GoYingshiPlayerSettings = {
 export class GoYingshiPlayer extends Player<GoYingshiPlayerSettings> {
     override initialize(): void {
         this.addSetting('main', new BoardGameSetting(7, {
-            label: 'Main',
+            type: 'time',
+            label: 'Main Time',
             description: 'The main time in seconds',
         }))
 
         this.addSetting('penaltyTime', new BoardGameSetting(4, {
+            type: 'time',
             label: 'Penalty Time',
             description: 'The time of one penalty.',
         }))
 
         this.addSetting('maxPenalties', new BoardGameSetting(3, {
+            type: 'number',
             label: 'Max Penalties',
             description: 'The maximum number of penalties.',
         }))

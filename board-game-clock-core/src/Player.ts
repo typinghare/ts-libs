@@ -6,6 +6,8 @@ import { BoardGame, BoardGameSettings } from './BoardGame'
 
 export type PlayerSettings = Record<string, any>
 
+export type PlayerExtraProperties = Record<string, any>
+
 /**
  * @author James Chan
  */
@@ -88,8 +90,8 @@ export abstract class Player<S extends PlayerSettings> implements SettingContain
     /**
      * Returns extra properties of this player.
      */
-    getExtraProperties(): Record<string, string> | undefined {
-        return undefined
+    getExtraProperties(): PlayerExtraProperties | null {
+        return null
     }
 
     addSetting<K extends keyof S>(name: K, setting: AbstractSetting<S[K]>): void {
