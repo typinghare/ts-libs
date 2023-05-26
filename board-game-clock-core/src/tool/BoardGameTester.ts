@@ -1,7 +1,8 @@
 import { BoardGame } from '../BoardGame'
 import { HourMinuteSecond } from '@typinghare/hour-minute-second'
-import { Player } from '../Player'
+import { Player, PlayerExtraProperties, PlayerExtraPropertiesMap } from '../Player'
 import { Role } from '../Role'
+import { PlayerExtraProperty, PlayerExtraPropertyProperties } from '../PlayerExtraProperty'
 
 const keypress = require('keypress')
 
@@ -23,7 +24,7 @@ export class BoardGameTester {
     start(): void {
         const roleArray = this._boardGame.getRoleArray()
         const roleStringArray = roleArray.map(role => role.toString())
-        const playerArray: Player<any>[] = []
+        const playerArray: Player[] = []
         roleArray.forEach(role => playerArray.push(this._boardGame.getPlayer(role)))
 
         const gameClassName: string = Object.getPrototypeOf(this._boardGame).constructor.name
@@ -48,14 +49,16 @@ export class BoardGameTester {
                     = roleStringArray[i] + `(${i + 1}): ` + player.clockController.clockTime.toString()
 
                 // Appends extra properties.
-                const extraProperties: Record<string, any> | null = player.getExtraProperties()
+                const extraProperties: PlayerExtraPropertiesMap<PlayerExtraProperties, PlayerExtraPropertyProperties> | null
+                    = player.getExtraProperties()
                 if (extraProperties !== null && Object.keys(extraProperties).length > 0) {
-                    const extraItemArray: string[] = []
-                    for (const [key, value] of Object.entries(extraProperties)) {
-                        extraItemArray.push(`${key}: ${value}`)
+                    const extraPropertyStringArray: string[] = []
+                    // @ts-ignore
+                    for (const extraProperty of Object.values(extraProperties) as PlayerExtraProperty<any, PlayerExtraPropertyProperties>) {
+                        extraPropertyStringArray.push(`${extraProperty.getProperty('label')}: ${extraProperty.value}`)
                     }
 
-                    playerClockStringArray[i] += ` (${extraItemArray.join(', ')})`
+                    playerClockStringArray[i] += ` (${extraPropertyStringArray.join(', ')})`
                 }
             }
 

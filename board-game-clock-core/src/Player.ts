@@ -3,15 +3,24 @@ import { AbstractSetting, SettingContainer, SettingMap } from '@typinghare/setti
 import { ClockController } from './ClockController'
 import { ClockControllerNotInitializedException } from './exception/ClockControllerNotInitializedException'
 import { BoardGame, BoardGameSettings } from './BoardGame'
+import { PlayerExtraProperty, PlayerExtraPropertyProperties } from './PlayerExtraProperty'
 
 export type PlayerSettings = Record<string, any>
 
-export type PlayerExtraProperties = Record<string, any>
+export type PlayerExtraProperties = {}
+
+export type PlayerExtraPropertiesMap<PE extends PlayerExtraProperties, PP extends PlayerExtraPropertyProperties> = {
+    [K in keyof PE]: PlayerExtraProperty<PE[K], PP>
+}
 
 /**
  * @author James Chan
  */
-export abstract class Player<S extends PlayerSettings> implements SettingContainer<S> {
+export abstract class Player<
+    S extends PlayerSettings = PlayerSettings,
+    PE extends PlayerExtraProperties = PlayerExtraProperties,
+    PP extends PlayerExtraPropertyProperties = PlayerExtraPropertyProperties
+> implements SettingContainer<S> {
     /**
      * Player settings.
      * @protected
@@ -28,20 +37,20 @@ export abstract class Player<S extends PlayerSettings> implements SettingContain
      * The board game reference.
      * @protected
      */
-    protected readonly _boardGame: BoardGame<BoardGameSettings, Player<S>>
+    protected readonly _boardGame: BoardGame<BoardGameSettings, Player<S, PE>>
 
     /**
      *
      * @protected
      */
-    protected _clockController?: ClockController<Player<S>>
+    protected _clockController?: ClockController<Player<S, PE>>
 
     /**
      * Creates a player.
      * @param role the role of this player.
      * @param boardGame
      */
-    constructor(role: Role, boardGame: BoardGame<any, Player<S>>) {
+    constructor(role: Role, boardGame: BoardGame<any, Player<S, PE>>) {
         this._role = role
         this._boardGame = boardGame
     }
@@ -60,7 +69,7 @@ export abstract class Player<S extends PlayerSettings> implements SettingContain
     /**
      * Returns clock controller.
      */
-    get clockController(): ClockController<Player<S>> {
+    get clockController(): ClockController<Player<S, PE>> {
         if (this._clockController === undefined) {
             throw new ClockControllerNotInitializedException()
         }
@@ -90,7 +99,7 @@ export abstract class Player<S extends PlayerSettings> implements SettingContain
     /**
      * Returns extra properties of this player.
      */
-    getExtraProperties(): PlayerExtraProperties | null {
+    getExtraProperties(): PlayerExtraPropertiesMap<PE, PP> | null {
         return null
     }
 

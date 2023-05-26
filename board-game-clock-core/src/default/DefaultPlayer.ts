@@ -1,5 +1,12 @@
 import { DefaultClockController } from './DefaultClockController'
-import { BoardGameSetting, Player, PlayerExtraProperties } from '../main'
+import { BoardGameSetting, Player } from '../main'
+import { PlayerExtraProperty, PlayerExtraPropertyProperties } from '../PlayerExtraProperty'
+
+export type DefaultPlayerExtraPropertyProperties = PlayerExtraPropertyProperties & {}
+
+export type DefaultPlayerExtraProperties = {
+    isRunning: boolean
+}
 
 export type DefaultPlayerSettings = {
     // The main time in seconds.
@@ -9,7 +16,7 @@ export type DefaultPlayerSettings = {
 /**
  * @author James Chan
  */
-export class DefaultPlayer extends Player<DefaultPlayerSettings> {
+export class DefaultPlayer extends Player<DefaultPlayerSettings, DefaultPlayerExtraProperties, DefaultPlayerExtraPropertyProperties> {
     override initialize(): void {
         this.addSetting('main', new BoardGameSetting(30, {
             type: 'time',
@@ -22,7 +29,11 @@ export class DefaultPlayer extends Player<DefaultPlayerSettings> {
         this._clockController = new DefaultClockController(this)
     }
 
-    override getExtraProperties(): PlayerExtraProperties {
-        return { 'isRunning': this.clockController.isClockRunning() ? 'true' : 'false' }
+    override getExtraProperties() {
+        const extraProperty
+            = new PlayerExtraProperty<boolean, DefaultPlayerExtraPropertyProperties>(this.clockController.isClockRunning())
+        extraProperty.setProperty('label', 'Running')
+
+        return { 'isRunning': extraProperty }
     }
 }

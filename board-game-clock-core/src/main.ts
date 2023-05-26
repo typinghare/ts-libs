@@ -4,6 +4,7 @@ export * from './Clock'
 export * from './ClockController'
 export * from './Player'
 export * from './Role'
+export * from './PlayerExtraProperty'
 
 // exceptions
 export * from './exception/RoleNotFoundException'

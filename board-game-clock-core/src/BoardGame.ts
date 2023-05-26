@@ -1,9 +1,15 @@
-import { Player, PlayerSettings } from './Player'
+import { Player, PlayerExtraProperties, PlayerSettings } from './Player'
 import { Role } from './Role'
 import { RoleNotFoundException } from './exception/RoleNotFoundException'
 import { AbstractSetting, SettingContainer, SettingMap } from '@typinghare/settings'
+import { PlayerExtraPropertyProperties } from './PlayerExtraProperty'
 
-export type PlayerClass<P extends Player<any>> = new (role: Role, boardGame: BoardGame<any, P>) => P;
+export type PlayerClass<
+    P extends Player<S, PE>,
+    S extends PlayerSettings = any,
+    PE extends PlayerExtraProperties = PlayerExtraProperties,
+    PP extends PlayerExtraPropertyProperties = any
+> = new (role: Role, boardGame: BoardGame<any, P, S, PE, PP>) => P;
 
 export type BoardGameSettings = Record<string, any>
 
@@ -12,12 +18,18 @@ export type ClockTimeUpCallback = (timeUpRole: Role) => void
 /**
  * Abstract board game.
  * @param <G> Game settings.
+ * @param <PP> Player extra property properties.
  * @param <P> Player.
  * @param <S> Player Settings.
  * @author James Chan.
  */
-export abstract class BoardGame<G extends BoardGameSettings, P extends Player<S>, S extends PlayerSettings = any>
-    implements SettingContainer<BoardGameSettings> {
+export abstract class BoardGame<
+    G extends BoardGameSettings,
+    P extends Player<S, PE>,
+    S extends PlayerSettings = any,
+    PE extends PlayerExtraProperties = PlayerExtraProperties,
+    PP extends PlayerExtraPropertyProperties = any,
+> implements SettingContainer<BoardGameSettings> {
     /**
      * Game settings.
      * @protected
@@ -87,11 +99,13 @@ export abstract class BoardGame<G extends BoardGameSettings, P extends Player<S>
      * @param role
      */
     getPlayer(role: Role): P {
-        if (!this._rolePlayerMap.has(role)) {
-            throw new RoleNotFoundException(role)
+        for (const _role of this._rolePlayerMap.keys()) {
+            if (_role.equalsTo(role)) {
+                return this._rolePlayerMap.get(_role)!
+            }
         }
 
-        return this._rolePlayerMap.get(role)!
+        throw new RoleNotFoundException(role)
     }
 
     /**
