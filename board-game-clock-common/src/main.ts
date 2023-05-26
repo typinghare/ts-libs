@@ -1,3 +1,5 @@
+export * from './global'
+
 // Default
 export * from './default/DefaultBoardGame'
 export * from './default/DefaultPlayer'

@@ -4,7 +4,7 @@ import { BoardGame, Role } from '@typinghare/board-game-clock-core'
 export type DefaultBoardGameSettings = {}
 
 /**
- * Two-player board game.
+ * Two-player board game. This class is only for local test.
  * @author James Chan
  */
 export class DefaultBoardGame extends BoardGame<DefaultBoardGameSettings, DefaultPlayer> {

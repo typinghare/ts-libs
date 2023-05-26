@@ -1,5 +1,12 @@
 import { GoByoyomiClockController } from './GoByoyomiClockController'
-import { BoardGameSetting, Player, PlayerExtraProperties } from '@typinghare/board-game-clock-core'
+import {
+    BoardGameSetting,
+    Player,
+    PlayerExtraProperties,
+    PlayerExtraPropertiesMap,
+} from '@typinghare/board-game-clock-core'
+import { CommonPlayerExtraPropertyProperties } from '../../global'
+import { PlayerExtraProperty } from '@typinghare/board-game-clock-core/dist/PlayerExtraProperty'
 
 export type GoByoyomiPlayerSettings = {
     main: number,
@@ -8,10 +15,10 @@ export type GoByoyomiPlayerSettings = {
 }
 
 export type GoByoyomiPlayerExtraProperties = PlayerExtraProperties | {
-    'Remaining Periods': number
+    remainingPeriods: number
 }
 
-export class GoByoyomiPlayer extends Player<GoByoyomiPlayerSettings> {
+export class GoByoyomiPlayer extends Player<GoByoyomiPlayerSettings, GoByoyomiPlayerExtraProperties, CommonPlayerExtraPropertyProperties> {
     override initialize(): void {
         this.addSetting('main', new BoardGameSetting(10, {
             type: 'time',
@@ -36,9 +43,13 @@ export class GoByoyomiPlayer extends Player<GoByoyomiPlayerSettings> {
         this._clockController = new GoByoyomiClockController(this)
     }
 
-    override getExtraProperties(): GoByoyomiPlayerExtraProperties {
+    override getExtraProperties(): PlayerExtraPropertiesMap<GoByoyomiPlayerExtraProperties, CommonPlayerExtraPropertyProperties> | null {
+        const remainingPeriods: number = (this._clockController! as GoByoyomiClockController).remainingPeriods
+        const remainingPeriodsProperty = new PlayerExtraProperty(remainingPeriods)
+        remainingPeriodsProperty.setProperty('label', 'Remaining Periods')
+
         return {
-            'Remaining Periods': (this._clockController as GoByoyomiClockController).remainingPeriods,
+            remainingPeriods: remainingPeriodsProperty,
         }
     }
 }

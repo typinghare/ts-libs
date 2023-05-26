@@ -3,7 +3,7 @@ import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-
 import { Clock, ClockController, TimeUpCallback } from '@typinghare/board-game-clock-core'
 
 export class GoYingshiClockController extends ClockController<GoYingshiPlayer> {
-    private _remainingPenalties: number = 0
+    private _penaltiesUsed: number = 0
 
     protected override initializeClock(): Clock {
         const main: number = this._player.getSetting('main').value
@@ -14,8 +14,8 @@ export class GoYingshiClockController extends ClockController<GoYingshiPlayer> {
         const initialTime: HourMinuteSecond = SlowHourMinuteSecond.ofSeconds(main)
 
         const timeUpCallback: TimeUpCallback = function(): HourMinuteSecond | undefined {
-            if (clockController._remainingPenalties < maxPenalties) {
-                clockController._remainingPenalties++
+            if (clockController._penaltiesUsed < maxPenalties) {
+                clockController._penaltiesUsed++
                 return SlowHourMinuteSecond.ofSeconds(penaltyTime)
             } else {
                 clockController._player.clockTimeUp()
@@ -24,5 +24,9 @@ export class GoYingshiClockController extends ClockController<GoYingshiPlayer> {
         }
 
         return new Clock(initialTime, timeUpCallback)
+    }
+
+    get penaltiesUsed(): number {
+        return this._penaltiesUsed
     }
 }

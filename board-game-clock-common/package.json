@@ -8,7 +8,11 @@
   "email": "jameschan312.cn@gmail.com",
   "scripts": {
     "test": "jest --verbose --coverage",
-    "publish": "npm publish --access public"
+    "publish": "npm publish --access public",
+    "test-default": "ts-node ./src/tester/DefaultTester.ts",
+    "test-go-byoyomi": "ts-node ./src/tester/GoByoyomiTester.ts",
+    "test-go-yingshi": "ts-node ./src/tester/GoYingshiTester.ts",
+    "test-chess-standard": "ts-node ./src/tester/ChessStandardTester.ts"
   },
   "keywords": [],
   "license": "MIT",
