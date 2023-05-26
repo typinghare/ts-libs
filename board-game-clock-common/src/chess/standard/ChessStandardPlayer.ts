@@ -15,11 +15,13 @@ export type StandardPlayerSettings = {
 export class ChessStandardPlayer extends Player<StandardPlayerSettings> {
     initialize(): void {
         this.addSetting('main', new BoardGameSetting(5, {
-            label: 'Main',
+            type: 'time',
+            label: 'Main Time',
             description: 'The main time in seconds',
         }))
 
         this.addSetting('timeIncrement', new BoardGameSetting(5, {
+            type: 'time',
             label: 'Time Increment',
             description: 'The time increment in seconds',
         }))

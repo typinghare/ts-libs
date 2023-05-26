@@ -13,6 +13,10 @@ export class ChessStandardClockController extends ClockController<ChessStandardP
         const initialTime = SlowHourMinuteSecond.ofSeconds(main)
         const timeUpCallback = function(): HourMinuteSecond | undefined {
             clockController._player.clockTimeUp()
+
+            // clear before pause
+            clock.beforePause = undefined
+
             return undefined
         }
 
@@ -21,12 +25,16 @@ export class ChessStandardClockController extends ClockController<ChessStandardP
             clockController._resumedTime = this.time
         }
         clock.beforePause = function(): void {
-            const currentTime: HourMinuteSecond = this.time
-            const differenceInSeconds: number
-                = (currentTime.ms - clockController._resumedTime!.ms) / HourMinuteSecond.MILLISECONDS_IN_SECOND
+            try {
+                if (clockController._resumedTime !== undefined) {
+                    const differenceInMs: number = this.time.ms - clockController._resumedTime.ms
+                    const differenceInSeconds: number = differenceInMs / HourMinuteSecond.MILLISECONDS_IN_SECOND
 
-            if (differenceInSeconds > timeIncrement) {
-                this.time.extend(timeIncrement)
+                    if (differenceInSeconds > timeIncrement) {
+                        this.time.extend(timeIncrement)
+                    }
+                }
+            } catch (ignore) {
             }
 
             clockController._resumedTime = undefined

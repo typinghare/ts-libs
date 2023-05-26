@@ -137,7 +137,7 @@ export class Clock {
      * Sets before resume call back function.
      * @param beforeResume
      */
-    set beforeResume(beforeResume: BeforeResume) {
+    set beforeResume(beforeResume: BeforeResume | undefined) {
         this._beforeResume = beforeResume
     }
 
@@ -145,7 +145,7 @@ export class Clock {
      * Sets before pause callback function.
      * @param beforePause
      */
-    set beforePause(beforePause: BeforePause) {
+    set beforePause(beforePause: BeforePause | undefined) {
         this._beforePause = beforePause
     }
 }
