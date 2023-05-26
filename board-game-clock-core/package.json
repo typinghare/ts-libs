@@ -1,6 +1,6 @@
 {
   "name": "@typinghare/board-game-clock-core",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Board game clock core.",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",

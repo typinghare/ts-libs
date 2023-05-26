@@ -5,7 +5,7 @@ import { AbstractSetting, SettingContainer, SettingMap } from '@typinghare/setti
 import { PlayerExtraPropertyProperties } from './PlayerExtraProperty'
 
 export type PlayerClass<
-    P extends Player<S, PE>,
+    P extends Player<S, PE> = Player<any, any>,
     S extends PlayerSettings = any,
     PE extends PlayerExtraProperties = PlayerExtraProperties,
     PP extends PlayerExtraPropertyProperties = any
@@ -24,8 +24,8 @@ export type ClockTimeUpCallback = (timeUpRole: Role) => void
  * @author James Chan.
  */
 export abstract class BoardGame<
-    G extends BoardGameSettings,
-    P extends Player<S, PE>,
+    G extends BoardGameSettings = BoardGameSettings,
+    P extends Player<S, PE> = Player<any, any>,
     S extends PlayerSettings = any,
     PE extends PlayerExtraProperties = PlayerExtraProperties,
     PP extends PlayerExtraPropertyProperties = any,
@@ -119,18 +119,27 @@ export abstract class BoardGame<
     }
 
     /**
+     * Stops this board game.
+     */
+    stop(): void {
+        // Pause all players' clocks.
+        for (const player of this._rolePlayerMap.values()) {
+            player.clockController.pauseClock()
+        }
+    }
+
+    /**
      * This function is invoked when one of the player's clock is time up.
      * @param role the role whose clock is time up.
      */
     clockTimeUp(role: Role): void {
-        // Records the role.
+        // Record the role.
         this._timeUpRole = role
 
-        // Stops all players' clocks.
-        for (const player of this._rolePlayerMap.values()) {
-            player.clockController.pauseClock()
-        }
+        // Stop this board game.
+        this.stop()
 
+        // Invoke callback function.
         this._clockTimeUpCallback?.(role)
     }
 

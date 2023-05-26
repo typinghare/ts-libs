@@ -1,6 +1,6 @@
 {
   "name": "@typinghare/board-game-clock-common",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "description": "Board game clock core.",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -25,6 +25,6 @@
     "ts-jest": "^29.1.0"
   },
   "dependencies": {
-    "@typinghare/board-game-clock-core": "^0.0.6"
+    "@typinghare/board-game-clock-core": "^0.0.8"
   }
 }

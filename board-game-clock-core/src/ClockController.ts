@@ -6,7 +6,7 @@ import { Player, PlayerSettings } from './Player'
  * Clock controller.
  * @author James Chan
  */
-export abstract class ClockController<P extends Player<S>, S extends PlayerSettings = any> {
+export abstract class ClockController<P extends Player<S> = Player<any>, S extends PlayerSettings = any> {
     /**
      * Player.
      * @protected
