@@ -1,22 +1,21 @@
-import { AbstractSetting, UpdateValueCallback } from './AbstractSetting'
-import { SettingPropertyMap } from './types'
+import { AbstractSetting } from './AbstractSetting'
+import { SettingProperties } from './types'
 
 /**
  * Represents a setting with additional properties.
  * @template T - The type of the setting value.
  * @template P - The type of the setting properties.
  */
-export class Setting<T, P extends SettingPropertyMap = {}> extends AbstractSetting<T> {
+export class Setting<T, P extends SettingProperties> extends AbstractSetting<T> {
     protected readonly _settingProperties: P
 
     /**
      * Creates a new instance of the Setting class.
      * @param defaultValue - The default value for the setting.
      * @param properties - Additional properties associated with the setting.
-     * @param updateValueCallback - Optional callback function to be called when the value is updated.
      */
-    constructor(defaultValue: T, properties?: P, updateValueCallback?: UpdateValueCallback<T>) {
-        super(defaultValue, updateValueCallback)
+    constructor(defaultValue: T, properties?: P) {
+        super(defaultValue)
         this._settingProperties = properties || {} as P
     }
 

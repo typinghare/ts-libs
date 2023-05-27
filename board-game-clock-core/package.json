@@ -1,6 +1,6 @@
 {
   "name": "@typinghare/board-game-clock-core",
-  "version": "0.1.2",
+  "version": "0.1.6",
   "description": "Board game clock core.",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -8,7 +8,8 @@
   "email": "jameschan312.cn@gmail.com",
   "scripts": {
     "test": "jest --verbose --coverage",
-    "publish": "npm publish --access public"
+    "publish": "npm publish --access public",
+    "test-default": "ts-node src/tool/DefaultTester.ts"
   },
   "keywords": [
     "board game",
@@ -27,7 +28,7 @@
   "dependencies": {
     "@types/keypress.js": "^2.1.1",
     "@typinghare/hour-minute-second": "^0.0.5",
-    "@typinghare/settings": "^0.0.3",
+    "@typinghare/settings": "^0.1.2",
     "keypress": "^0.2.1"
   }
 }

@@ -27,10 +27,11 @@ describe('Test general setting.', function() {
         const description = 'Description of setting.'
 
         let isCallbackInvoked = false
-        const generalSetting = new GeneralSetting<string>('Init', { label, description }, (newValue) => {
+        const generalSetting = new GeneralSetting<string>('Init', { label, description })
+        generalSetting.updateValueCallback = (newValue): string => {
             isCallbackInvoked = true
-            return "Edited: " + newValue
-        })
+            return 'Edited: ' + newValue
+        }
 
         generalSetting.value = 'Updated'
 

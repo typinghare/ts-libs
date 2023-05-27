@@ -1,41 +1,72 @@
 import { SettingContainer } from '../src/SettingContainer'
-import { AbstractSetting } from '../src/AbstractSetting'
-import { Setting } from '../src/Setting'
-import { SettingMap } from '../src/types'
 
-describe('Test Setting Container.', function() {
-    it('Test setting container implementation.', function() {
-        type SimpleSetting = {
-            name: string;
-            age: number;
+describe('Test Setting Container.', function(): void {
+    it('Test setting container implementation.', function(): void {
+        type SimpleSettings = {
+            name: string
+            age: number
         };
 
-        class SimpleSettingContainer implements SettingContainer<SimpleSetting> {
-            private _simpleSetting: SettingMap<SimpleSetting> = {} as SettingMap<SimpleSetting>
-
-            addSetting<K extends keyof SimpleSetting>(name: K, setting: AbstractSetting<SimpleSetting[K]>): void {
-                // @ts-ignore
-                this._simpleSetting[name] = setting as AbstractSetting<SimpleSetting[K]>
-            }
-
-            getSetting<K extends keyof SimpleSetting>(name: K): AbstractSetting<SimpleSetting[K]> {
-                return this._simpleSetting[name]
-            }
-
-            getSettingValue<K extends keyof SimpleSetting>(name: K): SimpleSetting[K] {
-                return this.getSetting(name).value
-            }
-
-            getSettings(): Iterable<AbstractSetting<any>> {
-                return Object.values(this._simpleSetting)
-            }
+        class SimpleSettingContainer extends SettingContainer<SimpleSettings> {
         }
 
         const simpleSettingContainer = new SimpleSettingContainer()
-        simpleSettingContainer.addSetting('name', new Setting<string>('defaultName'))
-        simpleSettingContainer.addSetting('age', new Setting<number>(20))
+        simpleSettingContainer.addSetting('name', 'defaultName')
+        simpleSettingContainer.addSetting('age', 20)
 
-        expect(simpleSettingContainer.getSettingValue('name')).toBe('defaultName')
-        expect(simpleSettingContainer.getSettingValue('age')).toBe(20)
+        expect(simpleSettingContainer.getSetting('name').value).toBe('defaultName')
+        expect(simpleSettingContainer.getSetting('age').value).toBe(20)
+    })
+
+    it('Test setting container properties.', function(): void {
+        type SimpleSettings = {
+            name: string
+            age: number
+        };
+
+        type SimpleSettingProperties = {
+            label: string,
+            type: 'text' | 'number'
+        }
+
+        class SimpleSettingContainer extends SettingContainer<SimpleSettings, SimpleSettingProperties> {
+        }
+
+        const simpleSettingContainer = new SimpleSettingContainer()
+        simpleSettingContainer.addSetting('name', 'defaultName', {
+            label: 'Name',
+            type: 'text',
+        })
+        simpleSettingContainer.addSetting('age', 20, {
+            label: 'Age',
+            type: 'number',
+        })
+
+        expect(simpleSettingContainer.getSetting('name').getProperty('label')).toBe('Name')
+        expect(simpleSettingContainer.getSetting('age').getProperty('type')).toBe('number')
+    })
+
+    it('Test get properties.', function(): void {
+        type SimpleSettings = {
+            name: string
+            age: number
+        };
+
+        class SimpleSettingContainer extends SettingContainer<SimpleSettings> {
+        }
+
+        const simpleSettingContainer = new SimpleSettingContainer()
+        simpleSettingContainer.addSetting('name', 'defaultName')
+        simpleSettingContainer.addSetting('age', 20)
+
+        const settings = simpleSettingContainer.getSettings()
+        for (const [name, setting] of Object.entries(settings)) {
+            if (name === 'name') {
+                expect(setting.value).toBe('defaultName')
+            }
+            if (name === 'age') {
+                expect(setting.value).toBe(20)
+            }
+        }
     })
 })

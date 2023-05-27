@@ -6,11 +6,9 @@ import {
     PlayerSettings,
     TwoPlayerBoardGame,
 } from '@typinghare/board-game-clock-core'
-import { CommonPlayerExtraPropertyProperties } from '../global'
+import { CommonBoardGameSettings, CommonPlayerExtraPropertyProperties } from '../global'
 
-export type GoBoardGameSettings = {
-    synchronizePlayerSettings: boolean
-}
+export type GoBoardGameSettings = CommonBoardGameSettings & {}
 
 /**
  * Game of Go.

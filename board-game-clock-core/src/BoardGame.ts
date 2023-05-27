@@ -1,8 +1,8 @@
 import { Player, PlayerExtraProperties, PlayerSettings } from './Player'
 import { Role } from './Role'
 import { RoleNotFoundException } from './exception/RoleNotFoundException'
-import { AbstractSetting, SettingContainer, SettingMap } from '@typinghare/settings'
 import { PlayerExtraPropertyProperties } from './PlayerExtraProperty'
+import { SettingContainer } from '@typinghare/settings'
 
 export type PlayerClass<
     P extends Player<PS, PE> = Player<any, any>,
@@ -29,13 +29,7 @@ export abstract class BoardGame<
     PS extends PlayerSettings = PlayerSettings,
     PE extends PlayerExtraProperties = PlayerExtraProperties,
     PP extends PlayerExtraPropertyProperties = PlayerExtraPropertyProperties,
-> implements SettingContainer<BoardGameSettings> {
-    /**
-     * Game settings.
-     * @protected
-     */
-    protected _settings: SettingMap<G> = {} as SettingMap<G>
-
+> extends SettingContainer<BoardGameSettings> {
     /**
      * Roles
      * @protected
@@ -63,7 +57,11 @@ export abstract class BoardGame<
      * @protected
      */
     protected constructor(roleArray: Role[], playerClass: PlayerClass<P>) {
+        super()
         this._roleArray = roleArray
+
+        // Initialize game.
+        this.initialize()
 
         // Initialize players.
         for (const role of roleArray) {
@@ -72,6 +70,13 @@ export abstract class BoardGame<
 
             this._rolePlayerMap.set(role, player)
         }
+    }
+
+    /**
+     * Initializes this game.
+     * @protected
+     */
+    protected initialize(): void {
     }
 
     /**
@@ -163,17 +168,5 @@ export abstract class BoardGame<
      */
     get timeUpRole(): Role | undefined {
         return this._timeUpRole
-    }
-
-    addSetting<K extends keyof G>(name: K, setting: AbstractSetting<G[K]>): void {
-        this._settings[name] = setting
-    }
-
-    getSetting<K extends keyof G>(name: K): AbstractSetting<G[K]> {
-        return this._settings[name]
-    }
-
-    getSettings(): Iterable<AbstractSetting> {
-        return Object.values(this._settings)
     }
 }

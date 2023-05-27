@@ -16,16 +16,14 @@ export abstract class AbstractSetting<T = any> {
      * This callback function will be called when the value is updated.
      * @private
      */
-    private readonly _updateValueCallback?: UpdateValueCallback<T>
+    private _updateValueCallback?: UpdateValueCallback<T>
 
     /**
      * Creates a setting.
      * @param defaultValue - The default value.
-     * @param updateValueCallback - The callback function invoked when the value is updated.
      */
-    protected constructor(defaultValue: T, updateValueCallback?: UpdateValueCallback<T>) {
+    protected constructor(defaultValue: T) {
         this._value = defaultValue
-        this._updateValueCallback = updateValueCallback
     }
 
     /**
@@ -58,5 +56,13 @@ export abstract class AbstractSetting<T = any> {
         }
 
         this._value = newValue
+    }
+
+    /**
+     * Sets update callback.
+     * @param updateCallback the callback function called when the value is updated.
+     */
+    set updateValueCallback(updateCallback: UpdateValueCallback<T>) {
+        this._updateValueCallback = updateCallback
     }
 }

@@ -1,29 +1,28 @@
-import { AbstractSetting } from './AbstractSetting'
+import { SettingContainerInterface, Settings } from './SettingContainerInterface'
+import { Setting } from './Setting'
+import { SettingMap, SettingProperties } from './types'
 
 /**
- * Represents a container for settings.
- * @template S - The type of the settings objects.
+ * @author James Chan
  */
-export interface SettingContainer<S extends Record<string, any>> {
-    /**
-     * Returns an iterable of all settings in the container.
-     * @returns Iterable of settings.
-     */
-    getSettings(): Iterable<AbstractSetting>
+export class SettingContainer<
+    S extends Settings,
+    P extends SettingProperties = SettingProperties
+> implements SettingContainerInterface<S, P> {
+    protected _settings = {} as SettingMap<S, P>
 
-    /**
-     * Returns the setting with the specified name.
-     * @param name - The name of the setting.
-     * @returns The setting object.
-     * @template K - The key of the setting in the settings object.
-     */
-    getSetting<K extends keyof S>(name: K): AbstractSetting<S[K]>
+    addSetting<K extends keyof S>(name: K, defaultValue: S[K], properties?: P): Setting<S[K], P> {
+        const setting: Setting<S[K], P> = new Setting(defaultValue, properties)
+        this._settings[name] = setting
 
-    /**
-     * Adds a new setting to the container.
-     * @param name - The name of the setting.
-     * @param setting - The setting object to add.
-     * @template K - The key of the setting in the settings object.
-     */
-    addSetting<K extends keyof S>(name: K, setting: AbstractSetting<S[K]>): void
+        return setting
+    }
+
+    getSetting<K extends keyof S>(name: K): Setting<S[K], P> {
+        return this._settings[name]
+    }
+
+    getSettings(): SettingMap<S, P> {
+        return this._settings
+    }
 }

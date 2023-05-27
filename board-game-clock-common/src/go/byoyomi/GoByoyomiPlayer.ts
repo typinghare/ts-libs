@@ -21,7 +21,7 @@ export type GoByoyomiPlayerExtraProperties = PlayerExtraProperties | {
 
 export class GoByoyomiPlayer extends Player<GoByoyomiPlayerSettings, GoByoyomiPlayerExtraProperties, CommonPlayerExtraPropertyProperties> {
     override initialize(): void {
-        this.addSetting('main', new BoardGameSetting(SlowHourMinuteSecond.ofMinutes(0.2), {
+        this.addSetting('main', new BoardGameSetting(SlowHourMinuteSecond.ofMinutes(10), {
             type: 'time',
             label: 'Main Time',
             description: 'The initial allotted time for a player to make moves without any additional constraints.',

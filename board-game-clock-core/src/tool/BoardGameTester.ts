@@ -86,7 +86,7 @@ export class BoardGameTester {
         }, Math.round(HourMinuteSecond.MILLISECONDS_IN_SECOND / this._refreshRate))
 
         // Stops interval when the game stops.
-        this._boardGame.clockTimeUpCallback = (timeUpRole) => {
+        this._boardGame.clockTimeUpCallback = (timeUpRole): void => {
             clearInterval(intervalHandle)
             this.boardGameEnd(timeUpRole)
         }
@@ -96,6 +96,8 @@ export class BoardGameTester {
     }
 
     private boardGameEnd(timeUpRole: Role): void {
+        this._boardGame.stop()
+
         process.stdin.pause()
         console.log()
         console.log(`The board game has been stopped because Player ${timeUpRole.toString()} has run out of time.`)

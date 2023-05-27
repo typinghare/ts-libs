@@ -1,9 +1,10 @@
 import { Role } from './Role'
-import { AbstractSetting, SettingContainer, SettingMap } from '@typinghare/settings'
 import { ClockController } from './ClockController'
 import { ClockControllerNotInitializedException } from './exception/ClockControllerNotInitializedException'
 import { BoardGame, BoardGameSettings } from './BoardGame'
 import { PlayerExtraProperty, PlayerExtraPropertyProperties } from './PlayerExtraProperty'
+import { SettingContainer, SettingMap } from '@typinghare/settings'
+import { BoardGameClockSettingPropertyMap, BoardGameSetting } from './BoardGameSetting'
 
 export type PlayerSettings = Record<string, any> | {}
 
@@ -20,13 +21,7 @@ export abstract class Player<
     PS extends PlayerSettings = PlayerSettings,
     PE extends PlayerExtraProperties = PlayerExtraProperties,
     PP extends PlayerExtraPropertyProperties = PlayerExtraPropertyProperties
-> implements SettingContainer<PS> {
-    /**
-     * Player settings.
-     * @protected
-     */
-    protected _settings: SettingMap<PS> = {} as SettingMap<PS>
-
+> extends SettingContainer<PS> {
     /**
      * The role of this player.
      * @protected
@@ -37,20 +32,21 @@ export abstract class Player<
      * The board game reference.
      * @protected
      */
-    protected readonly _boardGame: BoardGame<BoardGameSettings, Player<PS, PE>>
+    protected readonly _boardGame: BoardGame<BoardGameSettings, Player<PS, PE, PP>>
 
     /**
      *
      * @protected
      */
-    protected _clockController?: ClockController<Player<PS, PE>>
+    protected _clockController?: ClockController<Player<PS>>
 
     /**
      * Creates a player.
      * @param role the role of this player.
      * @param boardGame
      */
-    constructor(role: Role, boardGame: BoardGame<any, Player<PS, PE>>) {
+    constructor(role: Role, boardGame: BoardGame<any, Player<PS, PE, PP>>) {
+        super()
         this._role = role
         this._boardGame = boardGame
     }
@@ -69,7 +65,7 @@ export abstract class Player<
     /**
      * Returns clock controller.
      */
-    get clockController(): ClockController<Player<PS, PE>> {
+    get clockController(): ClockController<Player<PS>> {
         if (this._clockController === undefined) {
             throw new ClockControllerNotInitializedException()
         }
@@ -103,15 +99,19 @@ export abstract class Player<
         return null
     }
 
-    addSetting<K extends keyof PS>(name: K, setting: AbstractSetting<PS[K]>): void {
-        this._settings[name] = setting
+    override addSetting<K extends keyof PS>(
+        name: K,
+        defaultValue: PS[K],
+        properties?: BoardGameClockSettingPropertyMap<PS[K]>,
+    ): BoardGameSetting<PS[K]> {
+        return super.addSetting(name, defaultValue, properties as BoardGameClockSettingPropertyMap<PS[K]>) as BoardGameSetting<PS[K]>
     }
 
-    getSetting<K extends keyof PS>(name: K): AbstractSetting<PS[K]> {
-        return this._settings[name]
+    override getSetting<K extends keyof PS>(name: K): BoardGameSetting<PS[K]> {
+        return super.getSetting(name) as BoardGameSetting<PS[K]>
     }
 
-    getSettings(): Iterable<AbstractSetting> {
-        return Object.values(this._settings)
+    override getSettings(): SettingMap<PS, BoardGameClockSettingPropertyMap<any>> {
+        return super.getSettings() as SettingMap<PS, BoardGameClockSettingPropertyMap<any>>
     }
 }
