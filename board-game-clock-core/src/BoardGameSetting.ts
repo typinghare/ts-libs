@@ -1,6 +1,6 @@
 import { Setting } from '@typinghare/settings'
 
-export type BoardGameClockSettingPropertyMap = {
+export type BoardGameClockSettingPropertyMap<T> = {
     // The type of this setting.
     type: 'time' | 'text' | 'bool' | 'number',
 
@@ -11,7 +11,7 @@ export type BoardGameClockSettingPropertyMap = {
     description: string,
 
     // The options for the values of this setting.
-    options?: string[]
+    options?: T[]
 }
 
 /**
@@ -21,5 +21,5 @@ export type BoardGameClockSettingPropertyMap = {
  * @see BoardGame
  * @see Player
  */
-export class BoardGameSetting<T> extends Setting<T, BoardGameClockSettingPropertyMap> {
+export class BoardGameSetting<T> extends Setting<T, BoardGameClockSettingPropertyMap<T>> {
 }

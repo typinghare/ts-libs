@@ -1,5 +1,5 @@
 import { DefaultPlayer } from './DefaultPlayer'
-import { BoardGame, Role } from '../main'
+import { TwoPlayerBoardGame } from '../main'
 
 export type DefaultBoardGameSettings = {}
 
@@ -7,8 +7,8 @@ export type DefaultBoardGameSettings = {}
  * Two-player board game.
  * @author James Chan
  */
-export class DefaultBoardGame extends BoardGame<DefaultBoardGameSettings, DefaultPlayer> {
+export class DefaultBoardGame extends TwoPlayerBoardGame<DefaultBoardGameSettings, DefaultPlayer> {
     constructor() {
-        super([new Role('A'), new Role('B')], DefaultPlayer)
+        super(DefaultPlayer)
     }
 }

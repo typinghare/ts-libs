@@ -1,16 +1,15 @@
 import { ChessStandardPlayer } from './ChessStandardPlayer'
-import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
+import { HourMinuteSecond } from '@typinghare/hour-minute-second'
 import { Clock, ClockController } from '@typinghare/board-game-clock-core'
 
 export class ChessStandardClockController extends ClockController<ChessStandardPlayer> {
     private _resumedTime?: HourMinuteSecond
 
     protected override initializeClock(): Clock {
-        const main: number = this._player.getSetting('main').value
-        const timeIncrement: number = this._player.getSetting('timeIncrement').value
+        const main: HourMinuteSecond = this._player.getSetting('main').value
+        const timeIncrement: HourMinuteSecond = this._player.getSetting('timeIncrement').value
 
         const clockController = this
-        const initialTime = SlowHourMinuteSecond.ofSeconds(main)
         const timeUpCallback = function(): HourMinuteSecond | undefined {
             clockController._player.clockTimeUp()
 
@@ -20,7 +19,7 @@ export class ChessStandardClockController extends ClockController<ChessStandardP
             return undefined
         }
 
-        const clock = new Clock(initialTime, timeUpCallback)
+        const clock = new Clock(main, timeUpCallback)
         clock.beforeResume = function(): void {
             clockController._resumedTime = this.time
         }
@@ -28,9 +27,7 @@ export class ChessStandardClockController extends ClockController<ChessStandardP
             try {
                 if (clockController._resumedTime !== undefined) {
                     const differenceInMs: number = this.time.ms - clockController._resumedTime.ms
-                    const differenceInSeconds: number = differenceInMs / HourMinuteSecond.MILLISECONDS_IN_SECOND
-
-                    if (differenceInSeconds > timeIncrement) {
+                    if (differenceInMs > timeIncrement.second * HourMinuteSecond.MILLISECONDS_IN_SECOND) {
                         this.time.extend(timeIncrement)
                     }
                 }

@@ -5,13 +5,13 @@ import { AbstractSetting, SettingContainer, SettingMap } from '@typinghare/setti
 import { PlayerExtraPropertyProperties } from './PlayerExtraProperty'
 
 export type PlayerClass<
-    P extends Player<S, PE> = Player<any, any>,
-    S extends PlayerSettings = any,
+    P extends Player<PS, PE> = Player<any, any>,
+    PS extends PlayerSettings = PlayerSettings,
     PE extends PlayerExtraProperties = PlayerExtraProperties,
-    PP extends PlayerExtraPropertyProperties = any
-> = new (role: Role, boardGame: BoardGame<any, P, S, PE, PP>) => P;
+    PP extends PlayerExtraPropertyProperties = PlayerExtraPropertyProperties
+> = new (role: Role, boardGame: BoardGame<any, P, PS, PE, PP>) => P;
 
-export type BoardGameSettings = Record<string, any>
+export type BoardGameSettings = Record<string, any> | {}
 
 export type ClockTimeUpCallback = (timeUpRole: Role) => void
 
@@ -24,11 +24,11 @@ export type ClockTimeUpCallback = (timeUpRole: Role) => void
  * @author James Chan.
  */
 export abstract class BoardGame<
-    G extends BoardGameSettings = BoardGameSettings,
-    P extends Player<S, PE> = Player<any, any>,
-    S extends PlayerSettings = any,
+    G extends BoardGameSettings,
+    P extends Player<PS, PE>,
+    PS extends PlayerSettings = PlayerSettings,
     PE extends PlayerExtraProperties = PlayerExtraProperties,
-    PP extends PlayerExtraPropertyProperties = any,
+    PP extends PlayerExtraPropertyProperties = PlayerExtraPropertyProperties,
 > implements SettingContainer<BoardGameSettings> {
     /**
      * Game settings.
@@ -52,7 +52,7 @@ export abstract class BoardGame<
      * The role whose clock is time up.
      * @protected
      */
-    protected _timeUpRole?: Role
+    private _timeUpRole?: Role
 
     private _clockTimeUpCallback?: ClockTimeUpCallback
 
@@ -151,11 +151,25 @@ export abstract class BoardGame<
         this._clockTimeUpCallback = timeUpCallback
     }
 
-    addSetting<K extends keyof BoardGameSettings>(name: K, setting: AbstractSetting<BoardGameSettings[K]>): void {
+    /**
+     * Whether this board game has stopped.
+     */
+    hasStopped(): boolean {
+        return this._timeUpRole !== undefined
+    }
+
+    /**
+     * Returns time up role.
+     */
+    get timeUpRole(): Role | undefined {
+        return this._timeUpRole
+    }
+
+    addSetting<K extends keyof G>(name: K, setting: AbstractSetting<G[K]>): void {
         this._settings[name] = setting
     }
 
-    getSetting<K extends keyof BoardGameSettings>(name: K): AbstractSetting<BoardGameSettings[K]> {
+    getSetting<K extends keyof G>(name: K): AbstractSetting<G[K]> {
         return this._settings[name]
     }
 

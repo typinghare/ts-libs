@@ -104,10 +104,10 @@ export class Clock {
         this._beforeResume?.call(this)
 
         this._updatedTimestamp = new Date().getTime()
-        this._timeoutHandle = setTimeout(() => {
+        this._timeoutHandle = setTimeout((): void => {
             this.pause()
             const newTime: HourMinuteSecond | undefined = this._timeUpCallback.call(this)
-            if (newTime) {
+            if (newTime !== undefined) {
                 this.time = newTime
                 this.resume()
             }

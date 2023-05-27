@@ -1,10 +1,5 @@
 export * from './global'
 
-// Default
-export * from './default/DefaultBoardGame'
-export * from './default/DefaultPlayer'
-export * from './default/DefaultClockController'
-
 // Go
 export * from './go/GoBoardGame'
 export * from './go/byoyomi/GoByoyomiPlayer'

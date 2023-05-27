@@ -9,12 +9,12 @@ import { PlayerExtraPropertyProperties } from '../PlayerExtraProperty'
  */
 export class TwoPlayerBoardGame<
     G extends BoardGameSettings,
-    P extends Player<S, PE, PP>,
-    S extends PlayerSettings = any,
+    P extends Player<PS, PE, PP>,
+    PS extends PlayerSettings = PlayerSettings,
     PE extends PlayerExtraProperties = PlayerExtraProperties,
-    PP extends PlayerExtraPropertyProperties = any,
-> extends BoardGame<G, P, S, PE, PP> {
-    constructor(playerClass: PlayerClass<P, S, PE, PP>) {
+    PP extends PlayerExtraPropertyProperties = PlayerExtraPropertyProperties,
+> extends BoardGame<G, P, PS, PE, PP> {
+    constructor(playerClass: PlayerClass<P, PS, PE, PP>) {
         super([new Role('A'), new Role('B')], playerClass)
     }
 }

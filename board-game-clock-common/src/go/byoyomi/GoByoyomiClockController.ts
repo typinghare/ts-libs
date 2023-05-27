@@ -1,5 +1,5 @@
 import { GoByoyomiPlayer } from './GoByoyomiPlayer'
-import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
+import { HourMinuteSecond } from '@typinghare/hour-minute-second'
 import { Clock, ClockController, TimeUpCallback } from '@typinghare/board-game-clock-core'
 
 export class GoByoyomiClockController extends ClockController<GoByoyomiPlayer> {
@@ -16,29 +16,29 @@ export class GoByoyomiClockController extends ClockController<GoByoyomiPlayer> {
     private _isEnterByoyomi: boolean = false
 
     protected override initializeClock(): Clock {
-        const main: number = this._player.getSetting('main').value
-        const timePerPeriod: number = this._player.getSetting('timePerPeriod').value
+        const main: HourMinuteSecond = this._player.getSetting('main').value
+        const timePerPeriod: HourMinuteSecond = this._player.getSetting('timePerPeriod').value
         this._remainingPeriods = this._player.getSetting('periods').value
 
         const clockController = this
-        const initialTime: HourMinuteSecond = SlowHourMinuteSecond.ofSeconds(main)
 
         const timeUpCallback: TimeUpCallback = function(): HourMinuteSecond | undefined {
             clockController._isEnterByoyomi = true
 
             if (clockController._remainingPeriods! > 1) {
                 clockController._remainingPeriods!--
-                return SlowHourMinuteSecond.ofSeconds(timePerPeriod)
+                return timePerPeriod
             } else {
                 clockController._player.clockTimeUp()
                 return undefined
             }
         }
 
-        const clock = new Clock(initialTime, timeUpCallback)
+        const clock = new Clock(main, timeUpCallback)
         clock.beforeResume = function(): void {
-            if (clockController._isEnterByoyomi) {
-                this.time = SlowHourMinuteSecond.ofSeconds(timePerPeriod)
+            // Reset period.
+            if (clockController._isEnterByoyomi && this.time.ms !== timePerPeriod.ms) {
+                this.time = timePerPeriod
             }
         }
 

@@ -3,7 +3,7 @@
  * @author James Chan
  */
 export class Role {
-    private readonly _label: string
+    protected readonly _label: string
 
     constructor(label: string) {
         this._label = label

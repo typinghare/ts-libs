@@ -1,5 +1,5 @@
 import { DefaultPlayer } from './DefaultPlayer'
-import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
+import { HourMinuteSecond } from '@typinghare/hour-minute-second'
 import { Clock, ClockController, TimeUpCallback } from '../main'
 
 /**
@@ -7,13 +7,12 @@ import { Clock, ClockController, TimeUpCallback } from '../main'
  */
 export class DefaultClockController extends ClockController<DefaultPlayer> {
     protected override initializeClock(): Clock {
-        const main: number = this._player.getSetting('main').value
-        const initialTime: HourMinuteSecond = SlowHourMinuteSecond.ofSeconds(main)
+        const main: HourMinuteSecond = this._player.getSetting('main').value
         const timeUpCallback: TimeUpCallback = (): HourMinuteSecond | undefined => {
             this._player.clockTimeUp()
             return undefined
         }
 
-        return new Clock(initialTime, timeUpCallback)
+        return new Clock(main, timeUpCallback)
     }
 }
