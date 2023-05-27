@@ -2,7 +2,8 @@ import { Player, PlayerExtraProperties, PlayerSettings } from './Player'
 import { Role } from './Role'
 import { RoleNotFoundException } from './exception/RoleNotFoundException'
 import { PlayerExtraPropertyProperties } from './PlayerExtraProperty'
-import { SettingContainer } from '@typinghare/settings'
+import { SettingContainer, SettingMap } from '@typinghare/settings'
+import { BoardGameClockSettingPropertyMap, BoardGameSetting } from './BoardGameSetting'
 
 export type PlayerClass<
     P extends Player<PS, PE> = Player<any, any>,
@@ -11,7 +12,7 @@ export type PlayerClass<
     PP extends PlayerExtraPropertyProperties = PlayerExtraPropertyProperties
 > = new (role: Role, boardGame: BoardGame<any, P, PS, PE, PP>) => P;
 
-export type BoardGameSettings = Record<string, any> | {}
+export type BoardGameSettings = Record<string, any>
 
 export type ClockTimeUpCallback = (timeUpRole: Role) => void
 
@@ -168,5 +169,21 @@ export abstract class BoardGame<
      */
     get timeUpRole(): Role | undefined {
         return this._timeUpRole
+    }
+
+    override addSetting<K extends keyof G>(
+        name: K,
+        defaultValue: G[K],
+        properties?: BoardGameClockSettingPropertyMap<G[K]>,
+    ): BoardGameSetting<G[K]> {
+        return super.addSetting(name.toString(), defaultValue, properties as BoardGameClockSettingPropertyMap<G[K]>) as BoardGameSetting<G[K]>
+    }
+
+    override getSetting<K extends keyof G>(name: K): BoardGameSetting<G[K]> {
+        return super.getSetting(name.toString()) as BoardGameSetting<G[K]>
+    }
+
+    override getSettings(): SettingMap<G> {
+        return super.getSettings() as SettingMap<G>
     }
 }

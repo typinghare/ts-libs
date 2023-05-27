@@ -1,12 +1,7 @@
 import { GoByoyomiClockController } from './GoByoyomiClockController'
-import {
-    BoardGameSetting,
-    Player,
-    PlayerExtraProperties,
-    PlayerExtraPropertiesMap,
-} from '@typinghare/board-game-clock-core'
+import { Player, PlayerExtraProperties, PlayerExtraPropertiesMap } from '@typinghare/board-game-clock-core'
 import { CommonPlayerExtraPropertyProperties } from '../../global'
-import { PlayerExtraProperty } from '@typinghare/board-game-clock-core/dist/PlayerExtraProperty'
+import { PlayerExtraProperty } from '@typinghare/board-game-clock-core'
 import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
 
 export type GoByoyomiPlayerSettings = {
@@ -21,7 +16,7 @@ export type GoByoyomiPlayerExtraProperties = PlayerExtraProperties | {
 
 export class GoByoyomiPlayer extends Player<GoByoyomiPlayerSettings, GoByoyomiPlayerExtraProperties, CommonPlayerExtraPropertyProperties> {
     override initialize(): void {
-        this.addSetting('main', new BoardGameSetting(SlowHourMinuteSecond.ofMinutes(10), {
+        this.addSetting('main', SlowHourMinuteSecond.ofMinutes(10), {
             type: 'time',
             label: 'Main Time',
             description: 'The initial allotted time for a player to make moves without any additional constraints.',
@@ -32,9 +27,9 @@ export class GoByoyomiPlayer extends Player<GoByoyomiPlayerSettings, GoByoyomiPl
                 SlowHourMinuteSecond.ofMinutes(60),
                 SlowHourMinuteSecond.ofMinutes(90),
             ],
-        }))
+        })
 
-        this.addSetting('timePerPeriod', new BoardGameSetting(SlowHourMinuteSecond.ofSeconds(30), {
+        this.addSetting('timePerPeriod', SlowHourMinuteSecond.ofSeconds(30), {
             type: 'time',
             label: 'Time/Period',
             description: 'The time given for each subsequent phase after the main time runs out is reduced by one ' +
@@ -45,14 +40,14 @@ export class GoByoyomiPlayer extends Player<GoByoyomiPlayerSettings, GoByoyomiPl
                 SlowHourMinuteSecond.ofSeconds(40),
                 SlowHourMinuteSecond.ofSeconds(60),
             ],
-        }))
+        })
 
-        this.addSetting('periods', new BoardGameSetting(3, {
+        this.addSetting('periods', 3, {
             type: 'number',
             label: 'Periods',
             description: 'The number of periods. The clock will stop running when all the periods have been used up or consumed.',
             options: [1, 3, 5, 10],
-        }))
+        })
     }
 
     override initializeClockController(): void {

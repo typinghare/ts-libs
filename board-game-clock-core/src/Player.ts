@@ -6,7 +6,7 @@ import { PlayerExtraProperty, PlayerExtraPropertyProperties } from './PlayerExtr
 import { SettingContainer, SettingMap } from '@typinghare/settings'
 import { BoardGameClockSettingPropertyMap, BoardGameSetting } from './BoardGameSetting'
 
-export type PlayerSettings = Record<string, any> | {}
+export type PlayerSettings = Record<string, any>
 
 export type PlayerExtraProperties = Record<string, any> | {}
 

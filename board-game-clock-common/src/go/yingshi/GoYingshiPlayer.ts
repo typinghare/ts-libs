@@ -1,12 +1,11 @@
 import { GoYingshiClockController } from './GoYingshiClockController'
 import {
-    BoardGameSetting,
     Player,
     PlayerExtraProperties,
     PlayerExtraPropertiesMap,
+    PlayerExtraProperty,
 } from '@typinghare/board-game-clock-core'
 import { CommonPlayerExtraPropertyProperties } from '../../global'
-import { PlayerExtraProperty } from '@typinghare/board-game-clock-core/dist/PlayerExtraProperty'
 import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
 
 export type GoYingshiPlayerSettings = {
@@ -24,7 +23,7 @@ export type GoYingshiPlayerExtraProperties = PlayerExtraProperties | {
  */
 export class GoYingshiPlayer extends Player<GoYingshiPlayerSettings, GoYingshiPlayerExtraProperties, CommonPlayerExtraPropertyProperties> {
     override initialize(): void {
-        this.addSetting('main', new BoardGameSetting(SlowHourMinuteSecond.ofMinutes(30), {
+        this.addSetting('main', SlowHourMinuteSecond.ofMinutes(30), {
             type: 'time',
             label: 'Main Time',
             description: 'The initial allotted time for a player to make moves without any additional constraints.',
@@ -33,9 +32,9 @@ export class GoYingshiPlayer extends Player<GoYingshiPlayerSettings, GoYingshiPl
                 SlowHourMinuteSecond.ofMinutes(60),
                 SlowHourMinuteSecond.ofMinutes(90),
             ],
-        }))
+        })
 
-        this.addSetting('penaltyTime', new BoardGameSetting(SlowHourMinuteSecond.ofMinutes(20), {
+        this.addSetting('penaltyTime', SlowHourMinuteSecond.ofMinutes(20), {
             type: 'time',
             label: 'Penalty Time',
             description: 'The time of one penalty. Once the main time has elapsed, penalty time will be activated and used.',
@@ -44,14 +43,15 @@ export class GoYingshiPlayer extends Player<GoYingshiPlayerSettings, GoYingshiPl
                 SlowHourMinuteSecond.ofMinutes(30),
                 SlowHourMinuteSecond.ofMinutes(40),
             ],
-        }))
+        })
 
-        this.addSetting('maxPenalties', new BoardGameSetting(2, {
+        this.addSetting('maxPenalties', 2, {
             type: 'number',
             label: 'Max Penalties',
             description: 'The maximum number of penalties. The clock of a player stops when they have reached the ' +
                 'maximum number of penalties.',
-        }))
+            options: [1, 2, 3],
+        })
     }
 
     override initializeClockController(): void {

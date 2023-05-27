@@ -1,5 +1,5 @@
 import { ChessStandardClockController } from './ChessStandardClockController'
-import { BoardGameSetting, Player } from '@typinghare/board-game-clock-core'
+import { Player } from '@typinghare/board-game-clock-core'
 import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
 
 export type StandardPlayerSettings = {
@@ -15,7 +15,7 @@ export type StandardPlayerSettings = {
  */
 export class ChessStandardPlayer extends Player<StandardPlayerSettings> {
     initialize(): void {
-        this.addSetting('main', new BoardGameSetting(SlowHourMinuteSecond.ofMinutes(30), {
+        this.addSetting('main', SlowHourMinuteSecond.ofMinutes(30), {
             type: 'time',
             label: 'Main Time',
             description: 'The initial allotted time a player has to make their moves in a chess game without any ' +
@@ -26,9 +26,9 @@ export class ChessStandardPlayer extends Player<StandardPlayerSettings> {
                 SlowHourMinuteSecond.ofMinutes(60),
                 SlowHourMinuteSecond.ofMinutes(90),
             ],
-        }))
+        })
 
-        this.addSetting('timeIncrement', new BoardGameSetting(SlowHourMinuteSecond.ofSeconds(20), {
+        this.addSetting('timeIncrement', SlowHourMinuteSecond.ofSeconds(20), {
             type: 'time',
             label: 'Time Increment',
             description: 'An additional amount of time added to a player\'s clock after each move. It provides a ' +
@@ -39,7 +39,7 @@ export class ChessStandardPlayer extends Player<StandardPlayerSettings> {
                 SlowHourMinuteSecond.ofSeconds(30),
                 SlowHourMinuteSecond.ofSeconds(40),
             ],
-        }))
+        })
     }
 
     initializeClockController(): void {
