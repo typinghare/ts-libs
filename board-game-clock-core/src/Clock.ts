@@ -17,7 +17,8 @@ export type BeforeResume = (this: Clock) => void
 export type BeforePause = (this: Clock) => void
 
 /**
- * Game clock. The time will be updated when being retrieved.
+ * Game clock. The time will be updated when being retrieved. When the time runs out, the clock will stop and invoke
+ * the time up callback function.
  * @author James Chan
  */
 export class Clock {
@@ -74,6 +75,13 @@ export class Clock {
         this.updateTime()
 
         return this._time.clone()
+    }
+
+    /**
+     * Returns the prototype time.
+     */
+    get prototypeTime(): HourMinuteSecond {
+        return this._time
     }
 
     /**

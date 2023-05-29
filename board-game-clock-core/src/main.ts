@@ -1,3 +1,4 @@
+// main classes
 export * from './Clock'
 export * from './ClockController'
 export * from './Game'
@@ -19,3 +20,15 @@ export * from './game/go/GoYingshi'
 // 2. chess
 export * from './game/chess/ChessGame'
 export * from './game/chess/ChessStandard'
+
+// simulator
+export * from './simulator/DefaultGameSimulator'
+export * from './simulator/ChessStandardSimulator'
+export * from './simulator/GoByoyomiSimulator'
+export * from './simulator/GoYingshiSimulator'
+
+// stereotype
+export * from './stereotype/TwoPlayerGame'
+
+// tool
+export * from './tool/GameSimulator'

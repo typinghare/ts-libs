@@ -1,7 +1,7 @@
-import { Game } from '../../Game'
 import { PlayerAttributeProperties, PlayerAttributes, TimeControlSettings } from '../../types'
 import { TimeControl } from '../../TimeControl'
 import { Player } from '../../Player'
+import { TwoPlayerGame } from '../../stereotype/TwoPlayerGame'
 
 export type GoGameSettings = {
     sync: boolean
@@ -13,7 +13,7 @@ export class GoGame<
     TS extends TimeControlSettings = any,
     PA extends PlayerAttributes = any,
     PP extends PlayerAttributeProperties = any,
-> extends Game<GoGameSettings, T, P, TS, PA, PP> {
+> extends TwoPlayerGame<GoGameSettings, T, P, TS, PA, PP> {
     protected override initializeSettings(): void {
         this.settings.addSetting('sync', true, {
             type: 'bool',

@@ -6,7 +6,11 @@ import { ClockController } from './ClockController'
 import { ClockControllerNotInitializedException } from './exception/ClockControllerNotInitializedException'
 
 /**
- * Board game player.
+ * Abstract board game player.
+ * @param <T> - Time control settings.
+ * @param <TS> - Time control settings.
+ * @param <PA> - Player attributes.
+ * @param <PP> - Player attributes properties.
  * @author James Chan
  */
 export abstract class Player<

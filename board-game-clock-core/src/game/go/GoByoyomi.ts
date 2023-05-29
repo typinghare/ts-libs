@@ -58,7 +58,7 @@ export class GoByoyomiPlayer extends Player<GoByoyomiTimeControl, GoByoyomiTimeC
 
     protected override updateAttributes(): void {
         const remainingPeriods: number = (this.clockController as GoByoyomiClockController).remainingPeriods!
-        this.attributes.addSetting('remainingPeriods', remainingPeriods)
+        this._attributes.addSetting('remainingPeriods', remainingPeriods, { label: 'Remaining Periods' })
     }
 }
 

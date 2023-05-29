@@ -1,6 +1,11 @@
 import { SettingContainer } from '@typinghare/settings'
 import { GameSettingProperties, TimeControlSettings } from './types'
 
+/**
+ * Abstract time control.
+ * @param <TS> - Time control settings.
+ * @author James Chan
+ */
 export abstract class TimeControl<
     TS extends TimeControlSettings
 > {

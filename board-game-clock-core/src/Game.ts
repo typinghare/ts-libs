@@ -18,8 +18,16 @@ export enum GameStatus {
     PENDING, STARTED, STOPPED
 }
 
+// noinspection TypeScriptAbstractClassConstructorCanBeMadeProtected
 /**
  * Abstract board game. We simplify "board game" to "game" in this library because "board game" is too long.
+ * @param <G> - Game settings.
+ * @param <T> - Time control settings.
+ * @param <P> - Player.
+ * @param <TS> - Time control settings.
+ * @param <PA> - Player attributes.
+ * @param <PP> - Player attributes properties.
+ * @author James Chan
  */
 export abstract class Game<
     G extends GameSettings,
@@ -72,7 +80,7 @@ export abstract class Game<
      * @param playerClass - Mapping of roles to players.
      * @protected
      */
-    protected constructor(roleArray: Role[], timeControlClass: TimeControlClass<T>, playerClass: PlayerClass<T, P>) {
+    public constructor(roleArray: Role[], timeControlClass: TimeControlClass<T>, playerClass: PlayerClass<T, P>) {
         this._roleArray = roleArray
 
         // Initialize players.

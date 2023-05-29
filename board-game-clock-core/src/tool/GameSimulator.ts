@@ -13,7 +13,7 @@ export class GameClockSimulator {
      * Default refresh rate.
      * @private
      */
-    private static DEFAULT_REFRESH_RATE: number = 1
+    private static DEFAULT_REFRESH_RATE: number = 20
 
     /**
      * The game.

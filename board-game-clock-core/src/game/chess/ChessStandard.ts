@@ -12,7 +12,9 @@ export type ChessStandardTimeControlSettings = {
     timeIncrement: HourMinuteSecond
 }
 
-export type ChessStandardPlayerAttributes = {}
+export type ChessStandardPlayerAttributes = {
+    timeUsed: number
+}
 
 /**
  * Chess standard time control.
@@ -56,15 +58,24 @@ export class ChessStandardPlayer extends Player<
     protected override createClockController(): ChessStandardClockController {
         return new ChessStandardClockController(this)
     }
+
+    protected override updateAttributes(): void {
+        const usedTimeInRound = (this.clockController as ChessStandardClockController).usedTimeInRound
+        this._attributes.addSetting('timeUsed', usedTimeInRound, {
+            label: 'Used Time',
+        })
+    }
 }
 
 export class ChessStandardClockController extends ClockController<ChessStandardTimeControlSettings> {
     private _resumedTime?: HourMinuteSecond
 
+    private _timeIncrement?: HourMinuteSecond
+
     protected override initializeClock(): Clock {
         const settings = this._timeControl.settings
         const main: HourMinuteSecond = settings.getSetting('main').value
-        const timeIncrement: HourMinuteSecond = settings.getSetting('timeIncrement').value
+        this._timeIncrement = settings.getSetting('timeIncrement').value
 
         const clockController = this
         const timeUpCallback = function(): HourMinuteSecond | undefined {
@@ -82,11 +93,9 @@ export class ChessStandardClockController extends ClockController<ChessStandardT
         }
         clock.beforePause = function(): void {
             try {
-                if (clockController._resumedTime !== undefined) {
-                    const differenceInMs: number = this.time.ms - clockController._resumedTime.ms
-                    if (differenceInMs > timeIncrement.second * HourMinuteSecond.MILLISECONDS_IN_SECOND) {
-                        this.time.extend(timeIncrement)
-                    }
+                const differenceInMs: number = clockController._resumedTime!.ms - this.time.ms
+                if (differenceInMs > clockController._timeIncrement!.ms) {
+                    this.prototypeTime.extend(clockController._timeIncrement!)
                 }
             } catch (ignore) {
             }
@@ -95,5 +104,15 @@ export class ChessStandardClockController extends ClockController<ChessStandardT
         }
 
         return clock
+    }
+
+    /**
+     * Used time in seconds in this round.
+     */
+    get usedTimeInRound(): number {
+        if (this._resumedTime === undefined) return 0
+
+        const currentTime = this._clock.time.ms
+        return Math.floor((this._resumedTime.ms - currentTime) / HourMinuteSecond.MILLISECONDS_IN_SECOND)
     }
 }

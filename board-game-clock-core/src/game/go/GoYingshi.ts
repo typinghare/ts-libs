@@ -55,7 +55,7 @@ export class GoYingshiPlayer extends Player<GoYingshiTimeControl, GoYingshiTimeC
 
     protected override updateAttributes(): void {
         const remainingPeriods: number = (this.clockController as GoYingshiClockController).penaltiesUsed!
-        this.attributes.addSetting('penaltiesUsed', remainingPeriods)
+        this._attributes.addSetting('penaltiesUsed', remainingPeriods, { label: 'Penalties Used' })
     }
 }
 

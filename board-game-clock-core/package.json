@@ -7,13 +7,15 @@
   "author": "James Chan",
   "email": "jameschan312.cn@gmail.com",
   "scripts": {
-    "test": "jest --verbose --coverage",
-    "publish": "npm publish --access public",
-    "test-default": "ts-node src/simulator/DefaultGameSimulator.ts"
+    "simulate-default": "ts-node src/simulator/DefaultGameSimulator.ts",
+    "simulate-chess-standard": "ts-node src/simulator/ChessStandardSimulator.ts",
+    "simulate-go-byoyomi": "ts-node src/simulator/GoByoyomiSimulator.ts",
+    "simulate-go-yingshi": "ts-node src/simulator/GoYingshiSimulator.ts"
   },
   "keywords": [
     "board game",
-    "Chess",
+    "time control",
+    "chess",
     "Go"
   ],
   "license": "MIT",
