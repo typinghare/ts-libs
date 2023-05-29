@@ -1,4 +1,4 @@
-import { Role } from '../Role'
+import { Role } from '../types'
 
 export class RoleNotFoundException extends Error {
     constructor(role: Role) {

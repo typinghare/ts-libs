@@ -1,17 +1,27 @@
 import { Clock } from './Clock'
 import { HourMinuteSecond } from '@typinghare/hour-minute-second'
-import { Player, PlayerSettings } from './Player'
+import { TimeControlSettings } from './types'
+import { TimeControl } from './TimeControl'
+import { Player } from './Player'
 
 /**
  * Clock controller.
  * @author James Chan
  */
-export abstract class ClockController<P extends Player<S> = Player<any>, S extends PlayerSettings = any> {
+export abstract class ClockController<
+    TS extends TimeControlSettings
+> {
     /**
-     * Player.
+     * The player creating this clock controller.
      * @protected
      */
-    protected readonly _player: P
+    protected readonly _player: Player
+
+    /**
+     * Time control.
+     * @protected
+     */
+    protected readonly _timeControl: TimeControl<TS>
 
     /**
      * Clock.
@@ -21,12 +31,19 @@ export abstract class ClockController<P extends Player<S> = Player<any>, S exten
 
     /**
      * Creates a clock controller.
-     * @param player
+     * @param player - The player creating this clock controller.
      */
-    constructor(player: P) {
+    public constructor(player: Player) {
         this._player = player
+        this._timeControl = player.timeControl
         this._clock = this.initializeClock()
     }
+
+    /**
+     * Initializes a clock.
+     * @protected
+     */
+    protected abstract initializeClock(): Clock;
 
     /**
      * Whether the clock is running.
@@ -59,10 +76,4 @@ export abstract class ClockController<P extends Player<S> = Player<any>, S exten
     get clockTime(): HourMinuteSecond {
         return this._clock.time
     }
-
-    /**
-     * Initializes a clock.
-     * @protected
-     */
-    protected abstract initializeClock(): Clock;
 }

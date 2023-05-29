@@ -6,8 +6,14 @@ import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-
  */
 export type TimeUpCallback = (this: Clock) => HourMinuteSecond | undefined
 
+/**
+ * A callback function being invoked before the clock is resume.
+ */
 export type BeforeResume = (this: Clock) => void
 
+/**
+ * A callback function being invoked after the clock is paused.
+ */
 export type BeforePause = (this: Clock) => void
 
 /**

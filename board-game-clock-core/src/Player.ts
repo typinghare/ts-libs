@@ -1,27 +1,26 @@
-import { Role } from './Role'
+import { SettingContainer } from '@typinghare/settings'
+import { PlayerAttributeProperties, PlayerAttributes, Role, TimeControlSettings } from './types'
+import { Game } from './Game'
+import { TimeControl } from './TimeControl'
 import { ClockController } from './ClockController'
 import { ClockControllerNotInitializedException } from './exception/ClockControllerNotInitializedException'
-import { BoardGame, BoardGameSettings } from './BoardGame'
-import { PlayerExtraProperty, PlayerExtraPropertyProperties } from './PlayerExtraProperty'
-import { SettingContainer, SettingMap } from '@typinghare/settings'
-import { BoardGameClockSettingPropertyMap, BoardGameSetting } from './BoardGameSetting'
-
-export type PlayerSettings = Record<string, any>
-
-export type PlayerExtraProperties = Record<string, any> | {}
-
-export type PlayerExtraPropertiesMap<PE extends PlayerExtraProperties, PP extends PlayerExtraPropertyProperties> = {
-    [K in keyof PE]: PlayerExtraProperty<PE[K], PP>
-}
 
 /**
+ * Board game player.
  * @author James Chan
  */
 export abstract class Player<
-    PS extends PlayerSettings = PlayerSettings,
-    PE extends PlayerExtraProperties = PlayerExtraProperties,
-    PP extends PlayerExtraPropertyProperties = PlayerExtraPropertyProperties
-> extends SettingContainer<PS> {
+    T extends TimeControl<TS> = any,
+    TS extends TimeControlSettings = any,
+    PA extends PlayerAttributes = any,
+    PP extends PlayerAttributeProperties = any,
+> {
+    /**
+     * Player attributes.
+     * @private
+     */
+    protected readonly _attributes = new SettingContainer<PA, PP>()
+
     /**
      * The role of this player.
      * @protected
@@ -29,43 +28,77 @@ export abstract class Player<
     protected readonly _role: Role
 
     /**
-     * The board game reference.
+     * The game creating this player.
      * @protected
      */
-    protected readonly _boardGame: BoardGame<BoardGameSettings, Player<PS, PE, PP>>
+    protected readonly _game: Game<any, T, Player<T, TS, PA, PP>>
 
     /**
-     *
+     * Time control.
      * @protected
      */
-    protected _clockController?: ClockController<Player<PS>>
+    protected readonly _timeControl: T
+
+    /**
+     * Clock controller.
+     * @protected
+     */
+    protected _clockController?: ClockController<TS>
 
     /**
      * Creates a player.
-     * @param role the role of this player.
-     * @param boardGame
+     * @param role - The role of this player.
+     * @param game - The game creating this player.
+     * @param timeControl
      */
-    constructor(role: Role, boardGame: BoardGame<any, Player<PS, PE, PP>>) {
-        super()
+    public constructor(role: Role, game: Game<any, T, Player<T, TS, PA, PP>>, timeControl: T) {
         this._role = role
-        this._boardGame = boardGame
+        this._game = game
+        this._timeControl = timeControl
     }
 
     /**
-     * Initialize the settings of this player.
+     * Creates a controller.
      * @protected
      */
-    abstract initialize(): void
+    protected abstract createClockController(): ClockController<TS>;
 
     /**
-     * Initialize the clock controller of this player.
+     * Updates attributes.
+     * @protected
      */
-    abstract initializeClockController(): void
+    protected updateAttributes(): void {
+    }
 
     /**
-     * Returns clock controller.
+     * Player clicks the screen.
      */
-    get clockController(): ClockController<Player<PS>> {
+    click(): void {
+        // Pauses this player's clock.
+        this.clockController.pauseClock()
+
+        // Resumes next player's clock.
+        const nextRole: Role = this._game.getNextRole(this._role)
+        this._game.getPlayer(nextRole).clockController.resumeClock()
+    }
+
+    /**
+     * Return this player's attributes.
+     */
+    get attributes(): SettingContainer<PA, PP> {
+        this.updateAttributes()
+
+        return this._attributes
+    }
+
+    /**
+     * Return time control.
+     */
+    get timeControl(): T {
+        return this._timeControl
+    }
+
+    get clockController(): ClockController<TS> {
         if (this._clockController === undefined) {
             throw new ClockControllerNotInitializedException()
         }
@@ -74,44 +107,16 @@ export abstract class Player<
     }
 
     /**
-     * The clock for this player is time up.
+     * This player runs out of time.
      */
-    clockTimeUp(): void {
-        this._boardGame.clockTimeUp(this._role)
+    timeUp(): void {
+        this._game.timeUp(this._role)
     }
 
     /**
-     * This function is invoked when the player clicks the screen.
+     * Initialize controller.
      */
-    onClick(): void {
-        // Pauses this player's clock.
-        this.clockController.pauseClock()
-
-        // Resumes next player's clock.
-        const nextPlayer = this._boardGame.getPlayer(this._boardGame.getNextRole(this._role))
-        nextPlayer.clockController.resumeClock()
-    }
-
-    /**
-     * Returns extra properties of this player.
-     */
-    getExtraProperties(): PlayerExtraPropertiesMap<PE, PP> | null {
-        return null
-    }
-
-    override addSetting<K extends keyof PS>(
-        name: K,
-        defaultValue: PS[K],
-        properties?: BoardGameClockSettingPropertyMap<PS[K]>,
-    ): BoardGameSetting<PS[K]> {
-        return super.addSetting(name, defaultValue, properties as BoardGameClockSettingPropertyMap<PS[K]>) as BoardGameSetting<PS[K]>
-    }
-
-    override getSetting<K extends keyof PS>(name: K): BoardGameSetting<PS[K]> {
-        return super.getSetting(name) as BoardGameSetting<PS[K]>
-    }
-
-    override getSettings(): SettingMap<PS, BoardGameClockSettingPropertyMap<any>> {
-        return super.getSettings() as SettingMap<PS, BoardGameClockSettingPropertyMap<any>>
+    initializeClockController(): void {
+        this._clockController = this.createClockController()
     }
 }
