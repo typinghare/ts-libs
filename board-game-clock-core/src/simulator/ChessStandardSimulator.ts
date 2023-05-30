@@ -1,9 +1,9 @@
 import { GameClockSimulator } from '../tool/GameSimulator'
-import { ChessGame } from '../game/chess/ChessGame'
+import { ChessGame, ChessGameSupplierMap } from '../game/chess/ChessGame'
 import { ChessStandardPlayer, ChessStandardTimeControl } from '../game/chess/ChessStandard'
 import { SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
 
-const chessGame = new ChessGame(ChessStandardTimeControl, ChessStandardPlayer)
+const chessGame = ChessGameSupplierMap.Standard() as ChessGame<ChessStandardTimeControl, ChessStandardPlayer>
 
 for (const role of chessGame.roleArray) {
     const player = chessGame.getPlayer(role)

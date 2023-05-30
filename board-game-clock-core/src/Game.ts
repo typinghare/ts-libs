@@ -112,7 +112,7 @@ export abstract class Game<
     get roleArray(): Role[] {
         return this._roleArray
     }
-
+    
     /**
      * Gets a player.
      * @param role the role of the player.

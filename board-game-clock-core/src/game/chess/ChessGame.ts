@@ -1,7 +1,14 @@
 import { TimeControl } from '../../TimeControl'
 import { Player } from '../../Player'
-import { PlayerAttributeProperties, PlayerAttributes, TimeControlSettings } from '../../types'
+import {
+    GameSupplierMap,
+    GameTimeControl,
+    PlayerAttributeProperties,
+    PlayerAttributes,
+    TimeControlSettings,
+} from '../../types'
 import { TwoPlayerGame } from '../../stereotype/TwoPlayerGame'
+import { ChessStandardPlayer, ChessStandardTimeControl } from './ChessStandard'
 
 export type ChessGameSettings = {
     sync: boolean
@@ -21,4 +28,11 @@ export class ChessGame<
             description: 'This is a description.',
         })
     }
+}
+
+export type ChessGameTimeControlType = 'Standard'
+export const ChessGameTimeControl: GameTimeControl<ChessGameTimeControlType> = ['Standard']
+
+export const ChessGameSupplierMap: GameSupplierMap<ChessGameTimeControlType> = {
+    Standard: () => new ChessGame(ChessStandardTimeControl, ChessStandardPlayer),
 }

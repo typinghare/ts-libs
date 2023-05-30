@@ -6,12 +6,12 @@ import { TimeControl } from './TimeControl'
 /**
  * Game settings.
  */
-export type GameSettings = Settings
+export type GameSettings = {}
 
 /**
  * Time control settings.
  */
-export type TimeControlSettings = Settings
+export type TimeControlSettings = {}
 
 /**
  * Player properties.
@@ -21,7 +21,7 @@ export type PlayerAttributes = Settings
 /**
  * Player properties.
  */
-export type PlayerAttributeProperties = Settings & {
+export type PlayerAttributeProperties = {
     label: string
 }
 
@@ -68,4 +68,28 @@ export type TimeControlClass<
 
 export type ClockTimeUpCallback = (timeUpRole: Role) => void
 
-export type AnyGame = Game<any, TimeControl<any>, Player>
+export type AnyGame<
+    G extends GameSettings = any,
+    T extends TimeControl<TS> = TimeControl<any>,
+    P extends Player<T, TS, PA, PP> = Player,
+    TS extends TimeControlSettings = any,
+    PA extends PlayerAttributes = any,
+    PP extends PlayerAttributeProperties = any,
+> = Game<G, T, P, TS, PA, PP>
+
+export type GameSupplier<
+    G extends GameSettings = any,
+    T extends TimeControl<TS> = TimeControl<any>,
+    P extends Player<T, TS, PA, PP> = Player,
+    TS extends TimeControlSettings = any,
+    PA extends PlayerAttributes = any,
+    PP extends PlayerAttributeProperties = any,
+> = () => Game<G, T, P, TS, PA, PP>
+
+export type GameTimeControlType = string
+
+export type GameTimeControl<T extends GameTimeControlType> = T[]
+
+export type GameSupplierMap<T extends GameTimeControlType> = {
+    [K in T]: GameSupplier
+}

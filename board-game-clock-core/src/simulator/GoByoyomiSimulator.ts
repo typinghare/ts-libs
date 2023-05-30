@@ -1,9 +1,9 @@
-import { GoGame } from '../game/go/GoGame'
+import { GoGame, GoGameSupplierMap } from '../game/go/GoGame'
 import { GoByoyomiPlayer, GoByoyomiTimeControl } from '../game/go/GoByoyomi'
 import { SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
 import { GameClockSimulator } from '../tool/GameSimulator'
 
-const goGame = new GoGame(GoByoyomiTimeControl, GoByoyomiPlayer)
+const goGame = GoGameSupplierMap.Byoyomi() as GoGame<GoByoyomiTimeControl, GoByoyomiPlayer>
 
 for (const role of goGame.roleArray) {
     const player = goGame.getPlayer(role)

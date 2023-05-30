@@ -1,9 +1,18 @@
-import { PlayerAttributeProperties, PlayerAttributes, TimeControlSettings } from '../../types'
+import {
+    GameSettings,
+    GameSupplierMap,
+    GameTimeControl,
+    PlayerAttributeProperties,
+    PlayerAttributes,
+    TimeControlSettings,
+} from '../../types'
 import { TimeControl } from '../../TimeControl'
 import { Player } from '../../Player'
 import { TwoPlayerGame } from '../../stereotype/TwoPlayerGame'
+import { GoByoyomiPlayer, GoByoyomiTimeControl } from './GoByoyomi'
+import { GoYingshiPlayer, GoYingshiTimeControl } from './GoYingshi'
 
-export type GoGameSettings = {
+export type GoGameSettings = GameSettings & {
     sync: boolean
 }
 
@@ -21,4 +30,12 @@ export class GoGame<
             description: 'This is a description.',
         })
     }
+}
+
+export type GoGameTimeControlType = 'Byoyomi' | 'Yingshi'
+export const GoGameTimeControl: GameTimeControl<GoGameTimeControlType> = ['Byoyomi', 'Yingshi']
+
+export const GoGameSupplierMap: GameSupplierMap<GoGameTimeControlType> = {
+    Byoyomi: () => new GoGame(GoByoyomiTimeControl, GoByoyomiPlayer),
+    Yingshi: () => new GoGame(GoYingshiTimeControl, GoYingshiPlayer),
 }

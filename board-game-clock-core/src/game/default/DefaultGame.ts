@@ -4,8 +4,9 @@ import { ClockController } from '../../ClockController'
 import { Clock } from '../../Clock'
 import { HourMinuteSecond, SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
 import { TwoPlayerGame } from '../../stereotype/TwoPlayerGame'
+import { GameSettings } from '../../types'
 
-export type DefaultGameSettings = {}
+export type DefaultGameSettings = GameSettings & {}
 
 export type DefaultPlayerAttributes = {
     isRunning: boolean
@@ -18,6 +19,10 @@ export type DefaultTimeControlSettings = {
 export class DefaultGame extends TwoPlayerGame<DefaultGameSettings, DefaultTimeControl, DefaultPlayer> {
     constructor() {
         super(DefaultTimeControl, DefaultPlayer)
+    }
+
+    protected override initializeTimeControl(): void {
+        this._timeControlMap['default'] = () => new DefaultGame()
     }
 }
 
