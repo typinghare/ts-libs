@@ -14,7 +14,7 @@ import { ClockControllerNotInitializedException } from './exception/ClockControl
  * @author James Chan
  */
 export abstract class Player<
-    T extends TimeControl<TS> = any,
+    T extends TimeControl<TS> = TimeControl,
     TS extends TimeControlSettings = any,
     PA extends PlayerAttributes = any,
     PP extends PlayerAttributeProperties = any,

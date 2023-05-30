@@ -7,7 +7,7 @@ import { GameSettingProperties, TimeControlSettings } from './types'
  * @author James Chan
  */
 export abstract class TimeControl<
-    TS extends TimeControlSettings
+    TS extends TimeControlSettings = any
 > {
     /**
      * Time control settings.

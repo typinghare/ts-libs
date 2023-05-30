@@ -30,9 +30,9 @@ export enum GameStatus {
  * @author James Chan
  */
 export abstract class Game<
-    G extends GameSettings,
-    T extends TimeControl<TS>,
-    P extends Player<T, TS, PA, PP>,
+    G extends GameSettings = any,
+    T extends TimeControl<TS> = TimeControl,
+    P extends Player<T, TS, PA, PP> = Player<T>,
     TS extends TimeControlSettings = any,
     PA extends PlayerAttributes = any,
     PP extends PlayerAttributeProperties = any,
@@ -112,7 +112,7 @@ export abstract class Game<
     get roleArray(): Role[] {
         return this._roleArray
     }
-    
+
     /**
      * Gets a player.
      * @param role the role of the player.
@@ -162,6 +162,7 @@ export abstract class Game<
         }
     }
 
+    // noinspection JSUnusedGlobalSymbols
     /**
      * Returns game status.
      */
@@ -192,6 +193,7 @@ export abstract class Game<
         this._clockTimeUpCallback?.(role)
     }
 
+    // noinspection JSUnusedGlobalSymbols
     /**
      * Returns role that runs out of time; undefined if no role runs out of time.
      */

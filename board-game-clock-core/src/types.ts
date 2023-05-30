@@ -70,8 +70,8 @@ export type ClockTimeUpCallback = (timeUpRole: Role) => void
 
 export type AnyGame<
     G extends GameSettings = any,
-    T extends TimeControl<TS> = TimeControl<any>,
-    P extends Player<T, TS, PA, PP> = Player,
+    T extends TimeControl<TS> = TimeControl,
+    P extends Player<T, TS, PA, PP> = Player<T>,
     TS extends TimeControlSettings = any,
     PA extends PlayerAttributes = any,
     PP extends PlayerAttributeProperties = any,
@@ -79,8 +79,8 @@ export type AnyGame<
 
 export type GameSupplier<
     G extends GameSettings = any,
-    T extends TimeControl<TS> = TimeControl<any>,
-    P extends Player<T, TS, PA, PP> = Player,
+    T extends TimeControl<TS> = TimeControl,
+    P extends Player<T, TS, PA, PP> = Player<T>,
     TS extends TimeControlSettings = any,
     PA extends PlayerAttributes = any,
     PP extends PlayerAttributeProperties = any,

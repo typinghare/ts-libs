@@ -20,10 +20,6 @@ export class DefaultGame extends TwoPlayerGame<DefaultGameSettings, DefaultTimeC
     constructor() {
         super(DefaultTimeControl, DefaultPlayer)
     }
-
-    protected override initializeTimeControl(): void {
-        this._timeControlMap['default'] = () => new DefaultGame()
-    }
 }
 
 export class DefaultPlayer extends Player<DefaultTimeControl, DefaultTimeControlSettings, DefaultPlayerAttributes> {

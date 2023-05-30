@@ -9,7 +9,7 @@ import { Player } from './Player'
  * @param <TS> Time control settings.
  * @author James Chan
  */
-export abstract class ClockController<TS extends TimeControlSettings> {
+export abstract class ClockController<TS extends TimeControlSettings = any> {
     /**
      * The player creating this clock controller.
      * @protected
