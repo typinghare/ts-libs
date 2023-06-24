@@ -36,4 +36,27 @@ describe('Test SlowHourMinuteSecond.', function() {
         expect(hourMinuteSecond.minute).toBe(25)
         expect(hourMinuteSecond.second).toBe(37)
     })
+
+    it('Test clone.', function() {
+        const hourMinuteSecond = new SlowHourMinuteSecond(30030000)
+        const cloneHourMinuteSecond = hourMinuteSecond.clone()
+
+        hourMinuteSecond.consume(117000)
+
+        expect(cloneHourMinuteSecond.hour).toBe(8)
+        expect(cloneHourMinuteSecond.minute).toBe(20)
+        expect(cloneHourMinuteSecond.second).toBe(30)
+    })
+
+    it('Test toString.', function() {
+        expect(new SlowHourMinuteSecond(30008000).toString()).toBe('08:20:08')
+        expect(new SlowHourMinuteSecond(387000).toString()).toBe('00:06:27')
+
+    })
+
+    it('Test of.', function() {
+        expect(SlowHourMinuteSecond.ofSeconds(100).second).toBe(40)
+        expect(SlowHourMinuteSecond.ofMinutes(50).minute).toBe(50)
+        expect(SlowHourMinuteSecond.ofHours(10).hour).toBe(10)
+    })
 })

@@ -1,6 +1,6 @@
 {
   "name": "@typinghare/hour-minute-second",
-  "version": "0.0.5",
+  "version": "1.0.2",
   "description": "A simple hour-minute-second library.",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -8,22 +8,23 @@
   "email": "jameschan312.cn@gmail.com",
   "homepage": "https://github.com/typinghare/ts-libs/tree/main/hour-minute-second",
   "scripts": {
-    "test": "jest --verbose --coverage",
-    "publish": "npm publish --access public"
+    "test": "jest --verbose --coverage"
   },
   "keywords": [
     "time",
-    "lightweight"
+    "lightweight",
+    "hour",
+    "minute",
+    "second"
   ],
   "license": "MIT",
   "files": [
     "src/**/*",
-    "dist/**/*"
+    "dist/**/*",
+    "README.md"
   ],
   "devDependencies": {
     "@types/jest": "^29.5.1",
     "ts-jest": "^29.1.0"
-  },
-  "dependencies": {
   }
 }

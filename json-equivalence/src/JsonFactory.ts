@@ -1,14 +1,14 @@
 import { FactoryManager } from './FactoryManager'
 
 /**
- * Represents a class type for the JsonEquivalentFactory.
+ * Represents a class type for the JsonFactory.
  * @typeParam O The type of the original object.
  * @typeParam J The type of the JSON object.
  */
-export type JsonEquivalentFactoryClass<O = any, J = any> = new (
+export type JsonFactoryClass<O = any, J = any> = new (
     factoryManager: FactoryManager,
     originalObject?: O,
-) => JsonEquivalentFactory<O, J>;
+) => JsonFactory<O, J>;
 
 /**
  * Represents a factory for converting between original objects (O) and JSON objects (J).
@@ -16,7 +16,7 @@ export type JsonEquivalentFactoryClass<O = any, J = any> = new (
  * @typeParam J The type of the JSON object.
  * @author James Chan
  */
-export abstract class JsonEquivalentFactory<O = any, J = any> {
+export abstract class JsonFactory<O = any, J = any> {
     /**
      * The factory manager creating this factory.
      * @protected
@@ -24,10 +24,10 @@ export abstract class JsonEquivalentFactory<O = any, J = any> {
     private _factoryManager: FactoryManager
 
     /**
-     * Creates an instance of the JsonEquivalentFactory.
+     * Creates an instance of the JsonFactory.
      * @param factoryManager The factory manager creating this factory.
      */
-    protected constructor(factoryManager: FactoryManager) {
+    public constructor(factoryManager: FactoryManager) {
         this._factoryManager = factoryManager
     }
 
@@ -46,10 +46,10 @@ export abstract class JsonEquivalentFactory<O = any, J = any> {
     abstract toJson(originalObject: O): J;
 
     /**
-     * Retrieves a JSON equivalent factory from the factory manager.
-     * @param jsonEquivalentFactoryClass The class of the JSON equivalent factory.
+     * Retrieves a JSON factory from the factory manager.
+     * @param jsonFactoryClass The class of the JSON factory.
      */
-    getFactory<O, J>(jsonEquivalentFactoryClass: JsonEquivalentFactoryClass<O, J>): JsonEquivalentFactory {
-        return this._factoryManager.provideFactory(jsonEquivalentFactoryClass)
+    getFactory<AO, AJ>(jsonFactoryClass: JsonFactoryClass<AO, AJ>): JsonFactory<AO, AJ> {
+        return this._factoryManager.provideFactory(jsonFactoryClass)
     }
 }

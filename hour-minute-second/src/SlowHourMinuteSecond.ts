@@ -5,6 +5,37 @@ import { HourMinuteSecond } from './HourMinuteSecond'
  */
 export class SlowHourMinuteSecond extends HourMinuteSecond {
     /**
+     * Creates a slow hour minute second.
+     * @param ms time in milliseconds.
+     */
+    constructor(ms: number) {
+        super()
+        this._ms = ms
+    }
+
+    /**
+     * Milliseconds.
+     * @private
+     */
+    private _ms: number
+
+    override get ms(): number {
+        return this._ms
+    }
+
+    override get hour(): number {
+        return Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_HOUR)
+    }
+
+    override get minute(): number {
+        return Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_MINUTE) % HourMinuteSecond.MINUTE_IN_HOUR
+    }
+
+    override get second(): number {
+        return Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_SECOND) % HourMinuteSecond.SECOND_IN_MINUTE
+    }
+
+    /**
      * Creates an hour-minute-second of specified seconds.
      * @param seconds
      */
@@ -28,91 +59,25 @@ export class SlowHourMinuteSecond extends HourMinuteSecond {
         return new SlowHourMinuteSecond(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
     }
 
-    /**
-     * Milliseconds.
-     * @private
-     */
-    private _ms: number
-
-    /**
-     * Creates a slow hour minute second.
-     * @param ms time in milliseconds.
-     */
-    constructor(ms: number) {
-        super()
-        this._ms = ms
-    }
-
-    /**
-     * @override
-     */
-    get ms(): number {
-        return this._ms
-    }
-
-    /**
-     * @override
-     */
-    get hour(): number {
-        return Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_HOUR)
-    }
-
-    /**
-     * @override
-     */
-    get minute(): number {
-        return Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_MINUTE) % HourMinuteSecond.MINUTE_IN_HOUR
-    }
-
-    /**
-     * @override
-     */
-    get second(): number {
-        return Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_SECOND) % HourMinuteSecond.SECOND_IN_MINUTE
-    }
-
-    /**
-     * @override
-     */
-    consume(hourMinuteSecond: HourMinuteSecond): HourMinuteSecond
-    /**
-     * @override
-     */
-    consume(ms: number): HourMinuteSecond
-    /**
-     * @override
-     */
-    consume(time: number | HourMinuteSecond): HourMinuteSecond {
+    override consume(hourMinuteSecond: HourMinuteSecond): this
+    override consume(ms: number): this
+    override consume(time: number | HourMinuteSecond): this {
         const ms = typeof time == 'number' ? time : (time as HourMinuteSecond).ms
-
         this._ms -= ms
 
         return this
     }
 
-    /**
-     * @override
-     */
-    extend(hourMinuteSecond: HourMinuteSecond): HourMinuteSecond
-    /**
-     * @override
-     */
-    extend(ms: number): HourMinuteSecond
-    /**
-     * @override
-     */
-    extend(time: number | HourMinuteSecond): HourMinuteSecond {
+    override extend(hourMinuteSecond: HourMinuteSecond): this
+    override extend(ms: number): this
+    override extend(time: number | HourMinuteSecond): this {
         const ms = typeof time == 'number' ? time : (time as HourMinuteSecond).ms
-
         this._ms += ms
 
         return this
     }
 
-    /**
-     * @override
-     */
-    clone(): SlowHourMinuteSecond {
+    override clone(): SlowHourMinuteSecond {
         return new SlowHourMinuteSecond(this._ms)
     }
 }

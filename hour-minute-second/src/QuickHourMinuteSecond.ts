@@ -5,54 +5,6 @@ import { HourMinuteSecond } from './HourMinuteSecond'
  */
 export class QuickHourMinuteSecond extends HourMinuteSecond {
     /**
-     * Creates an hour-minute-second of specified seconds.
-     * @param seconds
-     */
-    static ofSeconds(seconds: number): QuickHourMinuteSecond {
-        return new QuickHourMinuteSecond(seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND)
-    }
-
-    /**
-     * Creates an hour-minute-second of specified minutes.
-     * @param minutes
-     */
-    static ofMinutes(minutes: number): QuickHourMinuteSecond {
-        return new QuickHourMinuteSecond(minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE)
-    }
-
-    /**
-     * Creates an hour-minute-second of specified hours.
-     * @param hours
-     */
-    static ofHours(hours: number): QuickHourMinuteSecond {
-        return new QuickHourMinuteSecond(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
-    }
-
-    /**
-     * Milliseconds.
-     * @private
-     */
-    private _ms: number
-
-    /**
-     * Hours.
-     * @private
-     */
-    private _hour: number = 0
-
-    /**
-     * Minutes.
-     * @private
-     */
-    private _minute: number = 0
-
-    /**
-     * Seconds.
-     * @private
-     */
-    private _second: number = 0
-
-    /**
      * Creates a quick hour minute second.
      * @param ms time in milliseconds.
      */
@@ -83,6 +35,94 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
     }
 
     /**
+     * Milliseconds.
+     * @private
+     */
+    private _ms: number
+
+    override get ms(): number {
+        return this._ms
+    }
+
+    /**
+     * Seconds.
+     * @private
+     */
+    private _second: number = 0
+
+    override get second(): number {
+        return this._second
+    }
+
+    /**
+     * Minutes.
+     * @private
+     */
+    private _minute: number = 0
+
+    override get minute(): number {
+        return this._minute
+    }
+
+    /**
+     * Hours.
+     * @private
+     */
+    private _hour: number = 0
+
+    override get hour(): number {
+        return this._hour
+    }
+
+    /**
+     * Creates an hour-minute-second of specified seconds.
+     * @param seconds
+     */
+    static ofSeconds(seconds: number): QuickHourMinuteSecond {
+        return new QuickHourMinuteSecond(seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND)
+    }
+
+    /**
+     * Creates an hour-minute-second of specified minutes.
+     * @param minutes
+     */
+    static ofMinutes(minutes: number): QuickHourMinuteSecond {
+        return new QuickHourMinuteSecond(minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE)
+    }
+
+    /**
+     * Creates an hour-minute-second of specified hours.
+     * @param hours
+     */
+    static ofHours(hours: number): QuickHourMinuteSecond {
+        return new QuickHourMinuteSecond(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
+    }
+
+    override consume(hourMinuteSecond: HourMinuteSecond): this;
+    override consume(ms: number): this;
+    override consume(time: number | HourMinuteSecond): this {
+        const ms = typeof time == 'number' ? time : (time as HourMinuteSecond).ms
+        this._ms = Math.max(this._ms - ms, 0)
+        this.compute()
+
+        return this
+    }
+
+    override extend(hourMinuteSecond: HourMinuteSecond): this;
+    override extend(ms: number): this;
+    override extend(time: number | HourMinuteSecond): this {
+        const ms = typeof time == 'number' ? time : (time as HourMinuteSecond).ms
+        this._ms += ms
+        this.compute()
+
+        return this
+    }
+
+    override clone(): QuickHourMinuteSecond {
+        return new QuickHourMinuteSecond(this._ms)
+    }
+
+    /**
      * Computes hours, minutes, and seconds.
      * @private
      */
@@ -90,80 +130,5 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
         this._hour = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_HOUR)
         this._minute = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_MINUTE) % HourMinuteSecond.MINUTE_IN_HOUR
         this._second = Math.floor(this._ms / HourMinuteSecond.MILLISECONDS_IN_SECOND) % HourMinuteSecond.SECOND_IN_MINUTE
-    }
-
-    /**
-     * @override
-     */
-    get ms(): number {
-        return this._ms
-    }
-
-    /**
-     * @override
-     */
-    get hour(): number {
-        return this._hour
-    }
-
-    /**
-     * @override
-     */
-    get minute(): number {
-        return this._minute
-    }
-
-    /**
-     * @override
-     */
-    get second(): number {
-        return this._second
-    }
-
-    /**
-     * @override
-     */
-    consume(hourMinuteSecond: HourMinuteSecond): HourMinuteSecond;
-    /**
-     * @override
-     */
-    consume(ms: number): HourMinuteSecond;
-    /**
-     * @override
-     */
-    consume(time: number | HourMinuteSecond): HourMinuteSecond {
-        const ms = typeof time == 'number' ? time : (time as HourMinuteSecond).ms
-
-        this._ms = Math.max(this._ms - ms, 0)
-        this.compute()
-
-        return this
-    }
-
-    /**
-     * @override
-     */
-    extend(hourMinuteSecond: HourMinuteSecond): HourMinuteSecond;
-    /**
-     * @override
-     */
-    extend(ms: number): HourMinuteSecond;
-    /**
-     * @override
-     */
-    extend(time: number | HourMinuteSecond): HourMinuteSecond {
-        const ms = typeof time == 'number' ? time : (time as HourMinuteSecond).ms
-
-        this._ms += ms
-        this.compute()
-
-        return this
-    }
-
-    /**
-     * @override
-     */
-    clone(): QuickHourMinuteSecond {
-        return new QuickHourMinuteSecond(this._ms)
     }
 }

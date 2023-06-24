@@ -1,7 +1,7 @@
 {
-  "name": "@typinghare/hour-minute-second",
-  "version": "0.0.5",
-  "description": "A simple hour-minute-second library.",
+  "name": "@typinghare/holder",
+  "version": "1.0.1",
+  "description": "A simple variable holder.",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "author": "James Chan",
@@ -12,8 +12,7 @@
     "publish": "npm publish --access public"
   },
   "keywords": [
-    "time",
-    "lightweight"
+    "holder"
   ],
   "license": "MIT",
   "files": [
@@ -21,9 +20,7 @@
     "dist/**/*"
   ],
   "devDependencies": {
-    "@types/jest": "^29.5.1",
+    "@types/jest": "^29.5.2",
     "ts-jest": "^29.1.0"
-  },
-  "dependencies": {
   }
 }

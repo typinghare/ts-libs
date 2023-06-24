@@ -1,7 +1,7 @@
 {
-  "name": "@typinghare/hour-minute-second",
-  "version": "0.0.5",
-  "description": "A simple hour-minute-second library.",
+  "name": "@typinghare/json-equivalence",
+  "version": "1.0.0",
+  "description": "A lightweight JSON ",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "author": "James Chan",
@@ -25,5 +25,6 @@
     "ts-jest": "^29.1.0"
   },
   "dependencies": {
+    "@typinghare/ts-reflect": "^0.2.5"
   }
 }

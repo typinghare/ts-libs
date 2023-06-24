@@ -2,13 +2,12 @@
  * @author James Chan
  */
 export abstract class HourMinuteSecond {
-
     // Commonly used constants.
-    public static SECOND_IN_MINUTE: number = 60
-    public static MINUTE_IN_HOUR: number = 60
-    public static MILLISECONDS_IN_SECOND: number = 1000
-    public static MILLISECONDS_IN_MINUTE: number = 60000
-    public static MILLISECONDS_IN_HOUR: number = 3600000
+    public static SECOND_IN_MINUTE = 60
+    public static MINUTE_IN_HOUR = 60
+    public static MILLISECONDS_IN_SECOND = 1000
+    public static MILLISECONDS_IN_MINUTE = 60000
+    public static MILLISECONDS_IN_HOUR = 3600000
 
     /**
      * Returns time in milliseconds.
@@ -34,33 +33,33 @@ export abstract class HourMinuteSecond {
      * Consumes a time.
      * @param hourMinuteSecond the time to consume.
      */
-    abstract consume(hourMinuteSecond: HourMinuteSecond): HourMinuteSecond
+    abstract consume(hourMinuteSecond: HourMinuteSecond): this
     /**
      * Consumes a time.
      * @param ms time in milliseconds.
      */
-    abstract consume(ms: number): HourMinuteSecond
+    abstract consume(ms: number): this
     /**
      * Consumes a time.
      * @param time hour minute second or time in milliseconds to consume.
      */
-    abstract consume(time: number | HourMinuteSecond): HourMinuteSecond
+    abstract consume(time: number | HourMinuteSecond): this
 
     /**
      * Extends a time.
      * @param hourMinuteSecond the time to consume.
      */
-    abstract extend(hourMinuteSecond: HourMinuteSecond): HourMinuteSecond
+    abstract extend(hourMinuteSecond: this): this
     /**
      * Extends a time.
      * @param ms time in milliseconds to extend.
      */
-    abstract extend(ms: number): HourMinuteSecond
+    abstract extend(ms: number): this
     /**
      * Extends a time.
      * @param time hour minute second or time in milliseconds to extend.
      */
-    abstract extend(time: number | HourMinuteSecond): HourMinuteSecond
+    abstract extend(time: number | HourMinuteSecond): this
 
     /**
      * Returns a clone object.
@@ -71,7 +70,7 @@ export abstract class HourMinuteSecond {
      * Consumes time in seconds.
      * @param seconds seconds to consume.
      */
-    consumeSecond(seconds: number): HourMinuteSecond {
+    consumeSecond(seconds: number): this {
         return this.consume(seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND)
     }
 
@@ -79,7 +78,7 @@ export abstract class HourMinuteSecond {
      * Consumes time in minutes;
      * @param minutes minutes to consume.
      */
-    consumeMinute(minutes: number): HourMinuteSecond {
+    consumeMinute(minutes: number): this {
         return this.consume(minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE)
     }
 
@@ -87,7 +86,7 @@ export abstract class HourMinuteSecond {
      * Consumes time in hours;
      * @param hours hours to consume.
      */
-    consumeHour(hours: number): HourMinuteSecond {
+    consumeHour(hours: number): this {
         return this.consume(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
     }
 
@@ -95,7 +94,7 @@ export abstract class HourMinuteSecond {
      * Extends time in seconds.
      * @param seconds seconds to extend.
      */
-    extendSecond(seconds: number): HourMinuteSecond {
+    extendSecond(seconds: number): this {
         return this.extend(seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND)
     }
 
@@ -103,7 +102,7 @@ export abstract class HourMinuteSecond {
      * Extends time in minutes;
      * @param minutes minutes to extend.
      */
-    extendMinute(minutes: number): HourMinuteSecond {
+    extendMinute(minutes: number): this {
         return this.extend(minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE)
     }
 
@@ -111,7 +110,7 @@ export abstract class HourMinuteSecond {
      * Extends time in hours;
      * @param hours hours to extend.
      */
-    extendHour(hours: number): HourMinuteSecond {
+    extendHour(hours: number): this {
         return this.extend(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
     }
 
