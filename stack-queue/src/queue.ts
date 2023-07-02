@@ -4,12 +4,12 @@ import { SearchPredicate } from './type';
 /**
  * @author James Chan
  */
-export default class Queue<E = any> implements Iterable<E> {
+export default class Queue<E = any> implements Iterable<E>, ArrayLike<E>{
     /**
      * The container of elements.
      * @private
      */
-    private _elements: E[] = [];
+    private internalElement: E[] = [];
 
     /**
      * To create an empty queue.
@@ -20,7 +20,6 @@ export default class Queue<E = any> implements Iterable<E> {
      * @param iterable an iterable object to quickly initialize this queue.
      */
     public constructor(iterable: Iterable<E>);
-
     /**
      * To create an empty queue or a queue with given elements in a form of iterable.
      * @param iterable an iterable object to quickly initialize this queue.
@@ -37,8 +36,8 @@ export default class Queue<E = any> implements Iterable<E> {
      * Iterable implementation.
      */
     * [Symbol.iterator](): Generator<E, void> {
-        for (let i = 0; i < this._elements.length; ++i) {
-            yield this._elements[i];
+        for (let i = 0; i < this.internalElement.length; ++i) {
+            yield this.internalElement[i];
         }
     }
 
@@ -47,7 +46,7 @@ export default class Queue<E = any> implements Iterable<E> {
      * @param item the item to insert
      */
     public enqueue(item: E): E {
-        this._elements.push(item);
+        this.internalElement.push(item);
         return item;
     }
 
@@ -66,7 +65,7 @@ export default class Queue<E = any> implements Iterable<E> {
         let item;
 
         for (let i = 0; i < count; ++i) {
-            item = this._elements.shift();
+            item = this.internalElement.shift();
         }
 
         if (item === undefined) {
@@ -81,7 +80,7 @@ export default class Queue<E = any> implements Iterable<E> {
      * @return the head of this queue, or null if this queue is empty
      */
     public poll(): E | null {
-        const item = this._elements.shift();
+        const item = this.internalElement.shift();
         return item === undefined ? null : item;
     }
 
@@ -92,11 +91,11 @@ export default class Queue<E = any> implements Iterable<E> {
      * @throws EmptyQueueException if this queue is empty
      */
     public element(): E {
-        if (this._elements.length === 0) {
+        if (this.internalElement.length === 0) {
             throw new EmptyQueueException();
         }
 
-        return this._elements[0];
+        return this.internalElement[0];
     }
 
     /**
@@ -104,11 +103,11 @@ export default class Queue<E = any> implements Iterable<E> {
      * @return the head of this queue, or null if this queue is empty
      */
     public peek(): E | null {
-        if (this._elements.length === 0) {
+        if (this.internalElement.length === 0) {
             return null;
         }
 
-        return this._elements[0];
+        return this.internalElement[0];
     }
 
     /**
@@ -116,7 +115,7 @@ export default class Queue<E = any> implements Iterable<E> {
      * @return the number of elements in this queue
      */
     public size(): number {
-        return this._elements.length;
+        return this.internalElement.length;
     }
 
     /**
@@ -137,7 +136,7 @@ export default class Queue<E = any> implements Iterable<E> {
             return -1;
         }
 
-        const index = this._elements.indexOf(item);
+        const index = this.internalElement.indexOf(item);
         return index == -1 ? -1 : index + 1;
     }
 
@@ -165,7 +164,7 @@ export default class Queue<E = any> implements Iterable<E> {
      * @since 0.1.0
      */
     public get elements(): E[] {
-        return this._elements;
+        return this.internalElement;
     }
 
     /**
@@ -174,7 +173,7 @@ export default class Queue<E = any> implements Iterable<E> {
      * @since 0.1.0
      */
     public each(callback: (value: E, index?: number, array?: E[]) => void) {
-        this._elements.forEach(callback);
+        this.internalElement.forEach(callback);
 
     }
 
@@ -184,8 +183,28 @@ export default class Queue<E = any> implements Iterable<E> {
      * @since 0.1.0
      */
     public inverseEach(callback: (value: E, index?: number, array?: E[]) => void) {
-        for (let i = this._elements.length - 1; i >= 0; --i) {
-            callback(this._elements[i], i, this._elements);
+        for (let i = this.internalElement.length - 1; i >= 0; --i) {
+            callback(this.internalElement[i], i, this.internalElement);
         }
     }
+
+    /**
+     * Returns the length of the queue.
+     */
+    public get length(): number {
+        return this.internalElement.length;
+    }
+
+    /**
+     * Returns the element at the specified index.
+     * @param index The index of the element to retrieve.
+     */
+    public item(index: number): E {
+        return this.internalElement[index];
+    }
+
+    /**
+     * Index signature required by ArrayLike<E> interface.
+     */
+    [index: number]: E;
 }

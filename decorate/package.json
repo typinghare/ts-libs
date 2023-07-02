@@ -1,7 +1,7 @@
 {
-  "name": "@typinghare/settings",
-  "version": "0.1.2",
-  "description": "Simple settings.",
+  "name": "@typinghare/decorate",
+  "version": "1.0.0",
+  "description": "",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "author": "James Chan",
@@ -10,7 +10,10 @@
     "test": "jest --verbose --coverage",
     "publish": "npm publish --access public"
   },
-  "keywords": [],
+  "keywords": [
+    "metadata",
+    "settings"
+  ],
   "license": "MIT",
   "files": [
     "src/**/*",

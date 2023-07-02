@@ -1,12 +1,12 @@
-import { Setting } from '../src/Setting'
+import { DefaultSettingProperties, Setting } from '../src/Setting'
 
-describe('Test general setting.', function() {
-    type SettingProperties = {
+describe('Setting extension.', function() {
+    interface GeneralSettingProperties<T> extends DefaultSettingProperties<T> {
         label: string
         description: string,
     }
 
-    class GeneralSetting<T> extends Setting<T, SettingProperties> {
+    class GeneralSetting<T> extends Setting<T, GeneralSettingProperties<T>> {
     }
 
     it('Test properties.', function() {
@@ -22,20 +22,20 @@ describe('Test general setting.', function() {
         expect(generalSetting.getProperty('label')).toBe(newLabel)
     })
 
-    it('Test callback.', function() {
+    it('Test beforeSet callback.', function() {
         const label = 'label of setting'
         const description = 'Description of setting.'
 
-        let isCallbackInvoked = false
-        const generalSetting = new GeneralSetting<string>('Init', { label, description })
-        generalSetting.updateValueCallback = (newValue): string => {
-            isCallbackInvoked = true
+        let isCallbackFired = false
+        const generalSetting = new GeneralSetting<string>('Initial value', { label, description })
+        generalSetting.setProperty('beforeSet', (newValue: string) => {
+            isCallbackFired = true
             return 'Edited: ' + newValue
-        }
+        })
 
-        generalSetting.value = 'Updated'
+        generalSetting.value = 'New value'
 
-        expect(isCallbackInvoked).toBe(true)
-        expect(generalSetting.value).toBe('Edited: Updated')
+        expect(isCallbackFired).toBe(true)
+        expect(generalSetting.value).toBe('Edited: New value')
     })
 })
