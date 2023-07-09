@@ -1,5 +1,5 @@
 {
-  "name": "@typinghare/decorate",
+  "name": "@typinghare/automation",
   "version": "1.0.0",
   "description": "",
   "main": "dist/main.js",
@@ -22,5 +22,8 @@
   "devDependencies": {
     "@types/jest": "^29.5.2",
     "ts-jest": "^29.1.0"
+  },
+  "dependencies": {
+    "@types/node": "^20.4.1"
   }
 }

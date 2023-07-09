@@ -1,0 +1,26 @@
+
+:root {
+    --text-font-size: 16px;
+    --text-line-height: 1.6em;
+    --text-letter-spacing: 0;
+    --text-word-spacing: 0.05em;
+
+    --text-bold-color: var(--theme-color-text);
+
+    --text-italic-color: var(--theme-color-text);
+
+    --blockquote-background-color: #E5E5E5;
+    --blockquote-left-border-width: 4px;
+}
+
+b, strong {
+    color: var(--text-bold-color);
+}
+
+i, em {
+    color: var(--text-italic-color)
+}
+
+hr {
+    border-color: var(--theme-color-divider)
+}

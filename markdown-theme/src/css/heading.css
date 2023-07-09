@@ -1,0 +1,67 @@
+/* Headings */
+:root {
+    --heading-1-color: var(--theme-color-heading);
+    --heading-2-color: var(--theme-color-heading);
+    --heading-3-color: var(--theme-color-heading);
+    --heading-4-color: var(--theme-color-heading);
+    --heading-5-color: var(--theme-color-heading);
+    --heading-6-color: var(--theme-color-heading);
+
+    --heading-1-font-family: var(--theme-font-family-heading);
+    --heading-2-font-family: var(--theme-font-family-heading);
+    --heading-3-font-family: var(--theme-font-family-heading);
+    --heading-4-font-family: var(--theme-font-family-heading);
+    --heading-5-font-family: var(--theme-font-family-heading);
+    --heading-6-font-family: var(--theme-font-family-heading);
+
+    --heading-1-font-size: 2.75rem;
+    --heading-2-font-size: 2.25rem;
+    --heading-3-font-size: 2.00rem;
+    --heading-4-font-size: 1.75rem;
+    --heading-5-font-size: 1.25rem;
+    --heading-6-font-size: 1.00rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: normal;
+    line-height: 1.2;
+    cursor: text;
+}
+
+h1 {
+    color: var(--heading-1-color);
+    font-family: var(--heading-1-font-family);
+    font-size: var(--heading-1-font-size);
+}
+
+h2 {
+    color: var(--heading-2-color);
+    font-family: var(--heading-2-font-family);
+    font-size: var(--heading-2-font-size);
+}
+
+h3 {
+    color: var(--heading-3-color);
+    font-family: var(--heading-3-font-family);
+    font-size: var(--heading-3-font-size);
+}
+
+h4 {
+    color: var(--heading-4-color);
+    font-family: var(--heading-4-font-family);
+    font-size: var(--heading-4-font-size);
+}
+
+h5 {
+    color: var(--heading-5-color);
+    font-family: var(--heading-5-font-family);
+    font-size: var(--heading-5-font-size);
+}
+
+h6 {
+    color: var(--heading-6-color);
+    font-family: var(--heading-6-font-family);
+    font-size: var(--heading-6-font-size);
+}

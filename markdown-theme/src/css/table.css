@@ -1,0 +1,34 @@
+:root {
+    --table-margin: 0 0 1.25em 0;
+
+    --table-th-font-weight: bold;
+
+    --table-cell-padding: 0.5em;
+    --table-cell-line-height: 1.25em;
+    --table-cell-head-border-color: var(--theme-color-divider);
+    --table-cell-border-color: var(--theme-color-divider);
+    --table-cell-striped-fill-color: var(--theme-color-background)
+}
+
+table {
+    border-collapse: collapse;
+    margin: var(--table-margin);
+}
+
+table th {
+    font-weight: var(--table-th-font-weight);
+}
+
+table > thead {
+    border-bottom: 2px solid var(--theme-color-divider);
+}
+
+table th, table td {
+    padding: var(--table-cell-padding);
+    line-height: var(--table-cell-line-height);
+    border-bottom: 1px solid var(--table-cell-border-color);
+}
+
+table > tbody > tr:nth-child(2n + 1) {
+    background-color: var(--table-cell-striped-fill-color);
+}

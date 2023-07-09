@@ -1,0 +1,34 @@
+:root {
+    --ul-padding: 0 0 0 1.8em;
+    --ol-padding: 0 0 0 1.8em;
+
+    --ul-item-padding: 0;
+    --ol-item-padding: 0;
+
+    --ul-marker-color: var(--theme-color-primary);
+    --ol-marker-color: var(--theme-color-primary);
+}
+
+ul {
+    padding: var(--ul-padding)
+}
+
+ol {
+    padding: var(--ol-padding);
+}
+
+ul > li {
+    padding: var(--ul-item-padding);
+}
+
+ol > li {
+    padding: var(--ol-item-padding);
+}
+
+ul ::marker {
+    color: var(--ul-marker-color);
+}
+
+ol ::marker {
+    color: var(--ol-marker-color);
+}

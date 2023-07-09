@@ -1,0 +1,27 @@
+:root {
+    --blockquote-text-color: var(--theme-color-text);
+    --blockquote-background-color: white;
+    --blockquote-padding: 1em;
+    --blockquote-opacity: 0.75;
+
+    --blockquote-left-border-width: 4px;
+    --blockquote-border-radius: 8px;
+
+    --blockquote-margin-block-start: 1em;
+    --blockquote-margin-block-end: 1em;
+    --blockquote-margin-inline-start: 1em;
+    --blockquote-margin-inline-end: 1em;
+}
+
+blockquote {
+    color: var(--blockquote-text-color);
+    background-color: var(--blockquote-background-color);
+    opacity: var(--blockquote-opacity);
+    padding: var(--blockquote-padding);
+    border-left: var(--blockquote-left-border-width) solid var(--theme-color-primary);
+    border-radius: var(--blockquote-border-radius);
+    margin-block-start: var(--blockquote-margin-block-start);
+    margin-block-end: var(--blockquote-margin-block-end);
+    margin-inline-start: var(--blockquote-margin-inline-start);
+    margin-inline-end: var(--blockquote-margin-inline-end);
+}

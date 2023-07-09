@@ -1,0 +1,26 @@
+{
+  "name": "@typinghare/extrum",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "author": "James Chan",
+  "email": "jameschan312.cn@gmail.com",
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "publish": "npm publish --access public"
+  },
+  "keywords": [
+    "metadata",
+    "settings"
+  ],
+  "license": "MIT",
+  "files": [
+    "src/**/*",
+    "dist/**/*"
+  ],
+  "devDependencies": {
+    "@types/jest": "^29.5.2",
+    "ts-jest": "^29.1.0"
+  }
+}
