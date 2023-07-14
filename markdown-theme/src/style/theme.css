@@ -1,0 +1,25 @@
+/* theme color */
+:root {
+    --theme-color-text: black;
+    --theme-color-background: white;
+    --theme-color-primary: black;
+    --theme-color-secondary: blue;
+    --theme-color-divider: gray;
+
+    --theme-color-heading: var(--theme-color-primary);
+}
+
+/* theme font family */
+:root {
+    --theme-font-family-text: "Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+
+    --theme-font-family-heading: "EB Garamond", Georgia, "Noto Serif", "Noto Serif CJK SC",
+    "Nimbus Roman No9 L", "Songti SC", "Source Han Serif SC", "Source Han Serif CN", serif;
+
+    --theme-font-family-code: "Menlo", Consolas, "Monaco", "JetBrains Mono", Monospace !important;
+}
+
+/* horizontal divider */
+hr {
+    border-color: var(--theme-color-divider)
+}

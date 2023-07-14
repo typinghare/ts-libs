@@ -9,8 +9,10 @@
 
     --text-italic-color: var(--theme-color-text);
 
-    --blockquote-background-color: #E5E5E5;
-    --blockquote-left-border-width: 4px;
+    --text-mark-color: var(--theme-color-text);
+    --text-mark-background-color: #ffee99;
+    --text-mark-padding: 0 0.2em;
+    --text-mark-margin: 0;
 }
 
 b, strong {
@@ -21,6 +23,9 @@ i, em {
     color: var(--text-italic-color)
 }
 
-hr {
-    border-color: var(--theme-color-divider)
+mark {
+    color: var(--text-mark-color);
+    background-color: var(--text-mark-background-color);
+    padding: var(--text-mark-padding);
+    margin: var(--text-mark-margin);
 }

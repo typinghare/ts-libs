@@ -34,6 +34,8 @@ h1 {
     color: var(--heading-1-color);
     font-family: var(--heading-1-font-family);
     font-size: var(--heading-1-font-size);
+
+    text-align: center;
 }
 
 h2 {

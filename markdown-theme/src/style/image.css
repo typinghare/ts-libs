@@ -1,0 +1,12 @@
+:root {
+    --image-padding: 0;
+    --image-background-color: inherit;
+    --image-border-radius: 0.5rem;
+}
+
+img {
+    display: inline-block;
+    padding: var(--image-padding);
+    background-color: var(--image-background-color);
+    border-radius: var(--image-border-radius);
+}

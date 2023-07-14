@@ -4,6 +4,7 @@
     --blockquote-padding: 1em;
     --blockquote-opacity: 0.75;
 
+    --blockquote-left-border-style: solid;
     --blockquote-left-border-width: 4px;
     --blockquote-border-radius: 8px;
 
@@ -18,7 +19,9 @@ blockquote {
     background-color: var(--blockquote-background-color);
     opacity: var(--blockquote-opacity);
     padding: var(--blockquote-padding);
-    border-left: var(--blockquote-left-border-width) solid var(--theme-color-primary);
+    border-left-style: var(--blockquote-left-border-style);
+    border-left-width: var(--blockquote-left-border-width);
+    border-left-color: var(--theme-color-primary);
     border-radius: var(--blockquote-border-radius);
     margin-block-start: var(--blockquote-margin-block-start);
     margin-block-end: var(--blockquote-margin-block-end);

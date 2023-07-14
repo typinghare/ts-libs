@@ -1,0 +1,49 @@
+/* code */
+:root {
+    --code-background-color: var(--theme-color-background);
+    --code-font-size: 0.875em;
+    --code-padding: 0.1em 0.4em;
+    --code-margin: 0.1em;
+    --code-border: none;
+    --code-border-radius: 0.2em;
+}
+
+/* fenced code block */
+:root {
+    --code-block-background-color: var(--theme-color-background);
+    --code-block-font-size: 0.875em;
+    --code-block-border-line-height: 1.4;
+    --code-block-padding: 0.5em;
+    --code-block-margin: 0;
+    --code-block-border: 1px solid var(--theme-color-divider);
+    --code-block-border-radius: 0.5em;
+    --code-block-box-shadow: 0px 2px 6px #ced4da;
+}
+
+code {
+    font-family: var(--theme-font-family-code);
+    background-color: var(--code-background-color);
+    font-size: var(--code-font-size);
+    padding: var(--code-padding);
+    margin: var(--code-margin);
+    border: var(--code-border);
+    border-radius: var(--code-border-radius);
+}
+
+pre {
+    display: block;
+    font-family: var(--theme-font-family-code);
+    font-size: var(--code-block-font-size);
+    line-height: var(--code-block-border-line-height);
+    padding: var(--code-block-padding);
+    margin: var(--code-block-margin);
+    border: var(--code-block-border);
+    border-radius: var(--code-block-border-radius);
+    box-shadow: var(--code-block-box-shadow);
+
+    -webkit-overflow-scrolling: touch; /* Support touch devices */
+}
+
+pre code {
+    background-color: var(--code-block-background-color);
+}

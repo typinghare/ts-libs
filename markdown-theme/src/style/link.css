@@ -1,0 +1,13 @@
+
+:root {
+    --link-color: var(--theme-color-secondary);
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
