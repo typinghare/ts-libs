@@ -1,15 +1,15 @@
 import { Datum, Metadata } from './Datum'
 
 /**
- * Data.
+ * Data type.
  */
 export type Data = Record<string, any>
 
 /**
- * Data mapping.
+ * Data mapping type.
  */
-export type DataMapping<D extends Record<string, any>, M extends Metadata = {}> = {
-    [K in keyof D]: Datum<D[K]>
+export type DataMapping<D extends Data, M extends Metadata = Metadata> = {
+    [K in keyof D]: Datum<D[K], M>
 }
 
 /**
@@ -18,32 +18,36 @@ export type DataMapping<D extends Record<string, any>, M extends Metadata = {}> 
  * @type <M> The metadata of each datum.
  */
 export class DataCollection<
-    D extends Data = {},
-    M extends Metadata = {}
+    D extends Data,
+    M extends Metadata = Metadata
 > {
-    constructor(protected data: DataMapping<D>) {
+    /**
+     * Creates a data collection.
+     * @param data Data mapping.
+     */
+    constructor(protected data: DataMapping<D, M>) {
     }
 
     /**
-     * Gets a datum by a specified name.
+     * Returns a datum by a specified name.
      * @param name The name of the datum to get.
      * @type <K> The name of a specific datum.
      * @type <CM> The custom metadata.
      */
-    getDatum<K extends keyof D, CM extends Record<string, any> = M>(name: K): Datum<D[K], CM> {
+    getDatum<K extends keyof D, CM extends M = M>(name: K): Datum<D[K], CM> {
         return this.data[name] as Datum<D[K], CM>
     }
 
     /**
-     * Gets data.
+     * Returns data.
      * @type <CM> The custom metadata.
      */
-    getData<CM extends Record<string, any> = M>(): DataMapping<D, CM> {
+    getData<CM extends M = M>(): DataMapping<D, CM> {
         return this.data as DataMapping<D, CM>
     }
 
     /**
-     * Gets the value of a specific datum.
+     * Returns the value of a specific datum.
      * @param name The name of a specific datum.
      */
     getValue<K extends keyof D>(name: K): D[K] {

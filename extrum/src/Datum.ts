@@ -1,5 +1,5 @@
 /**
- * Metadata.
+ * Metadata type.
  */
 export type Metadata = Record<string, any>
 
@@ -7,7 +7,7 @@ export type Metadata = Record<string, any>
  * @type <T> The type of the value.
  * @type <M> The type of the metadata.
  */
-export class Datum<T = any, M extends Metadata = {}> {
+export class Datum<T = any, M extends Metadata = Metadata> {
     /**
      * The internal value of this datum.
      * @private
@@ -27,7 +27,7 @@ export class Datum<T = any, M extends Metadata = {}> {
     }
 
     /**
-     * Gets the value of this datum.
+     * Returns the value of this datum.
      * @returns The current value of this datum.
      */
     get value(): T {
@@ -50,7 +50,7 @@ export class Datum<T = any, M extends Metadata = {}> {
     }
 
     /**
-     * Gets the value of a specific metadata associated with this datum.
+     * Returns the value of a specific metadata associated with this datum.
      * @param name the name of the metadata to get.
      */
     getMetadata<K extends keyof M>(name: K): M[K] {

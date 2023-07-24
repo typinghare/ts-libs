@@ -1,13 +1,62 @@
+export type HourMinuteSecondClass = new(...args: any[]) => HourMinuteSecond;
+
 /**
  * @author James Chan
  */
 export abstract class HourMinuteSecond {
+    /**
+     * The class of creating an instance using HourMinuteSecond.create() and other static methods.
+     * @since 1.1.0
+     * @private
+     */
+    private static staticInstantiateClass?: HourMinuteSecondClass = undefined
+
     // Commonly used constants.
     public static SECOND_IN_MINUTE = 60
     public static MINUTE_IN_HOUR = 60
     public static MILLISECONDS_IN_SECOND = 1000
     public static MILLISECONDS_IN_MINUTE = 60000
     public static MILLISECONDS_IN_HOUR = 3600000
+
+    /**
+     * Creates an instance of HourMinuteSecond.
+     * @param ms
+     */
+    public static create(ms: number = 0): HourMinuteSecond {
+        return new HourMinuteSecond.staticInstantiateClass!(ms)
+    }
+
+    /**
+     * Creates an hour-minute-second instance of specified seconds.
+     * @param seconds
+     */
+    public static ofSeconds(seconds: number): HourMinuteSecond {
+        return new HourMinuteSecond.staticInstantiateClass!(seconds * HourMinuteSecond.MILLISECONDS_IN_SECOND)
+    }
+
+    /**
+     * Creates an hour-minute-second instance of specified minutes.
+     * @param minutes
+     */
+    public static ofMinutes(minutes: number): HourMinuteSecond {
+        return new HourMinuteSecond.staticInstantiateClass!(minutes * HourMinuteSecond.MILLISECONDS_IN_MINUTE)
+    }
+
+    /**
+     * Creates an hour-minute-second instance of specified hours.
+     * @param hours
+     */
+    public static ofHours(hours: number): HourMinuteSecond {
+        return new HourMinuteSecond.staticInstantiateClass!(hours * HourMinuteSecond.MILLISECONDS_IN_HOUR)
+    }
+
+    /**
+     * Sets the static instantiate class.
+     * @param staticInstantiateClass
+     */
+    public static setStaticInitiateClass(staticInstantiateClass: HourMinuteSecondClass): void {
+        HourMinuteSecond.staticInstantiateClass = staticInstantiateClass
+    }
 
     /**
      * Returns time in milliseconds.

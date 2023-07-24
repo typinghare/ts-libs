@@ -29,20 +29,40 @@ an example.
 ~~~typescript
 import { SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
 
-// Create a SlowHourMinuteSecond instance with 4532500 milliseconds.
+// Create a SlowHourMinuteSecond instance with 4532500 milliseconds
 new SlowHourMinuteSecond(4532500)
 
-// By default, the time is set to 0 milliseconds.
+// By default, the time is set to 0 milliseconds
 new SlowHourMinuteSecond()
 
-// Create a SlowHourMinuteSecond instance with 100 seconds.
+// Create a SlowHourMinuteSecond instance with 100 seconds
 SlowHourMinuteSecond.ofSeconds(100)
 
-// Create a SlowHourMinuteSecond instance with 50 minutes.
+// Create a SlowHourMinuteSecond instance with 50 minutes
 SlowHourMinuteSecond.ofMinutes(50)
 
-// Create a SlowHourMinuteSecond instance with 10 hours.
+// Create a SlowHourMinuteSecond instance with 10 hours
 SlowHourMinuteSecond.ofHours(10)
+~~~
+
+### Since v1.1.0
+
+~~~typescript
+import { HourMinuteSecond, QuickHourMinuteSecond } from '@typinghare/hour-minute-second'
+
+// Create a SlowHourMinuteSecond (default) by using `HourMinuteSecond.create` method
+const slowTime = HourMinuteSecond.create(1000)
+
+// Custom the static initiatiate class
+HourMinuteSecond.setStaticInitiateClass(QuickHourMinuteSecond)
+
+// Then the instance created is an instance of QuickHourMinuteSecond
+const quickTime = HourMinuteSecond.create(1000)
+
+// ofSeconds, ofMinutes, and ofHours
+HourMinuteSecond.ofSeconds(32)
+HourMinuteSecond.ofMinutes(15)
+HourMinuteSecond.ofHours(1)
 ~~~
 
 ## Access Time
@@ -50,7 +70,7 @@ SlowHourMinuteSecond.ofHours(10)
 ~~~typescript
 import { SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
 
-// This time represents 1:15:32.
+// This time represents 1:15:32
 const time = new SlowHourMinuteSecond(4532500)
 
 console.log(time.ms)        // >> 4532500
@@ -69,16 +89,16 @@ const time = new SlowHourMinuteSecond()
 // Extend 500 milliseconds
 time.extend(500)
 
-// Extend 1 hour.
+// Extend 1 hour
 time.extendHour(1)
 
-// Extend 5 minutes.
+// Extend 5 minutes
 time.extendMinute(5)
 
-// Extend 20 seconds.
+// Extend 20 seconds
 time.extendSecond(20)
 
-// Chain programming is supported.
+// Chain programming is supported
 time.extendHour(1)
     .extendMinute(5)
     .extendSecond(20)
@@ -94,16 +114,16 @@ const time = new SlowHourMinuteSecond(10000000)
 // Consume 500 milliseconds
 time.consume(500)
 
-// Consume 1 hour.
+// Consume 1 hour
 time.consumeHour(1)
 
-// Consume 5 minutes.
+// Consume 5 minutes
 time.consumeMinute(5)
 
-// Consume 20 seconds.
+// Consume 20 seconds
 time.consumeSecond(20)
 
-// Chain programming is supported.
+// Chain programming is supported
 time.consumeHour(1)
     .consumeMinute(5)
     .consumeSecond(20)
@@ -125,12 +145,12 @@ console.log(cloneTime.ms === 500)  // >> true
 ~~~typescript
 import { SlowHourMinuteSecond } from '@typinghare/hour-minute-second'
 
-// This time represents 1:15:32.
+// This time represents 1:15:32
 const time = new SlowHourMinuteSecond(4532500)
 
-// The toString() method is overried.
+// The toString() method is overried
 console.log(time)    // >> 1:15:32
 
-// You can specify the format of the string.
+// You can specify the format of the string
 console.log(time.toString('hh-mm-ss'))  // >> 1-15-32
 ~~~

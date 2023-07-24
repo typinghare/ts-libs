@@ -36,7 +36,7 @@ export class SlowHourMinuteSecond extends HourMinuteSecond {
     }
 
     /**
-     * Creates an hour-minute-second of specified seconds.
+     * Creates an hour-minute-second instance of specified seconds.
      * @param seconds
      */
     static ofSeconds(seconds: number): SlowHourMinuteSecond {
@@ -44,7 +44,7 @@ export class SlowHourMinuteSecond extends HourMinuteSecond {
     }
 
     /**
-     * Creates an hour-minute-second of specified minutes.
+     * Creates an hour-minute-second instance of specified minutes.
      * @param minutes
      */
     static ofMinutes(minutes: number): SlowHourMinuteSecond {
@@ -52,7 +52,7 @@ export class SlowHourMinuteSecond extends HourMinuteSecond {
     }
 
     /**
-     * Creates an hour-minute-second of specified hours.
+     * Creates an hour-minute-second instance of specified hours.
      * @param hours
      */
     static ofHours(hours: number): SlowHourMinuteSecond {

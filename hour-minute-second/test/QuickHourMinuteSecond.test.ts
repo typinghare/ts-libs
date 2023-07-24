@@ -1,4 +1,4 @@
-import { QuickHourMinuteSecond } from '../src/QuickHourMinuteSecond'
+import { QuickHourMinuteSecond } from '../src/main'
 
 describe('Test QuickHourMinuteSecond.', function() {
     it('Test getting hours, minutes, and seconds.', function() {

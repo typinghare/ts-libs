@@ -75,7 +75,7 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
     }
 
     /**
-     * Creates an hour-minute-second of specified seconds.
+     * Creates an hour-minute-second instance of specified seconds.
      * @param seconds
      */
     static ofSeconds(seconds: number): QuickHourMinuteSecond {
@@ -83,7 +83,7 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
     }
 
     /**
-     * Creates an hour-minute-second of specified minutes.
+     * Creates an hour-minute-second instance of specified minutes.
      * @param minutes
      */
     static ofMinutes(minutes: number): QuickHourMinuteSecond {
@@ -91,7 +91,7 @@ export class QuickHourMinuteSecond extends HourMinuteSecond {
     }
 
     /**
-     * Creates an hour-minute-second of specified hours.
+     * Creates an hour-minute-second instance of specified hours.
      * @param hours
      */
     static ofHours(hours: number): QuickHourMinuteSecond {
