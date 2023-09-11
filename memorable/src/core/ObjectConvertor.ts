@@ -10,7 +10,7 @@ export class ObjectConvertor extends Convertor<BaseObject, Item> {
         let item = new Item(object.id, object.key, object.value)
 
         this.intermediateCallbackList.forEach(intermediateCallback => {
-            item = intermediateCallback(item);
+            item = intermediateCallback(object, item);
         });
 
         return item

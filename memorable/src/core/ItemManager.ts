@@ -1,4 +1,5 @@
 import { Item, ItemID, ItemKey, ItemValue } from './Item'
+import { Builtins } from '../Builtins'
 
 export class ItemManager {
     /**
@@ -55,6 +56,11 @@ export class ItemManager {
     public register(key: ItemKey, value: ItemValue): Item {
         const id = ++this.maxId
         const item = new Item(id, key, value)
+
+        // Plugins
+        Builtins.PLUGIN_MANAGER.getPluginList().forEach(plugin => {
+            plugin.afterCreateItem(item)
+        })
 
         this.byId.set(id, item)
 

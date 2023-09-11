@@ -19,7 +19,7 @@ export class ItemConvertor extends Convertor<Item, BaseObject> {
         object.value = item.getValue().toString()
 
         this.intermediateCallbackList.forEach(intermediateCallback => {
-            object = intermediateCallback(object) as BaseObject
+            object = intermediateCallback(item, object) as BaseObject
         })
 
         return object

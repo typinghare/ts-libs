@@ -61,9 +61,18 @@ export class Item<P extends ItemProperties = {}> {
 
     /**
      * Returns the value of a property.
-     * @param key The property value
+     * @param key The property key
      */
     public getPropertyValue<K extends keyof P, T extends P[K]>(key: K): T {
         return this.properties[key]
+    }
+
+    /**
+     * Sets the value of a property
+     * @param key The property key
+     * @param value The property value
+     */
+    public setPropertyValue<K extends keyof P, T extends P[K]>(key: K, value: T): void {
+        this.properties[key] = value
     }
 }

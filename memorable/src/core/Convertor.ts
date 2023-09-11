@@ -1,7 +1,17 @@
-export type IntermediateCallback<I> = (intermediate: I) => I
+/**
+ * Intermediate callback.
+ */
+export type IntermediateCallback<T, I> = (target: T, intermediate: I) => I
 
+/**
+ * Abstract convertor.
+ */
 export abstract class Convertor<T, D> {
-    protected readonly intermediateCallbackList: IntermediateCallback<D>[] = []
+    /**
+     * Intermediate callback list.
+     * @protected
+     */
+    protected readonly intermediateCallbackList: IntermediateCallback<T, D>[] = []
 
     /**
      * Converts a target object to destination object
@@ -13,7 +23,7 @@ export abstract class Convertor<T, D> {
      * Adds an intermediate callback function.
      * @param intermediateCallback The intermediate callback function to add
      */
-    public addIntermediateFunction(intermediateCallback: IntermediateCallback<D>): void {
+    public addIntermediateFunction(intermediateCallback: IntermediateCallback<T, D>): void {
         this.intermediateCallbackList.push(intermediateCallback)
     }
 }
