@@ -9,18 +9,44 @@ describe('Test class DataCollection.', function() {
             gender: 'male' | 'female' | 'non-binary' | 'other'
         }
 
-        const dataCollector = new DataCollection<MyData>({
+        const dataCollection = new DataCollection<MyData>({
             username: new Datum('James Chan'),
             age: new Datum(24),
             gender: new Datum('male'),
         })
 
-        expect(dataCollector.getDatum('username')).toBeInstanceOf(Datum)
-        expect(dataCollector.getDatum('age').value).toBe(24)
-        expect(dataCollector.getValue('gender')).toBe('male')
+        expect(dataCollection.getDatum('username')).toBeInstanceOf(Datum)
+        expect(dataCollection.getDatum('age').value).toBe(24)
+        expect(dataCollection.getValue('gender')).toBe('male')
 
-        // Get data.
-        const data = dataCollector.getData()
+        // Get data
+        const data = dataCollection.getData()
         expect(Object.keys(data).length).toBe(3)
+
+        // Check if a name exist
+        expect(dataCollection.exist('username')).toBe(true)
+        expect(dataCollection.exist('password')).toBe(false)
+
+        // Get datum list
+        expect(dataCollection.getDatumList().length).toBe(3)
+    })
+
+    it('Test metadata.', () => {
+        type MyData = {
+            username: string,
+            age: number
+        }
+
+        const dataCollection = new DataCollection<MyData>({
+            username: new Datum('James Chan', {
+                public: true,
+            }),
+            age: new Datum(24, {
+                public: false,
+            }),
+        })
+
+        expect(dataCollection.getMetadata('username')).toMatchObject({ public: true })
+        expect(dataCollection.getMetadata('age').public).toBe(false)
     })
 })

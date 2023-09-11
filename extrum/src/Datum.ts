@@ -50,19 +50,27 @@ export class Datum<T = any, M extends Metadata = Metadata> {
     }
 
     /**
-     * Returns the value of a specific metadata associated with this datum.
+     * Returns the value of a specific piece of metadata associated with this datum.
      * @param name the name of the metadata to get.
      */
-    getMetadata<K extends keyof M>(name: K): M[K] {
+    getMeta<K extends keyof M>(name: K): M[K] {
         return this.metadata[name]
     }
 
     /**
-     * Sets the value of a specific metadata associated with this datum.
+     * Sets the value of a specific piece of metadata associated with this datum.
      * @param name The name of the metadata to get.
      * @param value The value to set.
      */
-    setMetadata<K extends keyof M>(name: K, value: M[K]) {
+    setMeta<K extends keyof M>(name: K, value: M[K]) {
         this.metadata[name] = value
+    }
+
+    /**
+     * Returns metadata.
+     * @since 1.1.0
+     */
+    getMetadata(): M {
+        return this.metadata
     }
 }
