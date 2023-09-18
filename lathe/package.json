@@ -1,0 +1,27 @@
+{
+  "name": "@typinghare/lathe",
+  "version": "1.0.0",
+  "description": "A lathe for processing variables.",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "author": "James Chan",
+  "email": "jameschan312.cn@gmail.com",
+  "homepage": "https://github.com/typinghare/ts-libs/tree/main/hour-minute-second",
+  "scripts": {
+    "test": "jest --verbose --coverage"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "files": [
+    "src/**/*",
+    "dist/**/*",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "ts-jest": "^29.1.0"
+  },
+  "dependencies": {
+    "@types/node": "^20.6.2"
+  }
+}
