@@ -31,10 +31,10 @@ export class Lathe<R, P, B> {
     }
 
     /**
-     * Adds an intermediate drawing.
+     * Appends an intermediate drawing.
      * @param intermediateDrawing
      */
-    public addIntermediateDrawings(intermediateDrawing: IntermediateDrawing<B, B, R>): void {
+    public append(intermediateDrawing: IntermediateDrawing<B, B, R>): void {
         this.intermediateDrawingList.push(intermediateDrawing)
     }
 
@@ -47,9 +47,9 @@ export class Lathe<R, P, B> {
         let blank: B = (this.initialDrawing && this.initialDrawing(raw, material)) || raw as unknown as B
 
         this.intermediateDrawingList.forEach(intermediateDrawing => {
-            blank = intermediateDrawing(blank, material, raw) || blank
+            blank = intermediateDrawing(blank, raw, material) || blank
         })
 
-        return (this.finalDrawing && this.finalDrawing(blank, material, raw)) || blank as unknown as P
+        return (this.finalDrawing && this.finalDrawing(blank, raw, material)) || blank as unknown as P
     }
 }
