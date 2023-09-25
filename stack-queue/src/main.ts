@@ -1,4 +1,4 @@
-import Stack from './stack';
-import Queue from './queue';
+import Stack from './stack'
+import Queue from './queue'
 
-export { Stack, Queue };
+export { Stack, Queue }

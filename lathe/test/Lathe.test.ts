@@ -1,5 +1,4 @@
-import { FinishingLathe, PreLathe } from '../src'
-import { LatheUtil } from '../src/LatheUtil'
+import { FinishingLathe, LatheUtil, PreLathe } from '../src'
 
 describe('Test Lathe class.', (): void => {
     it('Arithmetic lathe.', (): void => {

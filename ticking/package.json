@@ -1,0 +1,29 @@
+{
+  "name": "@typinghare/ticking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "James Chan",
+  "email": "jameschan312.cn@gmail.com",
+  "homepage": "",
+  "scripts": {
+    "test": "jest --verbose --coverage"
+  },
+  "keywords": [
+    "timer"
+  ],
+  "license": "MIT",
+  "files": [
+    "src/**/*",
+    "dist/**/*",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "ts-jest": "^29.1.0",
+    "@types/node": "^20.6.2"
+  },
+  "dependencies": {
+  }
+}

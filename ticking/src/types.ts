@@ -1,0 +1,1 @@
+export type Callback<T = never> = (this: T) => any | void
