@@ -1,6 +1,4 @@
-import { ResLoc } from '../src'
-import { RegistryBuiltin } from '../src/RegistryBuiltin'
-import { RegistryUtil } from '../src/RegistryUtil'
+import { RegistryBuiltin, RegistryUtil, ResLoc } from '../src'
 
 describe('ResLoc tests', () => {
     it('Create instance directly', () => {

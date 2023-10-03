@@ -9,3 +9,6 @@ export * from './registry/Registry'
 export * from './registry/ResKeyConflictException'
 export * from './registry/ResNotFoundException'
 export * from './registry/ResNotRegisteredException'
+
+export * from './RegistryBuiltin'
+export * from './RegistryUtil'

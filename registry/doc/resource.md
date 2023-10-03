@@ -40,19 +40,11 @@ const registry2 = RegistryUtil.createRegistry<T>('gem')
 
 ### Register Resources with Registry
 
-Upon successfully creating a registry, the next step involves the registration of resources within it. This process
-prompts the registry to generate a unique resource key for each registered item. The parent of this resource key
-corresponds to the location of the associated registry key, while the path is supplied as an additional identifier. In
-this context, a reference is generated to encapsulate the resource, along with pertinent information such as its ID and
-any relevant tags.
+Upon successfully creating a registry, the next step involves the registration of resources within it. This process prompts the registry to generate a unique resource key for each registered item. The parent of this resource key corresponds to the location of the associated registry key, while the path is supplied as an additional identifier. In this context, a reference is generated to encapsulate the resource, along with pertinent information such as its ID and relevant tags.
 
-To access resources, one can utilize either their resource location or resource key. Conversely, resources are also
-equipped with the capability to retrieve their corresponding resource key. As resources are registered, they are
-sequentially added to a list, with the associated index in the list serving as the resource's ID.
+To access resources, one can utilize either their resource location or resource key. Conversely, resources are also equipped with the capability to retrieve their corresponding resource key. As resources are registered, they are sequentially added to a list, with the associated index in the list serving as the resource's ID.
 
-It's essential to note that once a resource is registered, it becomes a permanent part of the registry and cannot be
-removed or deleted subsequently. This ensures the stability and consistency of the game's resources throughout its
-runtime.
+It's essential to note that once a resource is registered, it becomes a permanent part of the registry and cannot be removed or deleted subsequently. This ensures the stability and consistency of the game's resources throughout its runtime.
 
 ~~~typescript
 // Create a registry that accepts string resources
@@ -63,10 +55,10 @@ const locEnglishHelloWorld = RegistryUtil.createLoc('english_hello_world')
 const locChineseHelloWorld = RegistryUtil.createLoc('chinese_hello_world')
 
 // Register resources
-resgitry.register(locEnglishHelloWorld, 'Hello, world!')
-resgitry.register(locChineseHelloWorld, '你好，世界!')
+registry.register(locEnglishHelloWorld, 'Hello, world!')
+registry.register(locChineseHelloWorld, '你好，世界!')
 
-// Retrieve resources
+// Retrieve resources by their locations
 const englishHelloWorld = registry.getByLoc(locEnglishHelloWorld)
 const chineseHelloWorld = registry.getByLoc(locChineseHelloWorld)
 ~~~

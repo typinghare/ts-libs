@@ -11,8 +11,8 @@ import { ResLoc } from './res/ResLoc'
 export class RegistryUtil {
     /**
      * Creates a resource location.
-     * @param path
-     * @param builder
+     * @param path The path of the location.
+     * @param builder The builder used to builder the location.
      */
     public static createLoc(
         path: string,

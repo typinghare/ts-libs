@@ -1,6 +1,4 @@
-import { ResKey } from '../src'
-import { RegistryBuiltin } from '../src/RegistryBuiltin'
-import { RegistryUtil } from '../src/RegistryUtil'
+import { ResKey ,RegistryBuiltin, RegistryUtil} from '../src'
 
 describe('ResKey tests', () => {
     it('Create ResKey directly', () => {
@@ -18,5 +16,4 @@ describe('ResKey tests', () => {
 
         expect(registryKey.getLoc().toString()).toBe('Builtin:gem')
     })
-
 })
