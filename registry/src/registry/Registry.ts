@@ -44,7 +44,7 @@ export abstract class Registry<T = any> {
      * Retrieves a resource by a specified resource location.
      * @param resLoc The location of the resource
      */
-    public abstract getByLocation(resLoc: ResLoc): T
+    public abstract getByLoc(resLoc: ResLoc): T
 
     /**
      * Retrieves a resource by a specified resource key.

@@ -43,7 +43,7 @@ export class DefaultRegistry<T = any> extends Registry<T> {
     }
 
     public override getByKey(resKey: ResKey): T {
-        return this.getByLocation(resKey.getLocation())
+        return this.getByLoc(resKey.getLoc())
     }
 
     public override getRef(resLoc: ResLoc): Ref<T> {
@@ -56,7 +56,7 @@ export class DefaultRegistry<T = any> extends Registry<T> {
         return reference
     }
 
-    public override getByLocation(resLoc: ResLoc): T {
+    public override getByLoc(resLoc: ResLoc): T {
         return this.getRef(resLoc).getResource()
     }
 
@@ -73,7 +73,7 @@ export class DefaultRegistry<T = any> extends Registry<T> {
 
     public override register(resLoc: ResLoc, res: T): T {
         const locationString = resLoc.toString()
-        const resKey = new ResKey(this.getKey().getLocation(), resLoc)
+        const resKey = new ResKey(this.getKey().getLoc(), resLoc)
         if (this.keyMap.get(locationString)) {
             throw new ResKeyConflictException(resKey)
         }

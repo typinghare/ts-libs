@@ -12,12 +12,12 @@ export class ResKey {
     /**
      * Creates a resource key.
      * @param parent The parent of this resource key.
-     * @param location The location of this resource key.
+     * @param loc The location of this resource key.
      * @private
      */
     public constructor(
         private readonly parent: ResLoc,
-        private readonly location: ResLoc,
+        private readonly loc: ResLoc,
     ) {
     }
 
@@ -31,14 +31,14 @@ export class ResKey {
     /**
      * Returns the location of this resource key.
      */
-    public getLocation(): ResLoc {
-        return this.location
+    public getLoc(): ResLoc {
+        return this.loc
     }
 
     /**
      * Returns the resource key string.
      */
     public toString(): string {
-        return this.location + ResKey.DELIMITER + this.parent
+        return this.loc + ResKey.DELIMITER + this.parent
     }
 }

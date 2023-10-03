@@ -11,7 +11,7 @@ export class RegistryBuiltin {
     /**
      * Builtin namespace.
      */
-    public static readonly NAMESPACE = 'Registry'
+    public static readonly NAMESPACE = 'Builtin'
 
     /**
      * Builtin resource location builder.

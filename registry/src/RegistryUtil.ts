@@ -3,11 +3,24 @@ import { ResKey } from './res/ResKey'
 import { RegistryBuiltin } from './RegistryBuiltin'
 import { ResLocBuilder } from './res/ResLocBuilder'
 import { DefaultRegistry } from './registry/DefaultRegistry'
+import { ResLoc } from './res/ResLoc'
 
 /**
  * A utility class encompassing helper functions.
  */
 export class RegistryUtil {
+    /**
+     * Creates a resource location.
+     * @param path
+     * @param builder
+     */
+    public static createLoc(
+        path: string,
+        builder: ResLocBuilder = RegistryBuiltin.RES_LOC_BUILDER,
+    ): ResLoc {
+        return builder.create(path)
+    }
+
     /**
      * Creates a registry key.
      * @param path The path of the key.
@@ -31,7 +44,7 @@ export class RegistryUtil {
     ): Registry<T> {
         const registryKey = RegistryUtil.createRegistryKey(path, resLocBuilder)
         return RegistryBuiltin.ROOT_REGISTRY.register(
-            registryKey.getLocation(), new DefaultRegistry<T>(registryKey),
+            registryKey.getLoc(), new DefaultRegistry<T>(registryKey),
         )
     }
 }
