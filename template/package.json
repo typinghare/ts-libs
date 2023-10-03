@@ -1,7 +1,7 @@
 {
-  "name": "@typinghare/registry",
+  "name": "@typinghare/template",
   "version": "1.0.0",
-  "description": "A lightweight resource management library.",
+  "description": "This is a template.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "James Chan",
@@ -11,8 +11,6 @@
     "test": "jest --verbose --coverage"
   },
   "keywords": [
-    "registry",
-    "resource management"
   ],
   "license": "MIT",
   "files": [

@@ -1,0 +1,9 @@
+# NodeJS, Jest
+node_modules
+coverage
+
+# TypeScript
+dist
+
+# MacOS
+.DS_Store
