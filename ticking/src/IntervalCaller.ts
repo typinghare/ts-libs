@@ -3,9 +3,15 @@ import { TickingState } from './TickingState'
 import { StopwatchWrapper } from './StopwatchWrapper'
 
 interface IntervalCallerOptions {
+    // The interval of checking the inner stopwatch; if not set, the check interval will be the
+    // given interval
     checkInterval?: number
+
+    // Whether to fire the callback function if the stopwatch has been paused
     callIfPaused?: boolean
-    autoDestroy?: boolean
+
+    // Whether to automatically destruct when the stopwatch has been stopped
+    autoDestruct?: boolean
 }
 
 export class IntervalCaller extends StopwatchWrapper {
@@ -34,20 +40,20 @@ export class IntervalCaller extends StopwatchWrapper {
     ) {
         super()
         this.nextCallDuration = intervalMs
+
+        const checkInterval: number = options.checkInterval || intervalMs
+        const callIfPaused: boolean = options.callIfPaused || false
+        const autoDestruct: boolean = options.autoDestruct || true
         this.intervalId = setInterval((): void => {
-            if (this.stopwatch.is(TickingState.ONGOING)) {
+            const state: TickingState = this.getStopwatch().getState()
+            if (state === TickingState.ONGOING) {
                 this.check()
-            } else if (this.stopwatch.is(TickingState.PAUSED) && options.callIfPaused) {
+            } else if (state === TickingState.PAUSED && callIfPaused) {
                 this.check()
-            } else if (this.stopwatch.is(TickingState.STOPPED)) {
-                // Clear this interval if the stopwatch is stopped
-                this.clearInterval()
-                const autoDestroy = options.autoDestroy || true
-                if (autoDestroy) {
-                    this.destroy()
-                }
+            } else if (state === TickingState.STOPPED) {
+                autoDestruct && this.destruct()
             }
-        }, options.checkInterval || intervalMs)
+        }, checkInterval)
     }
 
     /**
@@ -57,9 +63,12 @@ export class IntervalCaller extends StopwatchWrapper {
         this.callback()
     }
 
-    public override destroy(): void {
+    /**
+     * Clear the interval and destruct itself.
+     */
+    public override destruct(): void {
         this.clearInterval()
-        super.destroy()
+        super.destruct()
     }
 
     /**

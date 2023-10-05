@@ -40,6 +40,13 @@ export class Stopwatch implements Cloneable {
     }
 
     /**
+     * Returns the state of this stopwatch.
+     */
+    public getState(): TickingState {
+        return this.state
+    }
+
+    /**
      * Checks whether the current state equals to the given state.
      * @param state The state to check.
      */
@@ -125,6 +132,9 @@ export class Stopwatch implements Cloneable {
         }
     }
 
+    /**
+     * @override
+     */
     public clone(): this {
         const newObject = new Stopwatch()
         newObject.state = this.state

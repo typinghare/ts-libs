@@ -1,5 +1,5 @@
 export * from './Cloneable'
-export * from './Destroyable'
+export * from './Destructible'
 export * from './IntervalCaller'
 export * from './Stopwatch'
 export * from './StopwatchWrapper'

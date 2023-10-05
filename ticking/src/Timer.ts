@@ -2,7 +2,7 @@ import { StopwatchWrapper } from './StopwatchWrapper'
 import { Callback } from './types'
 
 export interface TimerOptions {
-    autoDestroy?: boolean
+    autoDestruct?: boolean
 }
 
 export class Timer extends StopwatchWrapper {
@@ -14,9 +14,12 @@ export class Timer extends StopwatchWrapper {
 
     /**
      * Creates a timer.
+     * @param countdownMs The countdown in milliseconds of this timer.
+     * @param callback Callback function fired in the countdown.
+     * @param options Timer options.
      */
     public constructor(
-        private readonly duration: number,
+        private countdownMs: number,
         private readonly callback: Callback<Timer>,
         private readonly options ?: TimerOptions,
     ) {
@@ -24,32 +27,46 @@ export class Timer extends StopwatchWrapper {
         this.setInterval()
     }
 
-    public override destroy(): void {
-        this.clearInterval()
-        super.destroy()
+    /**
+     * Sets a new countdown.
+     * Sets a new countdown.
+     * @param countdownMs The new countdown in milliseconds.
+     */
+    public setCountdown(countdownMs: number): void {
+        this.countdownMs = countdownMs
     }
 
     /**
-     * Sets up interval.
+     * Returns countdown in milliseconds.
+     */
+    public getCountdownMs(): number {
+        return this.countdownMs
+    }
+
+    public override destruct(): void {
+        this.clearInterval()
+        super.destruct()
+    }
+
+    /**
+     * Sets the interval.
      * @private
      */
     private setInterval(): void {
         this.clearInterval()
 
-        const currentDuration: number = this.stopwatch.getDuration()
-        const leastRemainingTime: number = this.duration - currentDuration
+        const leastRemainingCountdown: number = this.countdownMs - this.stopwatch.getDuration()
+        const autoDestroy: boolean = this.options?.autoDestruct || true
         this.intervalId = setInterval((): void => {
-            const duration = this.stopwatch.getDuration()
-            if (duration > this.duration) {
+            if (this.stopwatch.getDuration() > this.countdownMs) {
+                this.stop()
                 this.callback()
-                const autoDestroy = this.options?.autoDestroy || true
-                if (autoDestroy) {
-                    this.destroy()
-                }
+
+                autoDestroy && this.destruct()
             } else {
                 this.setInterval()
             }
-        }, leastRemainingTime)
+        }, leastRemainingCountdown)
     }
 
     /**
