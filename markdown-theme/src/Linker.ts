@@ -32,11 +32,14 @@ export class Linker {
 
             // Environment
             if (env) {
+                this.log(`@env: ${env}`)
                 const realEnvDir = path.join(envDir, env)
                 checkDir(realEnvDir)
 
-                const mainFilepath = path.join(realEnvDir, 'main.css')
-                const envFileContent = this.link(mainFilepath, path.dirname(mainFilepath))
+                const indexFilepath = path.join(realEnvDir, addCssExtension('index'))
+                this.log(`@link: ${indexFilepath}`)
+
+                const envFileContent = this.link(indexFilepath, path.dirname(indexFilepath))
                 return themeFileContent + '\n' + envFileContent
             } else {
                 return themeFileContent
@@ -46,6 +49,7 @@ export class Linker {
         // Output the content
         const outputFilepath: string = path.join(outDir, addCssExtension(outName))
         this.log(`@output: ${outputFilepath}`)
+        console.log(content)
         fs.writeFileSync(outputFilepath, content)
     }
 
