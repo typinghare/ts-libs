@@ -22,7 +22,6 @@ table {
 
 table th {
     font-weight: var(--table-th-font-weight);
-    text-align: center;
 }
 
 table > thead {

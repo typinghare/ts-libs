@@ -1,11 +1,21 @@
 /* theme color */
 :root {
+    /* Text color */
     --theme-color-text: black;
-    --theme-color-background: white;
-    --theme-color-primary: black;
-    --theme-color-secondary: blue;
-    --theme-color-divider: gray;
 
+    /* Background color */
+    --theme-color-background: white;
+
+    /* Primary theme color */
+    --theme-color-primary: black;
+
+    /* Secondary theme color */
+    --theme-color-secondary: blue;
+
+    /* Horizontal line (divider) color */
+    --theme-color-divider: grey;
+
+    /* Heading color */
     --theme-color-heading: var(--theme-color-primary);
 }
 
@@ -19,7 +29,7 @@
     --theme-font-family-code: "Menlo", Consolas, "Monaco", "JetBrains Mono", Monospace !important;
 }
 
-/* horizontal divider */
+/* horizontal line (divider) */
 hr {
     border-color: var(--theme-color-divider)
 }

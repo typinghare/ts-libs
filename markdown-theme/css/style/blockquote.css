@@ -28,3 +28,8 @@ blockquote {
     margin-inline-start: var(--blockquote-margin-inline-start);
     margin-inline-end: var(--blockquote-margin-inline-end);
 }
+
+blockquote:before,
+blockquote:after {
+    content: none;
+}

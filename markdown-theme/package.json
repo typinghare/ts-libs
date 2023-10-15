@@ -1,5 +1,5 @@
 {
-  "name": "@typinghare/automation",
+  "name": "@typinghare/markdwon-theme",
   "version": "1.0.0",
   "description": "",
   "main": "dist/main.js",
@@ -7,8 +7,7 @@
   "author": "James Chan",
   "email": "jameschan312.cn@gmail.com",
   "scripts": {
-    "test": "jest --verbose --coverage",
-    "publish": "npm publish --access public"
+    "test": "jest --verbose --coverage"
   },
   "keywords": [
     "metadata",
@@ -24,6 +23,7 @@
     "ts-jest": "^29.1.0"
   },
   "dependencies": {
-    "@types/node": "^20.4.1"
+    "@types/node": "^20.4.1",
+    "@typinghare/extrum": "^1.1.0"
   }
 }

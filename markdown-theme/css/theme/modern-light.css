@@ -1,0 +1,14 @@
+@import "../style/main.css";
+
+:root {
+    --theme-color-text: #000814;
+    --theme-color-primary: #1565C0;
+    --theme-color-secondary: #78c6a3;
+    --theme-color-divider: #ced4da;
+
+    --code-background-color: #e2eafc;
+
+    --blockquote-background-color: #e3f2fd;
+
+    --table-cell-striped-fill-color: #e6e6e9;
+}

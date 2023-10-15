@@ -15,6 +15,14 @@
     --text-mark-margin: 0;
 }
 
+body {
+    font-size: var(--text-font-size);
+}
+
+p {
+    font-size: var(--text-font-size);
+}
+
 b, strong {
     color: var(--text-bold-color);
 }
