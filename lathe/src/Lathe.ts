@@ -8,12 +8,6 @@ import { FinalDrawing, InitialDrawing, IntermediateDrawing } from './types'
  */
 export class Lathe<R, P, B> {
     /**
-     * Constant drawing.
-     * @param blank The blank to process
-     */
-    public static readonly CONSTANT_DRAWING = (blank: any) => blank
-
-    /**
      * Semi drawing list.
      * @private
      */

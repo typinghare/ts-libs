@@ -10,8 +10,8 @@
 
     --blockquote-margin-block-start: 1em;
     --blockquote-margin-block-end: 1em;
-    --blockquote-margin-inline-start: 1em;
-    --blockquote-margin-inline-end: 1em;
+    --blockquote-margin-inline-start: 0.25em;
+    --blockquote-margin-inline-end: 0.25em;
 }
 
 blockquote {

@@ -1,4 +1,4 @@
-import { IndefiniteLathe } from './types'
+import { IndefiniteLathe } from './IndefiniteLathe'
 
 /**
  * Lathe Manager.
